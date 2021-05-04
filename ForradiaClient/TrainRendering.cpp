@@ -1,0 +1,83 @@
+#include "TrainRendering.h"
+#include "ImageLoading.h"
+#include "CTrain.h"
+#include "Global_Canvas.h"
+#include "Global_SDL.h"
+#include <SDL2/SDL_timer.h>
+#include "Global_Train.h"
+#include "CNPC.h"
+
+
+
+void TrainRendering::RenderTrainLocomotive(int x, int y, CPoint pTile)
+{
+
+    if (pTile.m_x == Global::train->m_trainPosition.x && pTile.m_y == Global::train->m_trainPosition.y)
+    {
+
+        int imgWidth = Global::GetTileSize() * 4;
+        int imgHeight = Global::GetTileSize() * 4;
+
+        SDL_Rect rTileMod = { x * Global::GetTileSize() - Global::GetTileSize() * 3,
+                                y * Global::GetTileSize() - Global::GetTileSize() * 2,
+                                imgWidth,
+                                imgHeight };
+
+        int animIndex = (SDL_GetTicks() % 900) / 300;
+
+        switch (animIndex)
+        {
+
+        case 0:
+            SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_TRAIN_LOCOMOTIVE_0], NULL, &rTileMod);
+            break;
+        case 1:
+            SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_TRAIN_LOCOMOTIVE_1], NULL, &rTileMod);
+            break;
+        case 2:
+            SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_TRAIN_LOCOMOTIVE_2], NULL, &rTileMod);
+            break;
+
+        }
+
+        for (int i = 0; i < Global::train->m_npcsOnTrain.size(); i++)
+        {
+
+            int imgWidth = Global::GetTileSize() * 1.5;
+            int imgHeight = Global::GetTileSize() * 1.5;
+
+            SDL_Rect rTileMod = { x * Global::GetTileSize() - Global::GetTileSize() * 4.5 - i * Global::GetTileSize() * 2,
+                                    y * Global::GetTileSize() - Global::GetTileSize() * 1.5,
+                                    imgWidth,
+                                    imgHeight };
+
+            SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_NPC], NULL, &rTileMod);
+
+        }
+    }
+}
+
+
+void TrainRendering::RenderTrainCarriages(int x, int y, CPoint pTile)
+{
+
+    for (auto it = Global::train->m_trainCarriagePositions.begin();
+         it != Global::train->m_trainCarriagePositions.end(); it++)
+    {
+
+        if (pTile.m_x == (*it).x && pTile.m_y == (*it).y)
+        {
+
+            int imgWidth = Global::GetTileSize() * 4;
+            int imgHeight = Global::GetTileSize() * 4;
+
+            SDL_Rect rTileMod = { x * Global::GetTileSize() - Global::GetTileSize() * 3,
+                    y * Global::GetTileSize() - Global::GetTileSize() * 2,
+                    imgWidth,
+                    imgHeight };
+
+            SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_TRAIN_CARRIAGE], NULL, &rTileMod);
+
+        }
+    }
+}
