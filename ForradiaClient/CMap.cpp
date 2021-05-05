@@ -201,6 +201,20 @@ unique_ptr<CObject> CMap::GetTopObject(int mapx, int mapy)
 
 }
 
+int CMap::GetTopObjectType(int mapx, int mapy)
+{
+        int seenFloorIndex = m_tilesGrid[mapx][mapy]->GetIndexForSeenFloor();
+    
+        if (seenFloorIndex == -1)
+            return INVALID_INDEX;
+    
+        for (int i = CTileFloor::MAX_OBJECTS_ON_FLOOR - 1; i >= 0; i--)
+            if (m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[i] != NULL)
+                return m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[i]->m_idxObjectType;
+    
+        return INVALID_INDEX;
+}
+
 void CMap::ClearReferencesToFoe(CFoe& foe, int allFoesListIndex, CTileFloor& floor)
 {
     

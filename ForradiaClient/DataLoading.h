@@ -34,6 +34,23 @@ namespace DataLoading
 
     int GetDescriptionIndexByName(string name);
     void LoadDescriptions();
+    void AddDescription(int id, string name);
+    void AddDescriptionEx(int id,
+                            string name,
+                            double imgWidthMulti,
+                            double imgHeightMulti,
+                            string imgFocusedObjAnim,
+                            bool isObstacle,
+                            bool movable,
+                            string readableName,
+                            bool randomScaling,
+                            bool ignoreShadow,
+                            int ticksToVanish,
+                            int XOffsetFactor,
+                            int YOffsetFactor,
+                            bool hasAmount,
+                            double foodAmount,
+                            double foodSpeed);
 };
 
 

@@ -81,6 +81,7 @@ public:
     void AddObjectIfDoesntAlreadyExist(int objectType, int mapx, int mapy, int floor);
     void ClearReferencesToFoe(CFoe& foe, int allFoesListIndex, CTileFloor& floor);
     unique_ptr<CObject> GetTopObject(int mapx, int mapy);
+    int GetTopObjectType(int mapx, int mapy);
     int GetTopFoeInMapAllFoeArrayIndex(int mapx, int mapy);
     void GenerateMapPreview();
     bool SeenFloorHasBlockingFoes(int mapx, int mapy);

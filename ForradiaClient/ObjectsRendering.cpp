@@ -49,7 +49,7 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
 
             double scale = 1;
 
-            if (desc.ContainsPropertyWithValue("RandomScaling", "True"))
+            if (desc.ContainsPropertyWithValue("RandomScaling", "true"))
                 scale = 0.5 + (double)((pTile.m_x * pTile.m_y) % 16) / 32.0;
 
             imgSize.Scale(scale);
@@ -62,7 +62,7 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
             if (desc.ContainsProperty("YOffsetFactor"))
                 pOffset.m_y = std::stof(desc.m_propAttributes["YOffsetFactor"]) * TILESIZE;
 
-            if (!desc.ContainsPropertyWithValue("IgnoreShadow", "True"))
+            if (!desc.ContainsPropertyWithValue("IgnoreShadow", "true"))
             {
 
                 CSize szShadow(2 * TILESIZE);
@@ -179,7 +179,7 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
                 int mx = Global::GetMouseX();
                 int my = Global::GetMouseY();
 
-                if (DataLoading::libDescriptions[it->m_idxObjectType]->ContainsPropertyWithValue("HasAmount", "True"))
+                if (DataLoading::libDescriptions[it->m_idxObjectType]->ContainsPropertyWithValue("HasAmount", "true"))
                 {
                     int w = TextRendering::GetTextWidth(objectName) + 20;
                     CRectangle rect = { mx - w / 2, my - TILESIZE - 22, w, 22 };

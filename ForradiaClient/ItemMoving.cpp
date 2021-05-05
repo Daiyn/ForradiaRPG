@@ -40,22 +40,24 @@ bool ItemMoving::TryStartDragingObjectFromGround(int mapx, int mapy)
         if (!tileHasObjects)
             return false;
 
-        auto topObject = Global::contentCurrentMap->GetTopObject(mapx, mapy);
+        //auto topObject = Global::contentCurrentMap->GetTopObject(mapx, mapy);
 
-        if (topObject != nullptr)
+        int topObjectIdx = Global::contentCurrentMap->GetTopObjectType(mapx, mapy);
+
+        if (topObjectIdx != INVALID_INDEX)
         {
-            int objectType = topObject->m_idxObjectType;
+            //int objectType = topObject->m_idxObjectType;
 
-            if (DataLoading::libDescriptions[objectType]->m_propAttributes["Movable"] == "True")
+            if (DataLoading::libDescriptions[topObjectIdx]->m_propAttributes["Movable"] == "true")
             {
 
-                nodupMovedObject = move(topObject);
+                nodupMovedObject = move(Global::contentCurrentMap->GetTopObject(mapx, mapy));
                 nodupMovedObject->m_coordMapX = OBJECT_IN_AIR_OR_INVENTORY;
                 nodupMovedObject->m_coordMapY = OBJECT_IN_AIR_OR_INVENTORY;
 
-            }
+                return true;
 
-            return true;
+            }
 
         }
 

@@ -93,7 +93,7 @@ void CPlayer::UpdateMouseMovement()
 
                 CDataDescription& desc = *DataLoading::libDescriptions[it->m_idxObjectType];
 
-                if (desc.m_propAttributes["IsObstacle"] == "True")
+                if (desc.m_propAttributes["IsObstacle"] == "true")
                 {
                     isObstacle = true;
                     break;
@@ -290,7 +290,7 @@ void CPlayer::UpdateKeyboardMovement()
 
                 CDataDescription& desc = *DataLoading::libDescriptions[it->m_idxObjectType];
 
-                if (desc.m_propAttributes["IsObstacle"] == "True")
+                if (desc.m_propAttributes["IsObstacle"] == "true")
                 {
                     isObstacle = true;
                     break;
@@ -468,7 +468,7 @@ void CPlayer::UpdateCombatMovement()
 
                     CDataDescription& desc = *DataLoading::libDescriptions[it->m_idxObjectType];
 
-                    if (desc.m_propAttributes["IsObstacle"] == "True")
+                    if (desc.m_propAttributes["IsObstacle"] == "true")
                     {
                         isObstacle = true;
                         break;
