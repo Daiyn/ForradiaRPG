@@ -41,6 +41,7 @@ class CNPC;
 class CFoe;
 class CTileFloor;
 struct SDL_Surface;
+struct SDL_Texture;
 
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
   Class:    CMap
@@ -68,7 +69,8 @@ public:
     int m_tilesNumPlazaSize;
     vector<reference_wrapper<CFoe>> m_mirrorAllFoes;
     vector<vector < unique_ptr<CTile>>> m_tilesGrid;
-    SDL_Surface *m_imgFullMapRender = NULL;
+    SDL_Surface* m_imgFullMapRender = NULL;
+    SDL_Texture* m_texFullMapRender = NULL;
 
     CMap(int mapSize);
 

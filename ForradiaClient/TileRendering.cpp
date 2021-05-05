@@ -21,13 +21,13 @@ bool TileRendering::CheckUnseenTiles(int x, int y, CPoint pTile)
 {
 
     auto TILESIZE = Global::GetTileSize();
-    auto& PLAYER = Global::player;
+    auto& PLAYER = Global::statePlayer;
 
     if (contentCurrentMap->TileIsMinedAtElev(PLAYER->m_locCurrentElevation, pTile.m_x, pTile.m_y))
         return false;
 
     if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight, pTile.m_x, pTile.m_y)
-        && pTile.m_x < Global::mapSize - 1
+        && pTile.m_x < Global::tilesMapSize - 1
         && contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight)
     {
         return false;
@@ -41,7 +41,7 @@ bool TileRendering::CheckUnseenTiles(int x, int y, CPoint pTile)
     }
 
     if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight, pTile.m_x, pTile.m_y)
-        && pTile.m_x < Global::mapSize - 1
+        && pTile.m_x < Global::tilesMapSize - 1
         && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight)
     {
         return false;
@@ -73,7 +73,7 @@ void TileRendering::CoverUnseenTiles(int x, int y, CPoint pTile)
 {
 
     auto TILESIZE = Global::GetTileSize();
-    auto& PLAYER = Global::player;
+    auto& PLAYER = Global::statePlayer;
 
     if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[PLAYER->m_coordPosition.m_x][PLAYER->m_coordPosition.m_y]->m_elevationHeight) {
 
@@ -96,7 +96,7 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
 
     int tileSizeCeil = ceil(tileSize);
     auto TILESIZE = tileSizeCeil;
-    auto& PLAYER = Global::player;
+    auto& PLAYER = Global::statePlayer;
 
     int floorIndex = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->GetIndexForSeenFloor();
 

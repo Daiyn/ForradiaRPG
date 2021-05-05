@@ -109,7 +109,7 @@
     <ClInclude Include="CGamingSession.h" />
     <ClInclude Include="Global_Canvas.h" />
     <ClInclude Include="Global_CurrentScene.h" />
-    <ClInclude Include="Global_GameLoop.h" />
+    <ClInclude Include="Global_Gameloop.h" />
     <ClInclude Include="Global_Mouse.h" />
     <ClInclude Include="Global_Train.h" />
     <ClInclude Include="Global_CurrentMap.h" />

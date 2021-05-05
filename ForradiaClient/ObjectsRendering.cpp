@@ -22,7 +22,7 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
 
     int tileSizeCeil = ceil(tileSize);
     auto TILESIZE = tileSizeCeil;
-    auto& PLAYER = Global::player;
+    auto& PLAYER = Global::statePlayer;
 
     int seenFloorIndex = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->GetIndexForSeenFloor();
 

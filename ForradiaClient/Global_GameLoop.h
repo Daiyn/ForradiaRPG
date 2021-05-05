@@ -17,6 +17,6 @@
 
 namespace Global
 {
-	inline bool quit;
+	inline bool eventQuit;
 	inline bool restartGameLoop;
 }

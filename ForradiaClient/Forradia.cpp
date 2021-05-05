@@ -2,7 +2,7 @@
 #include "FPSCounter.h"
 #include "ImageLoading.h"
 #include "Cursor.h"
-#include "Global_GameLoop.h"
+#include "Global_Gameloop.h"
 #include "CSceneStartScreen.h"
 #include "SDLInitialization.h"
 #include "Drawing.h"
@@ -27,14 +27,14 @@ void Forradia::Initialize()
     ImageLoading::LoadImages();
     TextRendering::Initialize();
     Drawing::UseDefaultRenderer();
-    Global::currentScene = make_unique<CSceneStartScreen>(CSceneStartScreen());
+    Global::stateCurrentScene = make_unique<CSceneStartScreen>(CSceneStartScreen());
 
 }
 
 void Forradia::Run()
 {
 
-    while (!Global::quit)
+    while (!Global::eventQuit)
     {
 
         HandleEvents();
@@ -64,7 +64,7 @@ void Forradia::HandleEvents()
         {
 
             case SDL_QUIT:
-                Global::quit = true;
+                Global::eventQuit = true;
                 break;
 
             case SDL_KEYDOWN:
@@ -76,7 +76,7 @@ void Forradia::HandleEvents()
                     && stateAltKeyPressed)
                     Global::ToggleFullscreen();
 
-                Global::currentScene->DoKeyDown(inputUnhandledEvent.key.keysym.sym);
+                Global::stateCurrentScene->DoKeyDown(inputUnhandledEvent.key.keysym.sym);
                 break;
 
             case SDL_KEYUP:
@@ -84,15 +84,15 @@ void Forradia::HandleEvents()
                 if (inputUnhandledEvent.key.keysym.sym == SDLK_LALT)
                     stateAltKeyPressed = false;
 
-                Global::currentScene->DoKeyUp(inputUnhandledEvent.key.keysym.sym);
+                Global::stateCurrentScene->DoKeyUp(inputUnhandledEvent.key.keysym.sym);
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
-                Global::currentScene->DoMouseDown(inputUnhandledEvent.button.button);
+                Global::stateCurrentScene->DoMouseDown(inputUnhandledEvent.button.button);
                 break;
 
             case SDL_MOUSEBUTTONUP:
-                Global::currentScene->DoMouseUp(inputUnhandledEvent.button.button);
+                Global::stateCurrentScene->DoMouseUp(inputUnhandledEvent.button.button);
                 break;
 
         }
@@ -104,7 +104,7 @@ void Forradia::HandleEvents()
 void Forradia::Update() 
 {
 
-    Global::currentScene->Update();
+    Global::stateCurrentScene->Update();
     FPSCounter::Update();
     Cursor::Update();
 
@@ -113,7 +113,7 @@ void Forradia::Update()
 void Forradia::Render()
 {
 
-    Global::currentScene->Render();
+    Global::stateCurrentScene->Render();
     FPSCounter::Render();
     Cursor::Render();
 

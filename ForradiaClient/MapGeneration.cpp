@@ -10,9 +10,9 @@ using std::make_unique;
 
 #define FOR(j) for (int i = 0; i < j; i++)
 #define FOR_EXT(x,y,z) for (int x = y; x < z; x++)
-#define LOOP_OVER_MAP(xyz) FOR_EXT(y, 0, Global::mapSize) { FOR_EXT(x, 0, Global::mapSize) { xyz } }
+#define LOOP_OVER_MAP(xyz) FOR_EXT(y, 0, Global::tilesMapSize) { FOR_EXT(x, 0, Global::tilesMapSize) { xyz } }
 #define LOOP_OVER_CIRCLE(xcenter, ycenter, r, content) FOR_EXT(y, ycenter - r, ycenter + r + 1) { FOR_EXT(x, xcenter - r, xcenter + r + 1) { int dx = x - xcenter; int dy = y - ycenter; if (dx * dx + dy * dy <= r * r) { content } } }
-#define IN_MAP(z) z >= 0 && z < Global::mapSize
+#define IN_MAP(z) z >= 0 && z < Global::tilesMapSize
 
 void MapGeneration::GenerateMap(CMap& map)
 {
@@ -47,7 +47,7 @@ void MapGeneration::GenerateAll(CMap& map)
     int stationLength = 15;
     int plazaSize = stationLength;
 
-    map.m_coordPlazaPosition = { Global::mapSize / 2 - stationLength / 2, Global::mapSize / 2 + 2 };
+    map.m_coordPlazaPosition = { Global::tilesMapSize / 2 - stationLength / 2, Global::tilesMapSize / 2 + 2 };
     map.m_tilesNumPlazaSize = plazaSize;
 
     double k0 = 90.0 * (0.5 + (rand() % 40) / 40.0);
@@ -68,13 +68,13 @@ void MapGeneration::GenerateAll(CMap& map)
     for (int iteration = 0; iteration <= 1; iteration++)
     {
 
-        FOR_EXT(y, 0, Global::mapSize)
+        FOR_EXT(y, 0, Global::tilesMapSize)
         {
-            FOR_EXT(x, 0, Global::mapSize)
+            FOR_EXT(x, 0, Global::tilesMapSize)
             {
 
-                int xx = x + Global::mapSize / 2;
-                int yy = y + Global::mapSize / 2;
+                int xx = x + Global::tilesMapSize / 2;
+                int yy = y + Global::tilesMapSize / 2;
                 
                 if (iteration == 0)
                 {
@@ -84,16 +84,16 @@ void MapGeneration::GenerateAll(CMap& map)
                     
 
                     map.m_tilesGrid[x][y]->m_elevationHeight =
-                        k0 * cos(k1 * cos(k2 + (x + xx * xx + x * y) / ((double)Global::mapSize * k10)))
-                        * cos(k3 * cos(k4 + k5 * (y + yy * yy + y * x) / ((double)Global::mapSize * k11)))
-                        * cos(k6 + k7 * (x + xx * xx + x * y) / ((double)Global::mapSize * k12))
-                        * cos(k8 + k9 * (y + y * y) / ((double)Global::mapSize * k13));
+                        k0 * cos(k1 * cos(k2 + (x + xx * xx + x * y) / ((double)Global::tilesMapSize * k10)))
+                        * cos(k3 * cos(k4 + k5 * (y + yy * yy + y * x) / ((double)Global::tilesMapSize * k11)))
+                        * cos(k6 + k7 * (x + xx * xx + x * y) / ((double)Global::tilesMapSize * k12))
+                        * cos(k8 + k9 * (y + y * y) / ((double)Global::tilesMapSize * k13));
                     
                     
                     if (map.m_tilesGrid[x][y]->m_elevationHeight > 0)
                     {
 
-                        double rock = cos(2 * (1 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::mapSize * 80) / ((double)Global::mapSize * 75)));
+                        double rock = cos(2 * (1 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
                         if (rock > 0.1)
                             map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = usedTiles["rock"];
 
@@ -117,7 +117,7 @@ void MapGeneration::GenerateAll(CMap& map)
 
                         if (iteration == 0)
                         {
-                            double sand = cos(2 * (1 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::mapSize * 80) / ((double)Global::mapSize * 75)));
+                            double sand = cos(2 * (1 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
                             if (sand > 0.1)
                             {
                                 map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = usedTiles["sand"];
@@ -130,7 +130,7 @@ void MapGeneration::GenerateAll(CMap& map)
                     if (iteration == 1)
                     {
 
-                        double tree1 = cos(0.5 * (1 + (x + xx * xx + x * y + cos(y / 100.0 + yy * yy / 8000.0) * Global::mapSize * 80) / ((double)Global::mapSize * 75)));
+                        double tree1 = cos(0.5 * (1 + (x + xx * xx + x * y + cos(y / 100.0 + yy * yy / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
                         tree1 *= cos(y / 60.0);
                         tree1 *= cos(x / 60.0);
                         tree1 *= cos(2*(x + y + x * y));
@@ -141,7 +141,7 @@ void MapGeneration::GenerateAll(CMap& map)
                             map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTree1"));
 
 
-                        double tree2 = cos(0.5 * (2 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::mapSize * 80) / ((double)Global::mapSize * 75)));
+                        double tree2 = cos(0.5 * (2 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
                         tree2 *= cos(1 + y / 60.0);
                         tree2 *= cos(2 + x / 60.0);
                         tree2 *= cos(2*(3 + x + y + x * y));
@@ -173,7 +173,7 @@ void MapGeneration::GenerateAll(CMap& map)
                             map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectBoulder"));
 
 
-                        double foe = cos(4 * (3 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::mapSize * 80) / ((double)Global::mapSize * 75)));
+                        double foe = cos(4 * (3 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
                         foe *= cos(5 + y / 20.0);
                         foe *= cos(6 + x / 20.0);
                         foe *= cos(7 + (x + y + x * y) / 10.0);
@@ -201,7 +201,7 @@ void MapGeneration::GenerateAll(CMap& map)
                             if (waterDepth == 1)
                             {
                                 double clay = cos(std::max(0, waterDepth) / 30.0 * M_PI / 2.0);
-                                clay *= cos(0.5 * (17 + (x + xx * xx + x * y + cos(y / 100.0 + yy * yy / 8000.0) * Global::mapSize * 80) / ((double)Global::mapSize * 75)));
+                                clay *= cos(0.5 * (17 + (x + xx * xx + x * y + cos(y / 100.0 + yy * yy / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
                                 clay *= cos(y / 10.0);
                                 clay *= cos(x / 10.0);
                                 if (clay > 0.2 && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
@@ -217,7 +217,7 @@ void MapGeneration::GenerateAll(CMap& map)
                         {
                             int waterDepth = -map.m_tilesGrid[x][y]->m_elevationHeight;
                             double reed = cos(std::max(0, waterDepth) / 7.0 * M_PI / 2.0);
-                            reed *= cos(0.5 * (17 + (x + xx * xx + x * y + cos(y / 100.0 + yy * yy / 8000.0) * Global::mapSize * 80) / ((double)Global::mapSize * 75)));
+                            reed *= cos(0.5 * (17 + (x + xx * xx + x * y + cos(y / 100.0 + yy * yy / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
                             reed *= cos(y / 10.0);
                             reed *= cos(x / 10.0);
                             reed *= ((11 + x + y + x*y + x*x - y*y) % 9)/8.0;
@@ -244,35 +244,35 @@ void MapGeneration::GenerateAll(CMap& map)
 
                         
 
-                        int yTrainRail = Global::mapSize / 2;
+                        int yTrainRail = Global::tilesMapSize / 2;
 
                         map.m_tilesGrid[x][yTrainRail]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
                         map.m_tilesGrid[x][yTrainRail + 1]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
 
-                        if (x >= Global::mapSize / 2 - stationLength / 2 && x <= Global::mapSize / 2 + stationLength / 2)
+                        if (x >= Global::tilesMapSize / 2 - stationLength / 2 && x <= Global::tilesMapSize / 2 + stationLength / 2)
                             map.m_tilesGrid[x][yTrainRail]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEWStationS"));
                         else
                             map.m_tilesGrid[x][yTrainRail]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEW"));
 
 
-                        if (y >= Global::mapSize / 2 + 2 && y < Global::mapSize / 2 + 2 + plazaSize)
+                        if (y >= Global::tilesMapSize / 2 + 2 && y < Global::tilesMapSize / 2 + 2 + plazaSize)
                         {
-                            if (x >= Global::mapSize / 2 - stationLength / 2 && x < Global::mapSize / 2 - stationLength / 2 + plazaSize)
+                            if (x >= Global::tilesMapSize / 2 - stationLength / 2 && x < Global::tilesMapSize / 2 - stationLength / 2 + plazaSize)
                             {
 
-                                map.m_tilesGrid[x][y]->m_elevationHeight = map.m_tilesGrid[Global::mapSize / 2 - stationLength / 2][Global::mapSize / 2 + 3]->m_elevationHeight;
+                                map.m_tilesGrid[x][y]->m_elevationHeight = map.m_tilesGrid[Global::tilesMapSize / 2 - stationLength / 2][Global::tilesMapSize / 2 + 3]->m_elevationHeight;
                                 map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = usedTiles["stoneSlab"];
 
                                 map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
 
-                                if (x == Global::mapSize / 2 - stationLength / 2 + plazaSize / 2 && y == Global::mapSize / 2 + 3 + plazaSize / 2)
+                                if (x == Global::tilesMapSize / 2 - stationLength / 2 + plazaSize / 2 && y == Global::tilesMapSize / 2 + 3 + plazaSize / 2)
                                     map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectFountain"));
 
                                 map.m_tilesGrid[x][y]->m_isNPCOwnedLand = true;
 
                             }
 
-                            map.m_tilesGrid[Global::mapSize / 2 - stationLength / 2 + plazaSize][y]->m_elevationHeight = map.m_tilesGrid[Global::mapSize / 2 - stationLength / 2][Global::mapSize / 2 + 3]->m_elevationHeight;
+                            map.m_tilesGrid[Global::tilesMapSize / 2 - stationLength / 2 + plazaSize][y]->m_elevationHeight = map.m_tilesGrid[Global::tilesMapSize / 2 - stationLength / 2][Global::tilesMapSize / 2 + 3]->m_elevationHeight;
 
                         }
 
@@ -304,7 +304,7 @@ void MapGeneration::GenerateRiversFromMountainTop(CMap& map, int mapx, int mapy)
     double r;
     double w;
 
-    for (r = 1; r < Global::mapSize; r++)
+    for (r = 1; r < Global::tilesMapSize; r++)
     {
         srand(SDL_GetTicks());
         double startAngle = (double)rand() / (2 * M_PI);
@@ -323,7 +323,7 @@ void MapGeneration::GenerateRiversFromMountainTop(CMap& map, int mapx, int mapy)
             double xx = p.m_x + valCos;
             double yy = p.m_y + valSin;
 
-            if (xx >= 0 && yy >= 0 && xx < Global::mapSize && yy < Global::mapSize)
+            if (xx >= 0 && yy >= 0 && xx < Global::tilesMapSize && yy < Global::tilesMapSize)
             {
                 if (map.m_tilesGrid[int(xx)][int(yy)]->m_elevationHeight < 0 )
                 {
@@ -394,14 +394,14 @@ void MapGeneration::GenerateRiversFromMountainTop(CMap& map, int mapx, int mapy)
             continue;
         }
 
-        if (xx >= 0 && yy >= 0 && xx < Global::mapSize && yy < Global::mapSize
+        if (xx >= 0 && yy >= 0 && xx < Global::tilesMapSize && yy < Global::tilesMapSize
             && (map.m_tilesGrid[xx][yy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != usedTiles["water"] || j == 0))
         {
             for (int _yy = yy; _yy < yy + width; _yy++)
             {
                 for (int _xx = xx; _xx < xx + width; _xx++)
                 {
-                    if (_xx >= 0 && _yy >= 0 && _xx < Global::mapSize && _yy < Global::mapSize)
+                    if (_xx >= 0 && _yy >= 0 && _xx < Global::tilesMapSize && _yy < Global::tilesMapSize)
                     {
 
                         int xcenter = _xx + (width + 1)/2;

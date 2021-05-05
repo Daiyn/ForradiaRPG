@@ -15,8 +15,8 @@ void GUIMinimap::Render()
 
     int miniMapSize = GetScaledMiniMapSize();
 
-    if (Global::texFullMapOverview == NULL)
-        Global::texFullMapOverview = Global::ConvertSurfaceToTexture(Global::contentCurrentMap->m_imgFullMapRender);
+    if (Global::contentCurrentMap->m_texFullMapRender == NULL)
+        Global::contentCurrentMap->m_texFullMapRender = Global::ConvertSurfaceToTexture(Global::contentCurrentMap->m_imgFullMapRender);
 
     CRectangle rectMapOverview = { Global::GetCanvasWidth() - miniMapSize - borderWidth, borderWidth, miniMapSize, miniMapSize};
 
@@ -24,13 +24,13 @@ void GUIMinimap::Render()
     rectFrame.Translate(-borderWidth, -borderWidth);
     rectFrame.IncreaseSize(2*borderWidth, 2*borderWidth);
 
-    CRectangle rectPlayerPos(Global::player->m_coordPosition);
-    rectPlayerPos.Scale((double)miniMapSize / Global::mapSize);
+    CRectangle rectPlayerPos(Global::statePlayer->m_coordPosition);
+    rectPlayerPos.Scale((double)miniMapSize / Global::tilesMapSize);
     rectPlayerPos.Translate(Global::GetCanvasWidth() - miniMapSize - borderWidth - 2, borderWidth - 2);
     rectPlayerPos.SetSize(playerPointSize, playerPointSize);
 
     Drawing::Image(ID_MAP_PREVIEW_BACK, rectFrame);
-    Drawing::Image(Global::texFullMapOverview, rectMapOverview);
+    Drawing::Image(Global::contentCurrentMap->m_texFullMapRender, rectMapOverview);
 
     Drawing::FilledRect(WHITE, rectPlayerPos);
 

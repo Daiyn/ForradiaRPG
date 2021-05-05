@@ -22,14 +22,14 @@ CPoint::CPoint(int flags)
 
 	if ((flags & RANDOM_WITHIN_MAP) != 0)
 	{
-		m_x = rand() % Global::mapSize;
-		m_y = rand() % Global::mapSize;
+		m_x = rand() % Global::tilesMapSize;
+		m_y = rand() % Global::tilesMapSize;
 	}
 
 	if ((flags & MAP_CENTER) != 0)
 	{
-		m_x = Global::mapSize / 2;
-		m_y = Global::mapSize / 2;
+		m_x = Global::tilesMapSize / 2;
+		m_y = Global::tilesMapSize / 2;
 	}
 
 	if ((flags & HOVERED_TILE) != 0)
@@ -42,8 +42,8 @@ CPoint::CPoint(int flags)
 void CPoint::JumpToHoveredTile()
 {
 
-	m_x = Global::player->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2 + Utilities::GetHoveredScreenMapx();
-	m_y = Global::player->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 + Utilities::GetHoveredScreenMapy();
+	m_x = Global::statePlayer->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2 + Utilities::GetHoveredScreenMapx();
+	m_y = Global::statePlayer->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 + Utilities::GetHoveredScreenMapy();
 
 }
 
@@ -72,7 +72,7 @@ void CPoint::Translate(int dx, int dy)
 
 bool CPoint::WithinMap()
 {
-	return m_x >= 0 && m_y >= 0 && m_x < Global::mapSize && m_y < Global::mapSize;
+	return m_x >= 0 && m_y >= 0 && m_x < Global::tilesMapSize && m_y < Global::tilesMapSize;
 }
 
 bool CPoint::Equals(CPoint p)
@@ -85,7 +85,7 @@ CPoint CPoint::GetAbsDistanceToPlayer()
 	CFoe& targetedFoe = Global::contentCurrentMap->m_mirrorAllFoes[Combat::idxTargetedFoe];
 
 	CPoint tc;
-	tc.m_x = abs(Global::player->m_coordPosition.m_x - targetedFoe.m_coordPosition.m_x);
-	tc.m_y = abs(Global::player->m_coordPosition.m_y - targetedFoe.m_coordPosition.m_y);
+	tc.m_x = abs(Global::statePlayer->m_coordPosition.m_x - targetedFoe.m_coordPosition.m_x);
+	tc.m_y = abs(Global::statePlayer->m_coordPosition.m_y - targetedFoe.m_coordPosition.m_y);
 	return tc;
 }

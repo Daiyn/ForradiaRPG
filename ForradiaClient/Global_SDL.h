@@ -21,7 +21,7 @@
 
 namespace Global
 {
-    inline SDL_Texture* texFullMapOverview = NULL;
+    //inline SDL_Texture* texFullMapOverview = NULL;
     inline SDL_Window* window = NULL;
     inline TTF_Font* Sans = NULL;
     inline SDL_Renderer* rendererFullMapOverview = NULL;

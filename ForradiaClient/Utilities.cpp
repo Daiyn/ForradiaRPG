@@ -57,21 +57,21 @@ int Utilities::GetHoveredScreenMapy() {
 int Utilities::GetHoveredMapx()
 {
 
-    return Global::player->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2 + Utilities::GetHoveredScreenMapx();
+    return Global::statePlayer->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2 + Utilities::GetHoveredScreenMapx();
 
 }
 
 int Utilities::GetHoveredMapy()
 {
 
-    return Global::player->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 + Utilities::GetHoveredScreenMapy();
+    return Global::statePlayer->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 + Utilities::GetHoveredScreenMapy();
 
 }
 
 bool Utilities::InMapIncludingEdges(int mapx, int mapy)
 {
 
-    if (mapx < 0 || mapx >= Global::mapSize || mapy < 0 || mapy >= Global::mapSize)
+    if (mapx < 0 || mapx >= Global::tilesMapSize || mapy < 0 || mapy >= Global::tilesMapSize)
         return false;
 
     return true;
@@ -81,7 +81,7 @@ bool Utilities::InMapIncludingEdges(int mapx, int mapy)
 bool Utilities::InMapExcludingEdges(int mapx, int mapy)
 {
 
-    if (mapx <= 0 || mapx >= Global::mapSize - 1 || mapy <= 0 || mapy >= Global::mapSize - 1)
+    if (mapx <= 0 || mapx >= Global::tilesMapSize - 1 || mapy <= 0 || mapy >= Global::tilesMapSize - 1)
         return false;
 
     return true;

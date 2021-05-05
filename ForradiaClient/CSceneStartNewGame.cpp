@@ -28,13 +28,15 @@ using std::make_unique;
 CSceneStartNewGame::CSceneStartNewGame()
 {
 
-    m_gamedataMap = make_unique<CMap>(Global::mapSize);
+    m_gamedataMap = make_unique<CMap>(Global::tilesMapSize);
 
     SDL_DestroyRenderer(Global::rendererFullMapOverview);
     Global::rendererFullMapOverview = nullptr;
 
-    SDL_DestroyTexture(m_texMapFull);
-    m_texMapFull = NULL;
+    if (m_gamedataMap->m_texFullMapRender != NULL)
+        SDL_DestroyTexture(m_gamedataMap->m_texFullMapRender);
+
+    m_gamedataMap->m_texFullMapRender = NULL;
 
     m_doGenerateMapPreview = true;
     m_isMapGenerated = false;
@@ -47,31 +49,31 @@ void CSceneStartNewGame::DoMouseDown(Uint8 button)
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
 
-    SDL_Rect rectBackButton = { Global::menuButtonMargin * 3,
-                      Global::GetCanvasHeight() - Global::menuButtonHeight - Global::menuButtonMargin * 3,
-                      Global::menuButtonWidth,
-                      Global::menuButtonHeight };
+    SDL_Rect rectBackButton = { Global::attrMenuButtonMargin * 3,
+                      Global::GetCanvasHeight() - Global::attrMenuButtonHeight - Global::attrMenuButtonMargin * 3,
+                      Global::attrMenuButtonWidth,
+                      Global::attrMenuButtonHeight };
 
-    SDL_Rect rectGenerateButton = { Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2,
-         Global::GetCanvasHeight() - Global::menuButtonHeight - Global::menuButtonMargin * 3,
-        Global::menuButtonWidth,
-        Global::menuButtonHeight };
+    SDL_Rect rectGenerateButton = { Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,
+         Global::GetCanvasHeight() - Global::attrMenuButtonHeight - Global::attrMenuButtonMargin * 3,
+        Global::attrMenuButtonWidth,
+        Global::attrMenuButtonHeight };
 
-    SDL_Rect rectPlayButton = { Global::GetCanvasWidth() - Global::menuButtonWidth - Global::menuButtonMargin * 3,
-                      Global::GetCanvasHeight() - Global::menuButtonHeight - Global::menuButtonMargin * 3,
-                      Global::menuButtonWidth,
-                      Global::menuButtonHeight };
+    SDL_Rect rectPlayButton = { Global::GetCanvasWidth() - Global::attrMenuButtonWidth - Global::attrMenuButtonMargin * 3,
+                      Global::GetCanvasHeight() - Global::attrMenuButtonHeight - Global::attrMenuButtonMargin * 3,
+                      Global::attrMenuButtonWidth,
+                      Global::attrMenuButtonHeight };
 
 
     SDL_Rect rectOptionIconGameStyleCasual = { rectPlayButton.x,
                                                 Global::GetCanvasHeight() / 2,
-                                                Global::optionIconSize,
-                                                Global::optionIconSize };
+                                                Global::attrOptionIconSize,
+                                                Global::attrOptionIconSize };
 
     SDL_Rect rectOptionIconGameStyleChallenging = { rectPlayButton.x,
-                                                    Global::GetCanvasHeight() / 2 + Global::optionIconSize + Global::margin,
-                                                    Global::optionIconSize,
-                                                    Global::optionIconSize };
+                                                    Global::GetCanvasHeight() / 2 + Global::attrOptionIconSize + Global::attrMargin,
+                                                    Global::attrOptionIconSize,
+                                                    Global::attrOptionIconSize };
 
 
 
@@ -85,13 +87,13 @@ void CSceneStartNewGame::DoMouseDown(Uint8 button)
         my < rectGenerateButton.y + rectGenerateButton.h)
     {
 
-        m_gamedataMap = make_unique<CMap>(Global::mapSize);
+        m_gamedataMap = make_unique<CMap>(Global::tilesMapSize);
 
         SDL_DestroyRenderer(Global::rendererFullMapOverview);
         Global::rendererFullMapOverview = nullptr;
 
-        SDL_DestroyTexture(m_texMapFull);
-        m_texMapFull = NULL;
+        SDL_DestroyTexture(m_gamedataMap->m_texFullMapRender);
+        m_gamedataMap->m_texFullMapRender = NULL;
 
         m_doGenerateMapPreview = true;
         m_isMapGenerated = false;
@@ -109,7 +111,7 @@ void CSceneStartNewGame::DoMouseDown(Uint8 button)
         my < rectOptionIconGameStyleCasual.y + rectOptionIconGameStyleCasual.h)
     {
 
-        Global::selectedGameStyleOption = 0;
+        Global::settingGameMode = 0;
 
     }
 
@@ -117,7 +119,7 @@ void CSceneStartNewGame::DoMouseDown(Uint8 button)
         my < rectOptionIconGameStyleChallenging.y + rectOptionIconGameStyleChallenging.h)
     {
 
-        Global::selectedGameStyleOption = 1;
+        Global::settingGameMode = 1;
 
     }
 
@@ -132,20 +134,20 @@ void CSceneStartNewGame::Update()
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
 
-    SDL_Rect rectBackButton = { Global::menuButtonMargin * 3,
-                                  Global::GetCanvasHeight() - Global::menuButtonHeight - Global::menuButtonMargin * 3,
-                                  Global::menuButtonWidth,
-                                  Global::menuButtonHeight };
+    SDL_Rect rectBackButton = { Global::attrMenuButtonMargin * 3,
+                                  Global::GetCanvasHeight() - Global::attrMenuButtonHeight - Global::attrMenuButtonMargin * 3,
+                                  Global::attrMenuButtonWidth,
+                                  Global::attrMenuButtonHeight };
 
-    SDL_Rect rectGenerateButton = { Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2,
-                                    Global::GetCanvasHeight() - Global::menuButtonHeight - Global::menuButtonMargin * 3,
-                                    Global::menuButtonWidth,
-                                    Global::menuButtonHeight };
+    SDL_Rect rectGenerateButton = { Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,
+                                    Global::GetCanvasHeight() - Global::attrMenuButtonHeight - Global::attrMenuButtonMargin * 3,
+                                    Global::attrMenuButtonWidth,
+                                    Global::attrMenuButtonHeight };
 
-    SDL_Rect rectPlayButton = { Global::GetCanvasWidth() - Global::menuButtonWidth - Global::menuButtonMargin * 3,
-                                  Global::GetCanvasHeight() - Global::menuButtonHeight - Global::menuButtonMargin * 3,
-                                  Global::menuButtonWidth,
-                                  Global::menuButtonHeight };
+    SDL_Rect rectPlayButton = { Global::GetCanvasWidth() - Global::attrMenuButtonWidth - Global::attrMenuButtonMargin * 3,
+                                  Global::GetCanvasHeight() - Global::attrMenuButtonHeight - Global::attrMenuButtonMargin * 3,
+                                  Global::attrMenuButtonWidth,
+                                  Global::attrMenuButtonHeight };
 
     Cursor::isHoveringButton = false;
 
@@ -183,13 +185,13 @@ void CSceneStartNewGame::GenerateMapPreview()
     ImageLoading::ClearMapPreviewTextures();
     ImageLoading::CreateMapPreviewTextures();
 
-    double tileSize = (double)Global::mapPreviewSize / Global::mapSize;
+    double tileSize = (double)Global::pxFullMapRenderSize / Global::tilesMapSize;
 
     Global::contentCurrentMap = move(m_gamedataMap);
 
-    FOR(mapy, 1, Global::mapSize - 1)
+    FOR(mapy, 1, Global::tilesMapSize - 1)
     {
-        FOR(mapx, 1, Global::mapSize - 1)
+        FOR(mapx, 1, Global::tilesMapSize - 1)
         {
 
             TileRendering::RenderTileGround(tileSize, mapx, mapy, { mapx, mapy });
@@ -211,30 +213,30 @@ void CSceneStartNewGame::GenerateMapPreview()
 void CSceneStartNewGame::Render()
 {
 
-    SDL_Rect rectBackButton = { Global::menuButtonMargin * 3,
-                                  Global::GetCanvasHeight() - Global::menuButtonHeight - Global::menuButtonMargin * 3,
-                                  Global::menuButtonWidth,
-                                  Global::menuButtonHeight };
+    SDL_Rect rectBackButton = { Global::attrMenuButtonMargin * 3,
+                                  Global::GetCanvasHeight() - Global::attrMenuButtonHeight - Global::attrMenuButtonMargin * 3,
+                                  Global::attrMenuButtonWidth,
+                                  Global::attrMenuButtonHeight };
 
-    SDL_Rect rectGenerateButton = { Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2,
-                                      Global::GetCanvasHeight() - Global::menuButtonHeight - Global::menuButtonMargin * 3,
-                                      Global::menuButtonWidth,
-                                      Global::menuButtonHeight };
+    SDL_Rect rectGenerateButton = { Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,
+                                      Global::GetCanvasHeight() - Global::attrMenuButtonHeight - Global::attrMenuButtonMargin * 3,
+                                      Global::attrMenuButtonWidth,
+                                      Global::attrMenuButtonHeight };
 
-    SDL_Rect rectPlayButton = { Global::GetCanvasWidth() - Global::menuButtonWidth - Global::menuButtonMargin * 3,
-                                  Global::GetCanvasHeight() - Global::menuButtonHeight - Global::menuButtonMargin * 3,
-                                  Global::menuButtonWidth,
-                                  Global::menuButtonHeight };
+    SDL_Rect rectPlayButton = { Global::GetCanvasWidth() - Global::attrMenuButtonWidth - Global::attrMenuButtonMargin * 3,
+                                  Global::GetCanvasHeight() - Global::attrMenuButtonHeight - Global::attrMenuButtonMargin * 3,
+                                  Global::attrMenuButtonWidth,
+                                  Global::attrMenuButtonHeight };
 
     SDL_Rect rectOptionIconGameStyleCasual = { rectPlayButton.x,
                                                 Global::GetCanvasHeight() / 2,
-                                                Global::optionIconSize,
-                                                Global::optionIconSize };
+                                                Global::attrOptionIconSize,
+                                                Global::attrOptionIconSize };
 
     SDL_Rect rectOptionIconGameStyleChallenging = { rectPlayButton.x,
-                                                    Global::GetCanvasHeight() / 2 + Global::optionIconSize + Global::margin,
-                                                    Global::optionIconSize,
-                                                    Global::optionIconSize};
+                                                    Global::GetCanvasHeight() / 2 + Global::attrOptionIconSize + Global::attrMargin,
+                                                    Global::attrOptionIconSize,
+                                                    Global::attrOptionIconSize};
 
 
     int mx = Global::GetMouseX();
@@ -245,7 +247,7 @@ void CSceneStartNewGame::Render()
     if (animIndex_text > 8)
         animIndex_text = 0;
 
-    Drawing::FilledRect(Global::backgroundR, Global::backgroundG, Global::backgroundB, 0, 0, Global::GetCanvasWidth(), Global::GetCanvasHeight());
+    Drawing::FilledRect(Global::attrBackColorR, Global::attrBackColorG, Global::attrBackColorB, 0, 0, Global::GetCanvasWidth(), Global::GetCanvasHeight());
 
     int titleW = 766 / 3 / 1600.0 * Global::GetCanvasWidth();
     int titleH = 342 / 3 / 900.0 * Global::GetCanvasHeight();
@@ -345,27 +347,27 @@ void CSceneStartNewGame::Render()
     TextRendering::DrawString(textPlay.c_str(), {0, 0, 0}, xtextpos, ytextpos);
 
     xtextpos = rectOptionIconGameStyleCasual.x;
-    ytextpos = rectOptionIconGameStyleCasual.y - Global::optionIconSize;
+    ytextpos = rectOptionIconGameStyleCasual.y - Global::attrOptionIconSize;
 
     TextRendering::DrawString("Game Style", { 0, 0, 0 }, xtextpos, ytextpos);
 
-    if (Global::selectedGameStyleOption == 0)
+    if (Global::settingGameMode == 0)
         SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_OPTION_ICON_SELECTED], NULL, &rectOptionIconGameStyleCasual);
     else
         SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_OPTION_ICON_UNSELECTED], NULL, &rectOptionIconGameStyleCasual);
 
-    xtextpos = rectOptionIconGameStyleCasual.x + Global::optionIconSize + Global::margin;
-    ytextpos = rectOptionIconGameStyleCasual.y + Global::optionIconSize/2 - TextRendering::GetTextHeight()/2;
+    xtextpos = rectOptionIconGameStyleCasual.x + Global::attrOptionIconSize + Global::attrMargin;
+    ytextpos = rectOptionIconGameStyleCasual.y + Global::attrOptionIconSize/2 - TextRendering::GetTextHeight()/2;
 
     TextRendering::DrawString("Casual", { 0, 0, 0 }, xtextpos, ytextpos);
 
-    if (Global::selectedGameStyleOption == 1)
+    if (Global::settingGameMode == 1)
         SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_OPTION_ICON_SELECTED], NULL, &rectOptionIconGameStyleChallenging);
     else
         SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_OPTION_ICON_UNSELECTED], NULL, &rectOptionIconGameStyleChallenging);
 
-    xtextpos = rectOptionIconGameStyleCasual.x + Global::optionIconSize + Global::margin;
-    ytextpos = rectOptionIconGameStyleChallenging.y + Global::optionIconSize / 2 - TextRendering::GetTextHeight() / 2;
+    xtextpos = rectOptionIconGameStyleCasual.x + Global::attrOptionIconSize + Global::attrMargin;
+    ytextpos = rectOptionIconGameStyleChallenging.y + Global::attrOptionIconSize / 2 - TextRendering::GetTextHeight() / 2;
 
     TextRendering::DrawString("Challenging", { 0, 0, 0 }, xtextpos, ytextpos);
 
@@ -379,8 +381,8 @@ void CSceneStartNewGame::RenderMapPreview()
     int xmid = Global::GetCanvasWidth() / 2;
     int ymid = Global::GetCanvasHeight() / 2;
 
-    int mapPreviewSizeScaled = (Global::mapPreviewSize / 1600.0 * Global::GetCanvasWidth()
-        + Global::mapPreviewSize / 900.0 * Global::GetCanvasHeight())/2;
+    int mapPreviewSizeScaled = (Global::pxFullMapRenderSize / 1600.0 * Global::GetCanvasWidth()
+        + Global::pxFullMapRenderSize / 900.0 * Global::GetCanvasHeight())/2;
 
     int xLeft = xmid - mapPreviewSizeScaled / 2;
     int yTop = ymid - mapPreviewSizeScaled / 2;
@@ -409,11 +411,11 @@ void CSceneStartNewGame::RenderMapPreview()
     if (m_doGenerateMapPreview && m_isMapGenerated)
     {
 
-        m_texMapFull = SDL_CreateTextureFromSurface(Global::renderer, Global::contentCurrentMap->m_imgFullMapRender);
+        Global::contentCurrentMap->m_texFullMapRender = SDL_CreateTextureFromSurface(Global::renderer, Global::contentCurrentMap->m_imgFullMapRender);
         m_doGenerateMapPreview = false;
     }
 
-    if (m_texMapFull != NULL)
-        SDL_RenderCopy(Global::renderer, m_texMapFull, NULL, &rectMapPreview);
+    if (Global::contentCurrentMap->m_texFullMapRender != NULL)
+        SDL_RenderCopy(Global::renderer, Global::contentCurrentMap->m_texFullMapRender, NULL, &rectMapPreview);
 
 }

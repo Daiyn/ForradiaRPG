@@ -17,5 +17,5 @@
 
 namespace Global
 {
-	inline int selectedGameStyleOption = 0;
+	inline int settingGameMode = 0;
 }

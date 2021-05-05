@@ -106,7 +106,7 @@ void FoodEating::Update()
                 double increasePerMillisecond = amount / totalDuration / 1000.0;
                 double increaseAmount = increasePerMillisecond * ticksPassed;
 
-                Global::player->AddNRGY(increaseAmount);
+                Global::statePlayer->AddNRGY(increaseAmount);
             }
         }
     }

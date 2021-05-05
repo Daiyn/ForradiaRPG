@@ -48,7 +48,7 @@ class CSceneStartNewGame : public CScene
 public:
 
     unique_ptr<CMap> m_gamedataMap;
-    SDL_Texture *m_texMapFull = NULL;
+    //SDL_Texture *m_texMapFull = NULL;
     bool m_doGenerateMapPreview = false;
     bool m_isMapGenerated = false;
     const int m_attrBoxBorderThickness = 30;

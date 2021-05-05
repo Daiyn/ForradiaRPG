@@ -15,14 +15,14 @@ void Mining::MineTile(CPoint p)
     int objectIronOre = DataLoading::GetDescriptionIndexByName("ObjectIronOre");
     int objectStone = DataLoading::GetDescriptionIndexByName("ObjectStone");
 
-    if (Global::player->m_locCurrentElevation != SURFACE_FLOOR)
+    if (Global::statePlayer->m_locCurrentElevation != SURFACE_FLOOR)
     {
 
-        Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_checkMinedTiles.push_back(Global::player->m_locCurrentElevation);
+        Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_checkMinedTiles.push_back(Global::statePlayer->m_locCurrentElevation);
 
         unique_ptr<CTileFloor> tfMinedCave = make_unique<CTileFloor>(CTileFloor(p.m_x, p.m_y, tileCaveFloor));
 
-        if (Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_elevationHeight != Global::player->m_locCurrentElevation)
+        if (Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_elevationHeight != Global::statePlayer->m_locCurrentElevation)
         {
 
             srand(SDL_GetTicks());
@@ -36,7 +36,7 @@ void Mining::MineTile(CPoint p)
 
         }
 
-        Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[Global::player->m_locCurrentElevation] = move(tfMinedCave);
+        Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[Global::statePlayer->m_locCurrentElevation] = move(tfMinedCave);
 
     }
     else

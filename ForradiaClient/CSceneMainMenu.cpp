@@ -3,7 +3,7 @@
 #include "Utilities.h"
 #include "Drawing.h"
 #include "TextRendering.h"
-#include "Global_GameLoop.h"
+#include "Global_Gameloop.h"
 #include "Global_Canvas.h"
 #include "Global_Mouse.h"
 #include "Global_GUIProperties.h"
@@ -31,10 +31,10 @@ void CSceneMainMenu::DoMouseDown(Uint8 button)
     for (auto menuButton : m_labelsMenuButtons)
     {
 
-        SDL_Rect rect = {Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2,
-                         titleH * 2 + Global::menuButtonMargin + i * (Global::menuButtonHeight + Global::menuButtonMargin),
-                         Global::menuButtonWidth,
-                         Global::menuButtonHeight};
+        SDL_Rect rect = {Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,
+                         titleH * 2 + Global::attrMenuButtonMargin + i * (Global::attrMenuButtonHeight + Global::attrMenuButtonMargin),
+                         Global::attrMenuButtonWidth,
+                         Global::attrMenuButtonHeight};
 
         if (mx >= rect.x && my >= rect.y && mx < rect.x + rect.w && my < rect.y + rect.h) {
             switch (i) {
@@ -42,7 +42,7 @@ void CSceneMainMenu::DoMouseDown(Uint8 button)
                     Global::ChangeScene(make_unique<CSceneStartNewGame>(CSceneStartNewGame()));
                     break;
                 case 1:
-                    Global::quit = true;
+                    Global::eventQuit = true;
                     break;
             }
         }
@@ -70,10 +70,10 @@ void CSceneMainMenu::Update()
     for (auto menuButton : m_labelsMenuButtons)
     {
 
-        int xMenuButton = Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2;
-        int yMenuButton = titleH * 2 + Global::menuButtonMargin + i * (Global::menuButtonHeight + Global::menuButtonMargin);
-        int wMenuButton = Global::menuButtonWidth;
-        int hMenuButton = Global::menuButtonHeight;
+        int xMenuButton = Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2;
+        int yMenuButton = titleH * 2 + Global::attrMenuButtonMargin + i * (Global::attrMenuButtonHeight + Global::attrMenuButtonMargin);
+        int wMenuButton = Global::attrMenuButtonWidth;
+        int hMenuButton = Global::attrMenuButtonHeight;
 
 
         if (mx >= xMenuButton && my >= yMenuButton && mx < xMenuButton + wMenuButton && my < yMenuButton + hMenuButton)
@@ -94,7 +94,7 @@ void CSceneMainMenu::Render()
     if (animIndex_text > 8)
         animIndex_text = 0;
 
-    Drawing::FilledRect(Global::backgroundR, Global::backgroundG, Global::backgroundB, 0, 0, Global::GetCanvasWidth(), Global::GetCanvasHeight());
+    Drawing::FilledRect(Global::attrBackColorR, Global::attrBackColorG, Global::attrBackColorB, 0, 0, Global::GetCanvasWidth(), Global::GetCanvasHeight());
 
     int titleW = 766 / 3 / 1600.0*Global::GetCanvasWidth();
     int titleH = 342 / 3 / 900.0 * Global::GetCanvasHeight();
@@ -142,10 +142,10 @@ void CSceneMainMenu::Render()
     for (auto menuButton : m_labelsMenuButtons)
     {
 
-        int xMenuButton = Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2;
-        int yMenuButton = titleH*2 + Global::menuButtonMargin + i * (Global::menuButtonHeight + Global::menuButtonMargin);
-        int wMenuButton = Global::menuButtonWidth;
-        int hMenuButton = Global::menuButtonHeight;
+        int xMenuButton = Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2;
+        int yMenuButton = titleH*2 + Global::attrMenuButtonMargin + i * (Global::attrMenuButtonHeight + Global::attrMenuButtonMargin);
+        int wMenuButton = Global::attrMenuButtonWidth;
+        int hMenuButton = Global::attrMenuButtonHeight;
 
         int imgIndex = 0;
 

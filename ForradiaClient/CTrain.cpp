@@ -15,7 +15,7 @@ void CTrain::Update()
     int railStartX;
     int railStartY;
 
-    for (int y = 0; y < Global::mapSize; y++)
+    for (int y = 0; y < Global::tilesMapSize; y++)
     {
         if (Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEW"), 0, y, SURFACE_FLOOR)) {
             railStartX = 0;
@@ -29,7 +29,7 @@ void CTrain::Update()
 
     m_propStationSize = 0;
 
-    while (railx != Global::mapSize - 1)
+    while (railx != Global::tilesMapSize - 1)
     {
 
         if (Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEWStationS"), railx, raily, SURFACE_FLOOR)) {
@@ -53,7 +53,7 @@ void CTrain::Update()
 
             for (int i = 0; i < m_propStationSize / 2 - 1; i++)
             {
-                m_containedNPCsOnTrain.push_back(make_unique<CNPC>(CNPC("NPC0", -1, -1, Global::mapSize)));
+                m_containedNPCsOnTrain.push_back(make_unique<CNPC>(CNPC("NPC0", -1, -1, Global::tilesMapSize)));
                 m_counterNumberCreatedNpcs++;
             }
 
@@ -110,7 +110,7 @@ void CTrain::Update()
         }
     }
 
-    if (m_coordPosition.x >= Global::mapSize)
+    if (m_coordPosition.x >= Global::tilesMapSize)
         m_coordPosition = {-1, -1};
 
 }

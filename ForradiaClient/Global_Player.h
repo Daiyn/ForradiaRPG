@@ -20,14 +20,14 @@
 #include <memory>
 #include "CPlayer.h"
 
-#define XSCREENSTART Global::player->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2
-#define YSCREENSTART Global::player->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 - 3
+#define XSCREENSTART Global::statePlayer->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2
+#define YSCREENSTART Global::statePlayer->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 - 3
 
 using std::unique_ptr;
 
 namespace Global
 {
 
-	inline unique_ptr<CPlayer> player;
+	inline unique_ptr<CPlayer> statePlayer;
 
 }

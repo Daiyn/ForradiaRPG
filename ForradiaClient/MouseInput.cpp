@@ -75,7 +75,7 @@ void MouseInput::DoMouseUp(Uint8 button)
 
             if (!KeyboardInput::pressedKeys[SDLK_LSHIFT] && !Combat::HandleMouseClickOnFoe()
             && pMouseDown.Equals(CPoint(HOVERED_TILE)))
-                Global::player->MouseClickToMove();
+                Global::statePlayer->MouseClickToMove();
 
         }
 
@@ -122,11 +122,11 @@ void MouseInput::Update()
 
     if (mouseButtonLeftPressed && !mouseDownInGUI && !GUI::CheckMouseClickInGUI())
         if (!KeyboardInput::pressedKeys[SDLK_LSHIFT] && !Combat::HandleMouseClickOnFoe() && ItemMoving::objectInAir == NULL)
-            Global::player->MouseClickToMove();
+            Global::statePlayer->MouseClickToMove();
 
     if (KeyboardInput::pressedKeys[SDLK_LSHIFT] && mouseButtonLeftDown && !mouseDownInGUI &&
         !GUI::CheckMouseClickInGUI())
-        Global::player->MouseClickToMove();
+        Global::statePlayer->MouseClickToMove();
 
     CheckMouseClickOnNPCs();
     ResetEventVariables();

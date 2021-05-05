@@ -380,7 +380,7 @@
     <ClInclude Include="Global_MapPreviewSize.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Global_GameLoop.h">
+    <ClInclude Include="Global_Gameloop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Global_Canvas.h">

@@ -32,11 +32,11 @@ using std::make_unique;
 CGamingSession::CGamingSession()
 {
 
-    Global::player = make_unique<CPlayer>(CPlayer(Global::mapSize));
+    Global::statePlayer = make_unique<CPlayer>(CPlayer(Global::tilesMapSize));
     Global::train = make_unique<CTrain>(CTrain());
 
-    SDL_DestroyTexture(Global::texFullMapOverview);
-    Global::texFullMapOverview = NULL;
+    //SDL_DestroyTexture(Global::texFullMapOverview);
+    //Global::texFullMapOverview = NULL;
 
     GUITerminal::Print("Welcome to Forradia");
 
@@ -48,7 +48,7 @@ void CGamingSession::Update()
 {
 
     MouseInput::Update();
-    Global::player->Update();
+    Global::statePlayer->Update();
     PlayerActions::Update();
     Combat::Update();
     FoeDeathAndRespawnHandling::Update();

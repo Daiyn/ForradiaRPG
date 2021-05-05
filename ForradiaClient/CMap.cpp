@@ -37,7 +37,7 @@ CMap::CMap(int mapSize)
         }
     }
 
-    m_imgFullMapRender = SDL_CreateRGBSurface(0, Global::mapPreviewSize, Global::mapPreviewSize, 32,
+    m_imgFullMapRender = SDL_CreateRGBSurface(0, Global::pxFullMapRenderSize, Global::pxFullMapRenderSize, 32,
                                                              0xff000000,
                                                              0x00ff0000,
                                                              0x0000ff00,

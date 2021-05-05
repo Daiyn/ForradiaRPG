@@ -22,7 +22,7 @@ void RenderItemMoving()
 bool ItemMoving::TryStartDragingObjectFromGround(int mapx, int mapy)
 {
 
-    if (mapx < 0 || mapy < 0 || mapx >= Global::mapSize || mapy >= Global::mapSize)
+    if (mapx < 0 || mapy < 0 || mapx >= Global::tilesMapSize || mapy >= Global::tilesMapSize)
         return false;
 
     int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->GetIndexForSeenFloor();
@@ -30,7 +30,7 @@ bool ItemMoving::TryStartDragingObjectFromGround(int mapx, int mapy)
     if (seenFloorIndex == -1)
         return false;
 
-    int dist = std::max(abs(mapx - Global::player->m_coordPosition.m_x), abs(mapy - Global::player->m_coordPosition.m_y));
+    int dist = std::max(abs(mapx - Global::statePlayer->m_coordPosition.m_x), abs(mapy - Global::statePlayer->m_coordPosition.m_y));
 
     if (dist <= 1)
     {
@@ -67,7 +67,7 @@ bool ItemMoving::TryStartDragingObjectFromGround(int mapx, int mapy)
 void ItemMoving::DropObjectInAirIfExists(int mapx, int mapy)
 {
 
-    if (mapx < 0 || mapy < 0 || mapx >= Global::mapSize || mapy >= Global::mapSize)
+    if (mapx < 0 || mapy < 0 || mapx >= Global::tilesMapSize || mapy >= Global::tilesMapSize)
         return;
 
     int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->GetIndexForSeenFloor();

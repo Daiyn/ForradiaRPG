@@ -29,7 +29,7 @@ void BattleExecution::PerformCombat()
         auto& pFoe = (CFightableCharacter&)targetedFoe;
         HitFightableCharacter(pFoe, maxDamage);
         Global::contentCurrentMap->AddObjectIfDoesntAlreadyExist(DataLoading::GetDescriptionIndexByName("ObjectPoolOfBlood"), targetedFoe.m_coordPosition.m_x, targetedFoe.m_coordPosition.m_y, SURFACE_FLOOR);
-        auto& pPlayer = (CFightableCharacter&)(*Global::player);
+        auto& pPlayer = (CFightableCharacter&)(*Global::statePlayer);
         HitFightableCharacter(pPlayer, maxDamage);
 
     }

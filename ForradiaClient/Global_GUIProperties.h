@@ -17,12 +17,12 @@
 
 namespace Global
 {
-    const int menuButtonWidth = 280;
-    const int menuButtonHeight = 70;
-    const int menuButtonMargin = 20;
-    const int optionIconSize = 40;
-    const int margin = 5;
-    const int backgroundR = 0;
-    const int backgroundG = 150;
-    const int backgroundB = 200;
+    const int attrMenuButtonWidth = 280;
+    const int attrMenuButtonHeight = 70;
+    const int attrMenuButtonMargin = 20;
+    const int attrOptionIconSize = 40;
+    const int attrMargin = 5;
+    const int attrBackColorR = 0;
+    const int attrBackColorG = 150;
+    const int attrBackColorB = 200;
 }

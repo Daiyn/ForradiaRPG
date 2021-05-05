@@ -17,5 +17,5 @@
 
 namespace Global
 {
-	const int mapSize = 150;
+	const int tilesMapSize = 150;
 }

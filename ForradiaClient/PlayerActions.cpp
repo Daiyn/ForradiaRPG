@@ -35,13 +35,13 @@ void PlayerActions::Update()
 
 void PlayerActions::UpdateHoveredTile()
 {
-    if (Global::player != nullptr)
+    if (Global::statePlayer != nullptr)
     {
         CPoint p;
 
         SDL_GetMouseState(&p.m_x, &p.m_y);
         p = { p.m_x / Global::GetTileSize(), p.m_y / Global::GetTileSize() };
-        p = { Global::player->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2 + p.m_x, Global::player->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 + p.m_y };
+        p = { Global::statePlayer->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2 + p.m_x, Global::statePlayer->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 + p.m_y };
         hoveredTile = p;
     }
 
@@ -50,22 +50,22 @@ void PlayerActions::UpdateHoveredTile()
 void PlayerActions::StartPerformSkill()
 {
 
-    if (SDL_GetTicks() - Global::player->m_tickLastSkillCastEnded < Global::player->m_spdSkillCasting)
+    if (SDL_GetTicks() - Global::statePlayer->m_tickLastSkillCastEnded < Global::statePlayer->m_spdSkillCasting)
         return;
 
     if (skillInAction)
         return;
 
-    float dx = hoveredTile.m_x - Global::player->m_coordPosition.m_x;
-    float dy = hoveredTile.m_y - Global::player->m_coordPosition.m_y;
+    float dx = hoveredTile.m_x - Global::statePlayer->m_coordPosition.m_x;
+    float dy = hoveredTile.m_y - Global::statePlayer->m_coordPosition.m_y;
 
     float dist = sqrt(dx * dx + dy * dy);
 
     dxStep = dx / dist;
     dyStep = dy / dist;
 
-    xStart = Global::player->m_coordPosition.m_x;
-    yStart = Global::player->m_coordPosition.m_y;
+    xStart = Global::statePlayer->m_coordPosition.m_x;
+    yStart = Global::statePlayer->m_coordPosition.m_y;
 
     tickStartSkillPerform = SDL_GetTicks();
 
@@ -88,14 +88,14 @@ void PlayerActions::Render()
     float currentX = xStart + deltaTime * dxStep / 2;
     float currentY = yStart + deltaTime * dyStep / 2;
 
-    float tileX = currentX - (Global::player->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2);
-    float tileY = currentY - (Global::player->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2);
+    float tileX = currentX - (Global::statePlayer->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2);
+    float tileY = currentY - (Global::statePlayer->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2);
 
     skillAffectedTiles.push_back({(int) currentX, (int) currentY});
 
 
-    int dx = currentX - Global::player->m_coordPosition.m_x;
-    int dy = currentY - Global::player->m_coordPosition.m_y;
+    int dx = currentX - Global::statePlayer->m_coordPosition.m_x;
+    int dy = currentY - Global::statePlayer->m_coordPosition.m_y;
 
     int dist = sqrt(dx * dx + dy * dy);
 
@@ -150,7 +150,7 @@ void PlayerActions::UpdateSkillsPerformed()
         {
             skillAffectedTiles.clear();
             skillInAction = false;
-            Global::player->m_tickLastSkillCastEnded = SDL_GetTicks();
+            Global::statePlayer->m_tickLastSkillCastEnded = SDL_GetTicks();
         }
     }
 }

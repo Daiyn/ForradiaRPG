@@ -17,5 +17,5 @@
 
 namespace Global
 {
-	const int mapPreviewSize = 500;
+	const int pxFullMapRenderSize = 500;
 }

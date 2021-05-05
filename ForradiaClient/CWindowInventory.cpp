@@ -55,7 +55,7 @@ bool CWindowInventory::HandleMouseClickInWindow()
             if (mx >= posx && my >= posy && mx < posx + m_pxSlotSize && my < posy + m_pxSlotSize)
             {
 
-                for (auto it = Global::player->m_inventory.m_containedItems.begin(); it != Global::player->m_inventory.m_containedItems.end(); it++)
+                for (auto it = Global::statePlayer->m_inventory.m_containedItems.begin(); it != Global::statePlayer->m_inventory.m_containedItems.end(); it++)
                 {
 
                     if (it->first == i)
@@ -73,7 +73,7 @@ bool CWindowInventory::HandleMouseClickInWindow()
                 }
 
                 if (objectIsBeingPickedUp)
-                    Global::player->m_inventory.m_containedItems.erase(i);
+                    Global::statePlayer->m_inventory.m_containedItems.erase(i);
 
             }
 
@@ -114,17 +114,17 @@ bool CWindowInventory::HandleMouseReleaseInWindow()
             if (mx >= posx && my >= posy && mx < posx + m_pxSlotSize && my < posy + m_pxSlotSize)
             {
 
-                if (Global::player->m_inventory.SlotIsOccupied(i))
+                if (Global::statePlayer->m_inventory.SlotIsOccupied(i))
                 {
-                    if (Global::player->m_inventory.m_containedItems[i]->m_idxObjectType == ItemMoving::objectInAir->m_idxObjectType)
+                    if (Global::statePlayer->m_inventory.m_containedItems[i]->m_idxObjectType == ItemMoving::objectInAir->m_idxObjectType)
                     {
-                        Global::player->m_inventory.m_containedItems[i]->m_propCurrentQuantity += ItemMoving::objectInAir->m_propCurrentQuantity;
+                        Global::statePlayer->m_inventory.m_containedItems[i]->m_propCurrentQuantity += ItemMoving::objectInAir->m_propCurrentQuantity;
                         ItemMoving::objectInAir.reset();
                         return true;
                     }
                 }
 
-                Global::player->m_inventory.m_containedItems.insert(std::pair<int, unique_ptr<CObject>>(i, move(ItemMoving::objectInAir)));
+                Global::statePlayer->m_inventory.m_containedItems.insert(std::pair<int, unique_ptr<CObject>>(i, move(ItemMoving::objectInAir)));
                 return true;
 
             }
@@ -163,7 +163,7 @@ void CWindowInventory::Render()
 
             Drawing::Image(ID_INVENTORY_SLOT_BACK, posx, posy, m_pxSlotSize, m_pxSlotSize);
 
-            for (auto it = Global::player->m_inventory.m_containedItems.begin(); it != Global::player->m_inventory.m_containedItems.end(); it++)
+            for (auto it = Global::statePlayer->m_inventory.m_containedItems.begin(); it != Global::statePlayer->m_inventory.m_containedItems.end(); it++)
             {
 
                 if (it->first == i) 

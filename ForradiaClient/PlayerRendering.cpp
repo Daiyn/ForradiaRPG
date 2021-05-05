@@ -18,7 +18,7 @@ void PlayerRendering::RenderPlayer(int x, int y, CPoint pTile)
 
     SDL_Rect rTile = { x * Global::GetTileSize(), y * Global::GetTileSize(), Global::GetTileSize(), Global::GetTileSize() };
 
-    if (pTile.m_x == Global::player->m_coordPosition.m_x && pTile.m_y == Global::player->m_coordPosition.m_y)
+    if (pTile.m_x == Global::statePlayer->m_coordPosition.m_x && pTile.m_y == Global::statePlayer->m_coordPosition.m_y)
     {
 
         CSize szPlayer(1.5 * Global::GetTileSize());
@@ -34,7 +34,7 @@ void PlayerRendering::RenderPlayer(int x, int y, CPoint pTile)
                                 szPlayer.m_w,
                                 szPlayer.m_h };
 
-        rectPlayer.y -= Global::player->GetJumpHeight();
+        rectPlayer.y -= Global::statePlayer->GetJumpHeight();
 
         Drawing::Image(ID_SHADOW, rectShadow);
         Drawing::Image(ID_PLAYER, rectPlayer);

@@ -25,7 +25,7 @@ void Crafting::CreateUnloadedCampfire(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    if (Global::player->ConsumeNRGY(20))
+    if (Global::statePlayer->ConsumeNRGY(20))
 	    Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex]->ReplaceObject(objectStone, 5, objectUnloadedCampfire, 1);
 
 }
@@ -44,8 +44,8 @@ void Crafting::LoadCampfire(CPoint p)
     CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectUnloadedCampfire))
-        if (Global::player->m_inventory.UseItemInInventory(objectWoodLog, 1))
-            if (Global::player->ConsumeNRGY(20))
+        if (Global::statePlayer->m_inventory.UseItemInInventory(objectWoodLog, 1))
+            if (Global::statePlayer->ConsumeNRGY(20))
                 floor.ReplaceObject(objectUnloadedCampfire, 1, objectLoadedCampfire, 1);
 
 }
@@ -64,8 +64,8 @@ void Crafting::LightCampfire(CPoint p)
     CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectLoadedCampfire))
-        if (Global::player->m_inventory.HasItemInInventory(objectMatches))
-            if (Global::player->ConsumeNRGY(20))
+        if (Global::statePlayer->m_inventory.HasItemInInventory(objectMatches))
+            if (Global::statePlayer->ConsumeNRGY(20))
                 floor.ReplaceObject(objectLoadedCampfire, 1, objectBurningCampfire, 1);
 
 }
@@ -102,7 +102,7 @@ void Crafting::ChopUpWoodLog(CPoint p)
 
             int freeObjectSpaceIndex = floorFreeSpace.GetFreeObjectIndex();
 
-            if (Global::player->ConsumeNRGY(20))
+            if (Global::statePlayer->ConsumeNRGY(20))
             {
                 floorFreeSpace.m_containedObjects[freeObjectSpaceIndex] = make_unique<CObject>(CObject(objectWoodLog, { x, y }));
 
@@ -138,8 +138,8 @@ void Crafting::DigClay(CPoint p)
     CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.m_idxGroundType == tileClay)
-        if (Global::player->m_inventory.HasItemInInventory(objectShovel))
-            if (Global::player->ConsumeNRGY(20))
+        if (Global::statePlayer->m_inventory.HasItemInInventory(objectShovel))
+            if (Global::statePlayer->ConsumeNRGY(20))
                 floor.AddObject(objectClayLump);
 
 }
@@ -158,9 +158,9 @@ void Crafting::CreateBrick(CPoint p)
     CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectBurningCampfire))
-        if (Global::player->ConsumeNRGY(20))
-            if (Global::player->m_inventory.UseItemInInventory(objectClayLump, 1))
-                    Global::player->m_inventory.AddItemToInventory(objectBrick);
+        if (Global::statePlayer->ConsumeNRGY(20))
+            if (Global::statePlayer->m_inventory.UseItemInInventory(objectClayLump, 1))
+                    Global::statePlayer->m_inventory.AddItemToInventory(objectBrick);
 }
 
 void Crafting::CreateMeltingFurnace(CPoint p)
@@ -176,6 +176,6 @@ void Crafting::CreateMeltingFurnace(CPoint p)
     CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfTypeAndQuantity(objectBrick, MELTING_FURNACE_NUM_REQ_BRICKS))
-        if (Global::player->ConsumeNRGY(20))
+        if (Global::statePlayer->ConsumeNRGY(20))
             floor.ReplaceObject(objectBrick, MELTING_FURNACE_NUM_REQ_BRICKS, objectUnloadedMeltingFurnace, 1);
 }

@@ -29,7 +29,7 @@ void GUIStatusPanel::Render()
     int barWidth = w - 2 * margin;
     int barHeight = 25;
 
-    string strHP = "HP: " + std::to_string(Global::player->m_statCurrentHP) + "/" + std::to_string(Global::player->m_statMaxHP);
+    string strHP = "HP: " + std::to_string(Global::statePlayer->m_statCurrentHP) + "/" + std::to_string(Global::statePlayer->m_statMaxHP);
 
     TextRendering::DrawString(strHP, WHITE, margin, margin);
 
@@ -37,7 +37,7 @@ void GUIStatusPanel::Render()
 
     Drawing::FilledRect(BLACK, rectHPBar);
 
-    int hpBarFilledWidth = barWidth * (double) Global::player->m_statCurrentHP / Global::player->m_statMaxHP;
+    int hpBarFilledWidth = barWidth * (double) Global::statePlayer->m_statCurrentHP / Global::statePlayer->m_statMaxHP;
 
     if (hpBarFilledWidth > 0)
     {
@@ -52,11 +52,11 @@ void GUIStatusPanel::Render()
     barTop += 2 * barHeight;
 
     stringstream streamNRGYCurrent;
-    streamNRGYCurrent << std::fixed << setprecision(0) << Global::player->m_statCurrentNRGY;
+    streamNRGYCurrent << std::fixed << setprecision(0) << Global::statePlayer->m_statCurrentNRGY;
     string strNRGYCurrent = streamNRGYCurrent.str();
 
     stringstream streamNRGYMax;
-    streamNRGYMax << std::fixed << setprecision(0) << Global::player->m_statMaxNRGY;
+    streamNRGYMax << std::fixed << setprecision(0) << Global::statePlayer->m_statMaxNRGY;
     string strNRGYMax = streamNRGYMax.str();
 
     string strNRGY = "NRGY: " + strNRGYCurrent + "/" + strNRGYMax;
@@ -67,7 +67,7 @@ void GUIStatusPanel::Render()
 
     Drawing::FilledRect(BLACK, rectNRGYBar);
 
-    int nrgyBarFilledWidth = barWidth * (double)Global::player->m_statCurrentNRGY / Global::player->m_statMaxNRGY;
+    int nrgyBarFilledWidth = barWidth * (double)Global::statePlayer->m_statCurrentNRGY / Global::statePlayer->m_statMaxNRGY;
 
     if (nrgyBarFilledWidth > 0)
     {

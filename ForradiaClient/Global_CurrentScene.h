@@ -16,7 +16,7 @@
 
 #pragma once
 
-#include "Global_GameLoop.h"
+#include "Global_Gameloop.h"
 #include <memory>
 
 using std::unique_ptr;

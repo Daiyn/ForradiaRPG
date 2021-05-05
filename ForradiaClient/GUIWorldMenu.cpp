@@ -114,22 +114,22 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
 
 
     if (Global::contentCurrentMap->TileHoldsObjectOfType(objectUnloadedCampfire, clickedTile.m_x, clickedTile.m_y, SURFACE_FLOOR)
-        && Global::player->m_inventory.HasItemInInventory(objectWoodLog))
+        && Global::statePlayer->m_inventory.HasItemInInventory(objectWoodLog))
         shownMenuOptions.push_back(MENU_ID_LOAD_CAMPFIRE);
 
 
     if (Global::contentCurrentMap->TileHoldsObjectOfType(objectLoadedCampfire, clickedTile.m_x, clickedTile.m_y, SURFACE_FLOOR)
-        && Global::player->m_inventory.HasItemInInventory(objectMatches))
+        && Global::statePlayer->m_inventory.HasItemInInventory(objectMatches))
         shownMenuOptions.push_back(MENU_ID_LIGHT_CAMPFIRE);
 
 
     if (Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == groundTypeClay
-        && Global::player->m_inventory.HasItemInInventory(objectShovel))
+        && Global::statePlayer->m_inventory.HasItemInInventory(objectShovel))
         shownMenuOptions.push_back(MENU_ID_DIG_CLAY);
 
 
     if (Global::contentCurrentMap->TileHoldsObjectOfType(objectBurningCampfire, clickedTile.m_x, clickedTile.m_y, SURFACE_FLOOR)
-        && Global::player->m_inventory.HasItemInInventory(objectClayLump))
+        && Global::statePlayer->m_inventory.HasItemInInventory(objectClayLump))
         shownMenuOptions.push_back(MENU_ID_CREATE_BRICK);
 
     int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->GetIndexForSeenFloor();
@@ -147,7 +147,7 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
 
     }
 
-    int dist = std::max(abs(clickedTile.m_x - Global::player->m_coordPosition.m_x), abs(clickedTile.m_y - Global::player->m_coordPosition.m_y));
+    int dist = std::max(abs(clickedTile.m_x - Global::statePlayer->m_coordPosition.m_x), abs(clickedTile.m_y - Global::statePlayer->m_coordPosition.m_y));
 
     bool slopeUpEast = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x + 1][clickedTile.m_y]->m_elevationHeight > Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_elevationHeight;
     bool slopeUpNorth = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y - 1]->m_elevationHeight > Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_elevationHeight;
@@ -157,9 +157,9 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
     bool cliffWallClicked = slopeUpEast || slopeUpNorth || slopeUpWest || slopeUpSouth;
     bool clickedRock = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == groundTypeRock;
     bool oneTileDistanceFrom = dist <= 1;
-    bool playerIsUnderground = Global::player->m_locCurrentElevation != SURFACE_FLOOR;
-    bool clickedTileElevationAbovePlayer = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_elevationHeight > Global::player->m_locCurrentElevation;
-    bool isNotAlreadyMined = !Global::contentCurrentMap->TileIsMinedAtElev(Global::player->m_locCurrentElevation, clickedTile.m_x, clickedTile.m_y);
+    bool playerIsUnderground = Global::statePlayer->m_locCurrentElevation != SURFACE_FLOOR;
+    bool clickedTileElevationAbovePlayer = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_elevationHeight > Global::statePlayer->m_locCurrentElevation;
+    bool isNotAlreadyMined = !Global::contentCurrentMap->TileIsMinedAtElev(Global::statePlayer->m_locCurrentElevation, clickedTile.m_x, clickedTile.m_y);
 
     if (clickedRock && oneTileDistanceFrom)
         if (cliffWallClicked || (playerIsUnderground && clickedTileElevationAbovePlayer && isNotAlreadyMined))

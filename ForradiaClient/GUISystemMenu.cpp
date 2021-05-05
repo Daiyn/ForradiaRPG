@@ -29,10 +29,10 @@ void GUISystemMenu::HandleMouseClickInSystemMenu(bool leftMouseButtonDown)
     for (auto option : menuOptions) {
 
         CRectangle rect = {
-                Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2,
-                Global::GetCanvasHeight() / 4 + i * (Global::menuButtonHeight + Global::menuButtonMargin),
-                Global::menuButtonWidth,
-                Global::menuButtonHeight};
+                Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,
+                Global::GetCanvasHeight() / 4 + i * (Global::attrMenuButtonHeight + Global::attrMenuButtonMargin),
+                Global::attrMenuButtonWidth,
+                Global::attrMenuButtonHeight};
 
         if (rect.ContainsPoint(pMouse)) {
             switch (i) {
@@ -68,10 +68,10 @@ void GUISystemMenu::Update()
     {
 
         CRectangle rect = {
-                Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2,
-                Global::GetCanvasHeight() / 4 + i * (Global::menuButtonHeight + Global::menuButtonMargin),
-                Global::menuButtonWidth,
-                Global::menuButtonHeight };
+                Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,
+                Global::GetCanvasHeight() / 4 + i * (Global::attrMenuButtonHeight + Global::attrMenuButtonMargin),
+                Global::attrMenuButtonWidth,
+                Global::attrMenuButtonHeight };
 
         if (rect.ContainsPoint(pMouse))
             Cursor::isHoveringButton = true;
@@ -95,10 +95,10 @@ void GUISystemMenu::RenderIfShown() {
     for (auto option : menuOptions) {
 
         CRectangle rect = {
-                Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2,
-                Global::GetCanvasHeight() / 4 + i * (Global::menuButtonHeight + Global::menuButtonMargin),
-                Global::menuButtonWidth,
-                Global::menuButtonHeight};
+                Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,
+                Global::GetCanvasHeight() / 4 + i * (Global::attrMenuButtonHeight + Global::attrMenuButtonMargin),
+                Global::attrMenuButtonWidth,
+                Global::attrMenuButtonHeight};
 
 
         int imgIndex = 0;

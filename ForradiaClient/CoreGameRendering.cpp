@@ -81,7 +81,7 @@ void CoreGameRendering::RenderGroundWithObjects()
                 FoesRendering::RenderTileFoes(x, y, pTile);
                 PlayerRendering::RenderPlayer(x, y, pTile);
 
-               if ((Global::selectedGameStyleOption == 1 && TileRendering::CheckUnseenTiles(x, y, pTile)))
+               if ((Global::settingGameMode == 1 && TileRendering::CheckUnseenTiles(x, y, pTile)))
                     TileRendering::CoverUnseenTiles(x, y, pTile);
 
             }

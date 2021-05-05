@@ -31,7 +31,7 @@ void CSceneStartScreen::Render()
     if (animIndex_text > 8)
         animIndex_text = 0;
 
-    Drawing::FilledRect(Global::backgroundR, Global::backgroundG, Global::backgroundB, 0, 0, Global::GetCanvasWidth(), Global::GetCanvasHeight());
+    Drawing::FilledRect(Global::attrBackColorR, Global::attrBackColorG, Global::attrBackColorB, 0, 0, Global::GetCanvasWidth(), Global::GetCanvasHeight());
 
     int w = 500;
     int h = 223;
