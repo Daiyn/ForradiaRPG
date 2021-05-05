@@ -19,54 +19,54 @@
 
 bool GUIWorldMenu::HandleLeftMouseClickInWorld() {
 
-    if (!isShown)
+    if (!stateIsShown)
         return false;
 
-    isShown = false;
+    stateIsShown = false;
 
     CPoint pMouse = Global::GetMousePoint();
 
-    for (int i = 0; i < shownMenuOptions.size(); i++)
+    for (int i = 0; i < stateShownMenuOptions.size(); i++)
     {
 
-        int xRow = menuX + margin;
-        int yRow = menuY + margin + i * rowHeight;
+        int xRow = pxMenuX + pxMargin;
+        int yRow = pxMenuY + pxMargin + i * pxRowHeight;
 
-        CRectangle rect = { xRow, yRow, menuW, menuH };
+        CRectangle rect = { xRow, yRow, pxMenuWidth, pxMenuHeight };
 
         if (rect.ContainsPoint(pMouse))
         {
 
-            if (shownMenuOptions[i] == MENU_ID_CHOP_DOWN_TREE)
-                Crafting::ChopDownTree(clickedTile);
+            if (stateShownMenuOptions[i] == MENU_ID_CHOP_DOWN_TREE)
+                Crafting::ChopDownTree(coordClickedTile);
 
-            if (shownMenuOptions[i] == MENU_ID_CREATE_UNLOADED_CAMPFIRE)
-                Crafting::CreateUnloadedCampfire(clickedTile);
+            if (stateShownMenuOptions[i] == MENU_ID_CREATE_UNLOADED_CAMPFIRE)
+                Crafting::CreateUnloadedCampfire(coordClickedTile);
 
-            if (shownMenuOptions[i] == MENU_ID_LOAD_CAMPFIRE)
-                Crafting::LoadCampfire(clickedTile);
+            if (stateShownMenuOptions[i] == MENU_ID_LOAD_CAMPFIRE)
+                Crafting::LoadCampfire(coordClickedTile);
 
 
-            if (shownMenuOptions[i] == MENU_ID_CHOP_UP_WOOD_LOG)
-                Crafting::ChopUpWoodLog(clickedTile);
+            if (stateShownMenuOptions[i] == MENU_ID_CHOP_UP_WOOD_LOG)
+                Crafting::ChopUpWoodLog(coordClickedTile);
 
-            if (shownMenuOptions[i] == MENU_ID_MINE_CAVE)
-                Mining::MineTile(clickedTile);
+            if (stateShownMenuOptions[i] == MENU_ID_MINE_CAVE)
+                Mining::MineTile(coordClickedTile);
 
-            if (shownMenuOptions[i] == MENU_ID_LIGHT_CAMPFIRE)
-                Crafting::LightCampfire(clickedTile);
+            if (stateShownMenuOptions[i] == MENU_ID_LIGHT_CAMPFIRE)
+                Crafting::LightCampfire(coordClickedTile);
 
-            if (shownMenuOptions[i] == MENU_ID_DIG_CLAY)
-                Crafting::DigClay(clickedTile);
+            if (stateShownMenuOptions[i] == MENU_ID_DIG_CLAY)
+                Crafting::DigClay(coordClickedTile);
 
-            if (shownMenuOptions[i] == MENU_ID_CREATE_BRICK)
-                Crafting::CreateBrick(clickedTile);
+            if (stateShownMenuOptions[i] == MENU_ID_CREATE_BRICK)
+                Crafting::CreateBrick(coordClickedTile);
 
-            if (shownMenuOptions[i] == MENU_ID_CREATE_MELTING_FURNACE)
-                Crafting::CreateMeltingFurnace(clickedTile);
+            if (stateShownMenuOptions[i] == MENU_ID_CREATE_MELTING_FURNACE)
+                Crafting::CreateMeltingFurnace(coordClickedTile);
 
-            if (shownMenuOptions[i] == MENU_ID_EAT_APPLE)
-                FoodEating::EatAppleFromGround(clickedTile);
+            if (stateShownMenuOptions[i] == MENU_ID_EAT_APPLE)
+                FoodEating::EatAppleFromGround(coordClickedTile);
 
         }
     }
@@ -95,93 +95,93 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
 
-    menuX = mx + Global::GetTileSize();
-    menuY = my - Global::GetTileSize()/2;
+    pxMenuX = mx + Global::GetTileSize();
+    pxMenuY = my - Global::GetTileSize()/2;
 
-    shownMenuOptions.clear();
+    stateShownMenuOptions.clear();
 
-    clickedTile = { PlayerActions::hoveredTile.m_x , PlayerActions::hoveredTile.m_y};
+    coordClickedTile = { PlayerActions::coordHoveredTile.m_x , PlayerActions::coordHoveredTile.m_y};
 
-    if (Global::contentCurrentMap->TileHoldsObjectOfType(objectTree1, clickedTile.m_x, clickedTile.m_y, SURFACE_FLOOR)
-        || Global::contentCurrentMap->TileHoldsObjectOfType(objectTree2, clickedTile.m_x, clickedTile.m_y, SURFACE_FLOOR))
-        shownMenuOptions.push_back(MENU_ID_CHOP_DOWN_TREE);
+    if (Global::contentCurrentMap->TileHoldsObjectOfType(objectTree1, coordClickedTile.m_x, coordClickedTile.m_y, SURFACE_FLOOR)
+        || Global::contentCurrentMap->TileHoldsObjectOfType(objectTree2, coordClickedTile.m_x, coordClickedTile.m_y, SURFACE_FLOOR))
+        stateShownMenuOptions.push_back(MENU_ID_CHOP_DOWN_TREE);
 
-    if (Global::contentCurrentMap->TileHoldsObjectOfType(objectFelledTree, clickedTile.m_x, clickedTile.m_y, SURFACE_FLOOR))
-        shownMenuOptions.push_back(MENU_ID_CHOP_UP_WOOD_LOG);
+    if (Global::contentCurrentMap->TileHoldsObjectOfType(objectFelledTree, coordClickedTile.m_x, coordClickedTile.m_y, SURFACE_FLOOR))
+        stateShownMenuOptions.push_back(MENU_ID_CHOP_UP_WOOD_LOG);
 
-    if (Global::contentCurrentMap->TileHoldsObjectOfTypeAndQuantity(objectStone, 5, clickedTile.m_x, clickedTile.m_y, SURFACE_FLOOR))
-        shownMenuOptions.push_back(MENU_ID_CREATE_UNLOADED_CAMPFIRE);
+    if (Global::contentCurrentMap->TileHoldsObjectOfTypeAndQuantity(objectStone, 5, coordClickedTile.m_x, coordClickedTile.m_y, SURFACE_FLOOR))
+        stateShownMenuOptions.push_back(MENU_ID_CREATE_UNLOADED_CAMPFIRE);
 
 
-    if (Global::contentCurrentMap->TileHoldsObjectOfType(objectUnloadedCampfire, clickedTile.m_x, clickedTile.m_y, SURFACE_FLOOR)
+    if (Global::contentCurrentMap->TileHoldsObjectOfType(objectUnloadedCampfire, coordClickedTile.m_x, coordClickedTile.m_y, SURFACE_FLOOR)
         && Global::statePlayer->m_inventory.HasItemInInventory(objectWoodLog))
-        shownMenuOptions.push_back(MENU_ID_LOAD_CAMPFIRE);
+        stateShownMenuOptions.push_back(MENU_ID_LOAD_CAMPFIRE);
 
 
-    if (Global::contentCurrentMap->TileHoldsObjectOfType(objectLoadedCampfire, clickedTile.m_x, clickedTile.m_y, SURFACE_FLOOR)
+    if (Global::contentCurrentMap->TileHoldsObjectOfType(objectLoadedCampfire, coordClickedTile.m_x, coordClickedTile.m_y, SURFACE_FLOOR)
         && Global::statePlayer->m_inventory.HasItemInInventory(objectMatches))
-        shownMenuOptions.push_back(MENU_ID_LIGHT_CAMPFIRE);
+        stateShownMenuOptions.push_back(MENU_ID_LIGHT_CAMPFIRE);
 
 
-    if (Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == groundTypeClay
+    if (Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == groundTypeClay
         && Global::statePlayer->m_inventory.HasItemInInventory(objectShovel))
-        shownMenuOptions.push_back(MENU_ID_DIG_CLAY);
+        stateShownMenuOptions.push_back(MENU_ID_DIG_CLAY);
 
 
-    if (Global::contentCurrentMap->TileHoldsObjectOfType(objectBurningCampfire, clickedTile.m_x, clickedTile.m_y, SURFACE_FLOOR)
+    if (Global::contentCurrentMap->TileHoldsObjectOfType(objectBurningCampfire, coordClickedTile.m_x, coordClickedTile.m_y, SURFACE_FLOOR)
         && Global::statePlayer->m_inventory.HasItemInInventory(objectClayLump))
-        shownMenuOptions.push_back(MENU_ID_CREATE_BRICK);
+        stateShownMenuOptions.push_back(MENU_ID_CREATE_BRICK);
 
-    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y]->GetIndexForSeenFloor();
 
     if (seenFloorIndex != -1)
     {
 
-        CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_floorsArray[seenFloorIndex];
+        CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y]->m_floorsArray[seenFloorIndex];
 
         if (floor.HoldsObjectOfTypeAndQuantity(objectBrick, Crafting::MELTING_FURNACE_NUM_REQ_BRICKS))
-            shownMenuOptions.push_back(MENU_ID_CREATE_MELTING_FURNACE);
+            stateShownMenuOptions.push_back(MENU_ID_CREATE_MELTING_FURNACE);
 
         if (floor.HoldsObjectOfTypeAndQuantity(objectApple, 1))
-            shownMenuOptions.push_back(MENU_ID_EAT_APPLE);
+            stateShownMenuOptions.push_back(MENU_ID_EAT_APPLE);
 
     }
 
-    int dist = std::max(abs(clickedTile.m_x - Global::statePlayer->m_coordPosition.m_x), abs(clickedTile.m_y - Global::statePlayer->m_coordPosition.m_y));
+    int dist = std::max(abs(coordClickedTile.m_x - Global::statePlayer->m_coordPosition.m_x), abs(coordClickedTile.m_y - Global::statePlayer->m_coordPosition.m_y));
 
-    bool slopeUpEast = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x + 1][clickedTile.m_y]->m_elevationHeight > Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_elevationHeight;
-    bool slopeUpNorth = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y - 1]->m_elevationHeight > Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_elevationHeight;
-    bool slopeUpWest = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_elevationHeight > Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x + 1][clickedTile.m_y]->m_elevationHeight;
-    bool slopeUpSouth = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_elevationHeight > Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y - 1]->m_elevationHeight;
+    bool slopeUpEast = Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x + 1][coordClickedTile.m_y]->m_elevationHeight > Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y]->m_elevationHeight;
+    bool slopeUpNorth = Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y - 1]->m_elevationHeight > Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y]->m_elevationHeight;
+    bool slopeUpWest = Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y]->m_elevationHeight > Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x + 1][coordClickedTile.m_y]->m_elevationHeight;
+    bool slopeUpSouth = Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y]->m_elevationHeight > Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y - 1]->m_elevationHeight;
 
     bool cliffWallClicked = slopeUpEast || slopeUpNorth || slopeUpWest || slopeUpSouth;
-    bool clickedRock = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == groundTypeRock;
+    bool clickedRock = Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == groundTypeRock;
     bool oneTileDistanceFrom = dist <= 1;
     bool playerIsUnderground = Global::statePlayer->m_locCurrentElevation != SURFACE_FLOOR;
-    bool clickedTileElevationAbovePlayer = Global::contentCurrentMap->m_tilesGrid[clickedTile.m_x][clickedTile.m_y]->m_elevationHeight > Global::statePlayer->m_locCurrentElevation;
-    bool isNotAlreadyMined = !Global::contentCurrentMap->TileIsMinedAtElev(Global::statePlayer->m_locCurrentElevation, clickedTile.m_x, clickedTile.m_y);
+    bool clickedTileElevationAbovePlayer = Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y]->m_elevationHeight > Global::statePlayer->m_locCurrentElevation;
+    bool isNotAlreadyMined = !Global::contentCurrentMap->TileIsMinedAtElev(Global::statePlayer->m_locCurrentElevation, coordClickedTile.m_x, coordClickedTile.m_y);
 
     if (clickedRock && oneTileDistanceFrom)
         if (cliffWallClicked || (playerIsUnderground && clickedTileElevationAbovePlayer && isNotAlreadyMined))
-            shownMenuOptions.push_back(MENU_ID_MINE_CAVE);
+            stateShownMenuOptions.push_back(MENU_ID_MINE_CAVE);
 
-    if (shownMenuOptions.size() == 0)
-        shownMenuOptions.push_back(MENU_ID_NONE);
+    if (stateShownMenuOptions.size() == 0)
+        stateShownMenuOptions.push_back(MENU_ID_NONE);
 
-    isShown = true;
+    stateIsShown = true;
 }
 
 void GUIWorldMenu::Update()
 {
     CPoint pMouse = Global::GetMousePoint();
 
-    for (int i = 0; i < shownMenuOptions.size(); i++)
+    for (int i = 0; i < stateShownMenuOptions.size(); i++)
     {
 
-        int xRow = menuX + margin;
-        int yRow = menuY + margin + i * rowHeight;
+        int xRow = pxMenuX + pxMargin;
+        int yRow = pxMenuY + pxMargin + i * pxRowHeight;
 
-        CRectangle rect = { menuX, yRow, menuW, rowHeight };
+        CRectangle rect = { pxMenuX, yRow, pxMenuWidth, pxRowHeight };
 
         if (rect.ContainsPoint(pMouse))
             Cursor::isHoveringButton = true;
@@ -192,25 +192,25 @@ void GUIWorldMenu::Update()
 void GUIWorldMenu::Render()
 {
 
-    if (!isShown)
+    if (!stateIsShown)
         return;
 
     CPoint pMouse = Global::GetMousePoint();
 
-    for (int i = 0; i < shownMenuOptions.size(); i++)
+    for (int i = 0; i < stateShownMenuOptions.size(); i++)
     {
 
-        int xRow = menuX + margin;
-        int yRow = menuY + margin + i * rowHeight;
+        int xRow = pxMenuX + pxMargin;
+        int yRow = pxMenuY + pxMargin + i * pxRowHeight;
 
-        CRectangle rect = { menuX, yRow, menuW, rowHeight };
+        CRectangle rect = { pxMenuX, yRow, pxMenuWidth, pxRowHeight };
 
         if (rect.ContainsPoint(pMouse))
             Drawing::FilledRect(WORLDMENU_HOVERED, rect);
         else
             Drawing::FilledRect(WORLDMENU_BACKGROUND, rect);
 
-        TextRendering::DrawString(allMenuOptions.at(shownMenuOptions[i]), {0, 0, 0, 255}, xRow, yRow);
+        TextRendering::DrawString(contentAvailableMenuOptions.at(stateShownMenuOptions[i]), {0, 0, 0, 255}, xRow, yRow);
 
     }
 

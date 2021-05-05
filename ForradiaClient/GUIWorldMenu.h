@@ -41,7 +41,7 @@ using std::string;
 
 namespace GUIWorldMenu
 {
-    const std::unordered_map<int, string> allMenuOptions =
+    const std::unordered_map<int, string> contentAvailableMenuOptions =
     {
         {MENU_ID_NONE,                      "------"},
         {MENU_ID_CHOP_DOWN_TREE,            "Chop Down Tree"},
@@ -55,15 +55,15 @@ namespace GUIWorldMenu
         {MENU_ID_CREATE_MELTING_FURNACE,    "Create Melting Furnace" },
         {MENU_ID_EAT_APPLE,                 "Eat Apple" }
     };
-    inline std::vector<int> shownMenuOptions;
-    inline CPoint clickedTile = { -1, -1 };
-    inline int menuX;
-    inline int menuY;
-    inline int menuW = 160;
-    inline int menuH = 200;
-    inline int rowHeight = 25;
-    inline int margin = 5;
-    inline bool isShown = false;
+    inline std::vector<int> stateShownMenuOptions;
+    inline CPoint coordClickedTile = { -1, -1 };
+    inline int pxMenuX;
+    inline int pxMenuY;
+    inline int pxMenuWidth = 160;
+    inline int pxMenuHeight = 200;
+    inline int pxRowHeight = 25;
+    inline int pxMargin = 5;
+    inline bool stateIsShown = false;
 
     bool HandleLeftMouseClickInWorld();
     void HandleRightMouseClickInWorld();

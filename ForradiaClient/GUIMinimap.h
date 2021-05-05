@@ -20,9 +20,9 @@
 
 namespace GUIMinimap
 {
-    const int miniMapSizeOrig = 200;
-    const int borderWidth = 10;
-    const int playerPointSize = 4;
+    const int pxSizeOriginal = 200;
+    const int pxBorderWidth = 10;
+    const int pxPlayerSymbolSize = 4;
 
     int GetBottomY();
     int GetScaledMiniMapSize();

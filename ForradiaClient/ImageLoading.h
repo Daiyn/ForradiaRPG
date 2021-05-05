@@ -29,10 +29,10 @@ using std::unordered_map;
 
 namespace ImageLoading
 {
-    inline std::unordered_map <string, SDL_Surface*> surfaces;
+    inline std::unordered_map <string, SDL_Surface*> libSurfaces;
     const string imagesPath = "Resources/Images/";
-    inline SDL_Texture** texturesArray = new SDL_Texture* [CONTENT_DB_SIZE];
-    inline SDL_Texture** texturesMapPreviewArray = new SDL_Texture * [CONTENT_DB_SIZE];
+    inline SDL_Texture** libTextures = new SDL_Texture* [CONTENT_DB_SIZE];
+    inline SDL_Texture** libTexturesFullMapRender = new SDL_Texture * [CONTENT_DB_SIZE];
 
     void ClearMapPreviewTextures();
     void CreateMapPreviewTextures();

@@ -33,21 +33,20 @@ void RenderPlayerActions();
 
 namespace PlayerActions
 {
-    inline std::vector<SDL_Point> skillAffectedTiles;
-    inline CPoint hoveredTile;
+    inline std::vector<SDL_Point> coordsSkillAffectedTiles;
+    inline CPoint coordHoveredTile;
     inline int tickStartSkillPerform = 0;
-    inline int focusedObjectMapx = -1;
-    inline int focusedObjectMapy = -1;
-    inline int focusedObjectProgress = 0;
-    //inline int ticksFocusedObjectProgressIncrease = 0;
-    const int focusedObjectProgressIncreaseSpeed = 300;
-    inline CTimer tmrFocusedObjectProgressIncrease(focusedObjectProgressIncreaseSpeed);
-    inline int skillElapseDuration = 500;
-    inline float xStart;
-    inline float yStart;
-    inline float dxStep;
-    inline float dyStep;
-    inline bool skillInAction = false;
+    inline int coordFocusedObjectMapx = -1;
+    inline int coordFocusedObjectMapy = -1;
+    inline int stateFocusedObjectProgress = 0;
+    const int spdFocusedObjectProgressIncrement = 300;
+    inline CTimer tmrFocusedObjectProgressIncrease(spdFocusedObjectProgressIncrement);
+    inline int timeSkillElapseDuration = 500;
+    inline float coordStartX;
+    inline float coordStartY;
+    inline float coordDxStep;
+    inline float coordDyStep;
+    inline bool stateSkillInAction = false;
 
     void FocusOnObject(CPoint p);
     void Render();

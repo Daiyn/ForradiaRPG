@@ -7,7 +7,7 @@
   Classes:   CObject
 
   Functions: TryStartDragingObjectFromGround
-             DropObjectInAirIfExists
+             DropnodupMovedObjectIfExists
              Render
 
   Origin:    Written by Andreas Åkerberg.
@@ -28,9 +28,9 @@ void RenderItemMoving();
 
 namespace ItemMoving
 {
-    inline unique_ptr<CObject> objectInAir;
+    inline unique_ptr<CObject> nodupMovedObject;
 
-    void DropObjectInAirIfExists(int mapx, int mapy);
+    void DropnodupMovedObjectIfExists(int mapx, int mapy);
     void Render();
     bool TryStartDragingObjectFromGround(int mapx, int mapy);
 };

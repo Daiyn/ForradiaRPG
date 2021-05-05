@@ -21,7 +21,7 @@ void FoodEating::Render()
 {
 
     int margin = 5;
-    int left = GUIStatusPanel::wOrig * Global::GetScalingHorizontal() + margin;
+    int left = GUIStatusPanel::pxWidthOriginal * Global::GetScalingHorizontal() + margin;
     int top = 20;
     int iconSize = 40;
 

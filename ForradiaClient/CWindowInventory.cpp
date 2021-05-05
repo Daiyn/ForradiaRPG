@@ -61,9 +61,9 @@ bool CWindowInventory::HandleMouseClickInWindow()
                     if (it->first == i)
                     {
 
-                        ItemMoving::objectInAir = move(it->second);
-                        ItemMoving::objectInAir->m_coordMapX = OBJECT_IN_AIR_OR_INVENTORY;
-                        ItemMoving::objectInAir->m_coordMapY = OBJECT_IN_AIR_OR_INVENTORY;
+                        ItemMoving::nodupMovedObject = move(it->second);
+                        ItemMoving::nodupMovedObject->m_coordMapX = OBJECT_IN_AIR_OR_INVENTORY;
+                        ItemMoving::nodupMovedObject->m_coordMapY = OBJECT_IN_AIR_OR_INVENTORY;
                         objectIsBeingPickedUp = true;
 
                         break;
@@ -116,15 +116,15 @@ bool CWindowInventory::HandleMouseReleaseInWindow()
 
                 if (Global::statePlayer->m_inventory.SlotIsOccupied(i))
                 {
-                    if (Global::statePlayer->m_inventory.m_containedItems[i]->m_idxObjectType == ItemMoving::objectInAir->m_idxObjectType)
+                    if (Global::statePlayer->m_inventory.m_containedItems[i]->m_idxObjectType == ItemMoving::nodupMovedObject->m_idxObjectType)
                     {
-                        Global::statePlayer->m_inventory.m_containedItems[i]->m_propCurrentQuantity += ItemMoving::objectInAir->m_propCurrentQuantity;
-                        ItemMoving::objectInAir.reset();
+                        Global::statePlayer->m_inventory.m_containedItems[i]->m_propCurrentQuantity += ItemMoving::nodupMovedObject->m_propCurrentQuantity;
+                        ItemMoving::nodupMovedObject.reset();
                         return true;
                     }
                 }
 
-                Global::statePlayer->m_inventory.m_containedItems.insert(std::pair<int, unique_ptr<CObject>>(i, move(ItemMoving::objectInAir)));
+                Global::statePlayer->m_inventory.m_containedItems.insert(std::pair<int, unique_ptr<CObject>>(i, move(ItemMoving::nodupMovedObject)));
                 return true;
 
             }

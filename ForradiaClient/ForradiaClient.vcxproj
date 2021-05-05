@@ -119,7 +119,7 @@
     <ClInclude Include="Global_MapSize.h" />
     <ClInclude Include="Global_Player.h" />
     <ClInclude Include="Global_SDL.h" />
-    <ClInclude Include="Global_WorldMap.h" />
+    <ClInclude Include="Global_Worldmap.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="CGUIButton.h" />
     <ClInclude Include="GUICoordPanel.h" />

@@ -12,7 +12,7 @@
 void TrainRendering::RenderTrainLocomotive(int x, int y, CPoint pTile)
 {
 
-    if (pTile.m_x == Global::train->m_coordPosition.x && pTile.m_y == Global::train->m_coordPosition.y)
+    if (pTile.m_x == Global::defaultTrain->m_coordPosition.x && pTile.m_y == Global::defaultTrain->m_coordPosition.y)
     {
 
         int imgWidth = Global::GetTileSize() * 4;
@@ -29,18 +29,18 @@ void TrainRendering::RenderTrainLocomotive(int x, int y, CPoint pTile)
         {
 
         case 0:
-            SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_TRAIN_LOCOMOTIVE_0], NULL, &rTileMod);
+            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TRAIN_LOCOMOTIVE_0], NULL, &rTileMod);
             break;
         case 1:
-            SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_TRAIN_LOCOMOTIVE_1], NULL, &rTileMod);
+            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TRAIN_LOCOMOTIVE_1], NULL, &rTileMod);
             break;
         case 2:
-            SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_TRAIN_LOCOMOTIVE_2], NULL, &rTileMod);
+            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TRAIN_LOCOMOTIVE_2], NULL, &rTileMod);
             break;
 
         }
 
-        for (int i = 0; i < Global::train->m_containedNPCsOnTrain.size(); i++)
+        for (int i = 0; i < Global::defaultTrain->m_containedNPCsOnTrain.size(); i++)
         {
 
             int imgWidth = Global::GetTileSize() * 1.5;
@@ -51,7 +51,7 @@ void TrainRendering::RenderTrainLocomotive(int x, int y, CPoint pTile)
                                     imgWidth,
                                     imgHeight };
 
-            SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_NPC], NULL, &rTileMod);
+            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_NPC], NULL, &rTileMod);
 
         }
     }
@@ -61,8 +61,8 @@ void TrainRendering::RenderTrainLocomotive(int x, int y, CPoint pTile)
 void TrainRendering::RenderTrainCarriages(int x, int y, CPoint pTile)
 {
 
-    for (auto it = Global::train->m_coordsCarriagePositions.begin();
-         it != Global::train->m_coordsCarriagePositions.end(); it++)
+    for (auto it = Global::defaultTrain->m_coordsCarriagePositions.begin();
+         it != Global::defaultTrain->m_coordsCarriagePositions.end(); it++)
     {
 
         if (pTile.m_x == (*it).x && pTile.m_y == (*it).y)
@@ -76,7 +76,7 @@ void TrainRendering::RenderTrainCarriages(int x, int y, CPoint pTile)
                     imgWidth,
                     imgHeight };
 
-            SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_TRAIN_CARRIAGE], NULL, &rTileMod);
+            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TRAIN_CARRIAGE], NULL, &rTileMod);
 
         }
     }

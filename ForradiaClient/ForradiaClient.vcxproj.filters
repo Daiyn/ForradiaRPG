@@ -407,7 +407,7 @@
     <ClInclude Include="Global_CurrentScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Global_WorldMap.h">
+    <ClInclude Include="Global_Worldmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BattleExecution.h">

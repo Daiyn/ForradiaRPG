@@ -49,9 +49,9 @@ bool ItemMoving::TryStartDragingObjectFromGround(int mapx, int mapy)
             if (DataLoading::libDescriptions[objectType]->m_propAttributes["Movable"] == "True")
             {
 
-                objectInAir = move(topObject);
-                objectInAir->m_coordMapX = OBJECT_IN_AIR_OR_INVENTORY;
-                objectInAir->m_coordMapY = OBJECT_IN_AIR_OR_INVENTORY;
+                nodupMovedObject = move(topObject);
+                nodupMovedObject->m_coordMapX = OBJECT_IN_AIR_OR_INVENTORY;
+                nodupMovedObject->m_coordMapY = OBJECT_IN_AIR_OR_INVENTORY;
 
             }
 
@@ -64,7 +64,7 @@ bool ItemMoving::TryStartDragingObjectFromGround(int mapx, int mapy)
     return false;
 }
 
-void ItemMoving::DropObjectInAirIfExists(int mapx, int mapy)
+void ItemMoving::DropnodupMovedObjectIfExists(int mapx, int mapy)
 {
 
     if (mapx < 0 || mapy < 0 || mapx >= Global::tilesMapSize || mapy >= Global::tilesMapSize)
@@ -75,30 +75,30 @@ void ItemMoving::DropObjectInAirIfExists(int mapx, int mapy)
     if (seenFloorIndex == -1)
         return;
 
-    if (objectInAir != NULL)
+    if (nodupMovedObject != NULL)
     {
-        objectInAir->m_coordMapX = mapx;
-        objectInAir->m_coordMapY = mapy;
+        nodupMovedObject->m_coordMapX = mapx;
+        nodupMovedObject->m_coordMapY = mapy;
 
         for (int jj = 0; jj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jj++)
         {
             if (Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj] != NULL)
             {
-                if (Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj]->m_idxObjectType == objectInAir->m_idxObjectType)
+                if (Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj]->m_idxObjectType == nodupMovedObject->m_idxObjectType)
                 {
-                    Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj]->m_propCurrentQuantity += objectInAir->m_propCurrentQuantity;
+                    Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj]->m_propCurrentQuantity += nodupMovedObject->m_propCurrentQuantity;
                     break;
                 }
                 
             }
             else
             {
-                Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj] = move(objectInAir);
+                Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj] = move(nodupMovedObject);
                 break;
             }
         }
 
-        objectInAir = NULL;
+        nodupMovedObject = NULL;
     }
 
 }
@@ -106,15 +106,15 @@ void ItemMoving::DropObjectInAirIfExists(int mapx, int mapy)
 void ItemMoving::Render()
 {
 
-    if (objectInAir == NULL)
+    if (nodupMovedObject == NULL)
         return;
 
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
 
-    CRectangle rectObjectInAir = {mx - Global::GetTileSize(), my - Global::GetTileSize(), 2*Global::GetTileSize(), 2*Global::GetTileSize()};
+    CRectangle rectnodupMovedObject = {mx - Global::GetTileSize(), my - Global::GetTileSize(), 2*Global::GetTileSize(), 2*Global::GetTileSize()};
 
-    Drawing::Image(objectInAir->m_idxObjectType, rectObjectInAir);
+    Drawing::Image(nodupMovedObject->m_idxObjectType, rectnodupMovedObject);
 
 
 }

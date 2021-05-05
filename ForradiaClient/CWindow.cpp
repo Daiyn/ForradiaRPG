@@ -216,19 +216,19 @@ void CWindow::RenderBase()
 
     Drawing::Image(ID_WINDOW_BACK, rect);
 
-    SDL_SetRenderDrawColor(Global::renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(Global::sdlRendererDefault, 0, 0, 0, 255);
 
-    SDL_RenderDrawRect(Global::renderer, &rect);
+    SDL_RenderDrawRect(Global::sdlRendererDefault, &rect);
 
-    SDL_SetRenderDrawColor(Global::renderer, 200, 200, 255, 255);
+    SDL_SetRenderDrawColor(Global::sdlRendererDefault, 200, 200, 255, 255);
 
     rect = {m_x, m_y, m_w, m_pxTitleBarHeight};
 
-    SDL_RenderFillRect(Global::renderer, &rect);
+    SDL_RenderFillRect(Global::sdlRendererDefault, &rect);
 
-    SDL_SetRenderDrawColor(Global::renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(Global::sdlRendererDefault, 0, 0, 0, 255);
 
-    SDL_RenderDrawRect(Global::renderer, &rect);
+    SDL_RenderDrawRect(Global::sdlRendererDefault, &rect);
 
     int titleTextMargin = m_pxTitleBarHeight / 2 - TextRendering::GetTextHeight() / 2;
 
@@ -238,7 +238,7 @@ void CWindow::RenderBase()
 
     rect = {m_x + m_w - iconCloseWindowSize - m_pxTitleBarMargin, m_y + m_pxTitleBarMargin, iconCloseWindowSize, iconCloseWindowSize};
 
-    SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_ICON_CLOSE_WINDOW], NULL, &rect);
+    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_ICON_CLOSE_WINDOW], NULL, &rect);
 
 }
 
@@ -268,13 +268,13 @@ void CWindow::Render()
 
                 SDL_Rect rectButton = { m_x + m_pxMargin + i * (m_pxButtonWidth + m_pxMargin), m_y + m_h - m_pxButtonHeight - m_pxMargin, m_pxButtonWidth, m_pxButtonHeight };
 
-                SDL_SetRenderDrawColor(Global::renderer, 255, 200, 200, 255);
+                SDL_SetRenderDrawColor(Global::sdlRendererDefault, 255, 200, 200, 255);
 
-                SDL_RenderFillRect(Global::renderer, &rectButton);
+                SDL_RenderFillRect(Global::sdlRendererDefault, &rectButton);
 
-                SDL_SetRenderDrawColor(Global::renderer, 0, 0, 0, 255);
+                SDL_SetRenderDrawColor(Global::sdlRendererDefault, 0, 0, 0, 255);
 
-                SDL_RenderDrawRect(Global::renderer, &rectButton);
+                SDL_RenderDrawRect(Global::sdlRendererDefault, &rectButton);
 
                 TextRendering::DrawString(strAnswer, { 0, 0, 0 }, rectButton.x, rectButton.y);
 

@@ -15,23 +15,23 @@ using std::setprecision;
 void GUIStatusPanel::Render()
 {
 
-    int w = wOrig * Global::GetScalingHorizontal();
-    int h = hOrig * Global::GetScalingVertical();
+    int w = pxWidthOriginal * Global::GetScalingHorizontal();
+    int h = pxHeightOriginal * Global::GetScalingVertical();
 
 
     CRectangle rect = {0, 0, w, h};
 
-    auto tex = ImageLoading::texturesArray[ID_MAP_PREVIEW_BACK];
+    auto tex = ImageLoading::libTextures[ID_MAP_PREVIEW_BACK];
     Drawing::Image(ID_MAP_PREVIEW_BACK, rect);
 
-    int barLeft = margin;
-    int barTop = margin * 3;
-    int barWidth = w - 2 * margin;
+    int barLeft = pxMargin;
+    int barTop = pxMargin * 3;
+    int barWidth = w - 2 * pxMargin;
     int barHeight = 25;
 
     string strHP = "HP: " + std::to_string(Global::statePlayer->m_statCurrentHP) + "/" + std::to_string(Global::statePlayer->m_statMaxHP);
 
-    TextRendering::DrawString(strHP, WHITE, margin, margin);
+    TextRendering::DrawString(strHP, WHITE, pxMargin, pxMargin);
 
     CRectangle rectHPBar = {barLeft, barTop, barWidth, barHeight};
 
@@ -61,7 +61,7 @@ void GUIStatusPanel::Render()
 
     string strNRGY = "NRGY: " + strNRGYCurrent + "/" + strNRGYMax;
 
-    TextRendering::DrawString(strNRGY, WHITE, margin, margin + 2*barHeight);
+    TextRendering::DrawString(strNRGY, WHITE, pxMargin, pxMargin + 2*barHeight);
 
     CRectangle rectNRGYBar = { barLeft, barTop, barWidth, barHeight };
 

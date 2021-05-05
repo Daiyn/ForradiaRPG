@@ -23,5 +23,5 @@ class CTrain;
 
 namespace Global
 {
-    inline unique_ptr<CTrain> train;
+    inline unique_ptr<CTrain> defaultTrain;
 }

@@ -22,7 +22,7 @@
 
 namespace KeyboardInput
 {
-    inline std::map<SDL_Keycode, bool> pressedKeys;
+    inline std::map<SDL_Keycode, bool> statesPressedKeys;
 
     void DoKeyDown(SDL_Keycode key);
     void DoKeyUp(SDL_Keycode key);

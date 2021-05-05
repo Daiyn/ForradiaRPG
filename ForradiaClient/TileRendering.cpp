@@ -364,10 +364,10 @@ void TileRendering::RenderTileHoveringEffect(int x, int y, CPoint pTile)
 
     SDL_Rect rTile = { x * Global::GetTileSize(), y * Global::GetTileSize(), Global::GetTileSize(), Global::GetTileSize() };
 
-    if (pTile.m_x == PlayerActions::hoveredTile.m_x && pTile.m_y == PlayerActions::hoveredTile.m_y)
+    if (pTile.m_x == PlayerActions::coordHoveredTile.m_x && pTile.m_y == PlayerActions::coordHoveredTile.m_y)
     {
 
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_TILE_HOVER_EFFECT], NULL, &rTile);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TILE_HOVER_EFFECT], NULL, &rTile);
 
     }
 

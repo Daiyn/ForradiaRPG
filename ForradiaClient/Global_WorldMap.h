@@ -21,8 +21,8 @@ using std::unique_ptr;
 
 namespace Global
 {
-    const int worldMapCols = 1;
-    const int worldMapRows = 1;
-    const int worldMapLevels = 1;
-    inline unique_ptr<CMap> worldMap[worldMapCols][worldMapRows][worldMapLevels];
+    const int maxWorldmapCols = 1;
+    const int maxWorldmapRows = 1;
+    const int maxWorldmapFloors = 1;
+    inline unique_ptr<CMap> contentWorldmap[maxWorldmapCols][maxWorldmapRows][maxWorldmapFloors];
 }

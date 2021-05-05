@@ -26,8 +26,8 @@ using std::string;
 
 namespace GUITerminal
 {
-    inline std::vector< std::vector<CColoredString>> text;
-    const int padding = 10;
+    inline std::vector< std::vector<CColoredString>> bufferAllText;
+    const int pxPadding = 10;
 
     void Print(string msg);
     void PrintDamageToFoe(int damage, string enemy);

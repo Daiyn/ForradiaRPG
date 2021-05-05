@@ -18,9 +18,9 @@ void RenderPlayerActions()
 void PlayerActions::FocusOnObject(CPoint p)
 {
 
-    focusedObjectMapx = p.m_x;
-    focusedObjectMapy = p.m_y;
-    focusedObjectProgress = 0;
+    coordFocusedObjectMapx = p.m_x;
+    coordFocusedObjectMapy = p.m_y;
+    stateFocusedObjectProgress = 0;
 
 }
 
@@ -42,7 +42,7 @@ void PlayerActions::UpdateHoveredTile()
         SDL_GetMouseState(&p.m_x, &p.m_y);
         p = { p.m_x / Global::GetTileSize(), p.m_y / Global::GetTileSize() };
         p = { Global::statePlayer->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2 + p.m_x, Global::statePlayer->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 + p.m_y };
-        hoveredTile = p;
+        coordHoveredTile = p;
     }
 
 }
@@ -53,45 +53,45 @@ void PlayerActions::StartPerformSkill()
     if (SDL_GetTicks() - Global::statePlayer->m_tickLastSkillCastEnded < Global::statePlayer->m_spdSkillCasting)
         return;
 
-    if (skillInAction)
+    if (stateSkillInAction)
         return;
 
-    float dx = hoveredTile.m_x - Global::statePlayer->m_coordPosition.m_x;
-    float dy = hoveredTile.m_y - Global::statePlayer->m_coordPosition.m_y;
+    float dx = coordHoveredTile.m_x - Global::statePlayer->m_coordPosition.m_x;
+    float dy = coordHoveredTile.m_y - Global::statePlayer->m_coordPosition.m_y;
 
     float dist = sqrt(dx * dx + dy * dy);
 
-    dxStep = dx / dist;
-    dyStep = dy / dist;
+    coordDxStep = dx / dist;
+    coordDyStep = dy / dist;
 
-    xStart = Global::statePlayer->m_coordPosition.m_x;
-    yStart = Global::statePlayer->m_coordPosition.m_y;
+    coordStartX = Global::statePlayer->m_coordPosition.m_x;
+    coordStartY = Global::statePlayer->m_coordPosition.m_y;
 
     tickStartSkillPerform = SDL_GetTicks();
 
-    skillInAction = true;
+    stateSkillInAction = true;
 
-    skillAffectedTiles.clear();
+    coordsSkillAffectedTiles.clear();
 
 }
 
 void PlayerActions::Render()
 {
 
-    if (!skillInAction)
+    if (!stateSkillInAction)
         return;
 
     float deltaTime = SDL_GetTicks() - tickStartSkillPerform;
     deltaTime = pow(deltaTime, 1.5f);
     deltaTime /= 120;
 
-    float currentX = xStart + deltaTime * dxStep / 2;
-    float currentY = yStart + deltaTime * dyStep / 2;
+    float currentX = coordStartX + deltaTime * coordDxStep / 2;
+    float currentY = coordStartY + deltaTime * coordDyStep / 2;
 
     float tileX = currentX - (Global::statePlayer->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2);
     float tileY = currentY - (Global::statePlayer->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2);
 
-    skillAffectedTiles.push_back({(int) currentX, (int) currentY});
+    coordsSkillAffectedTiles.push_back({(int) currentX, (int) currentY});
 
 
     int dx = currentX - Global::statePlayer->m_coordPosition.m_x;
@@ -107,7 +107,7 @@ void PlayerActions::Render()
             int ddy = y - currentY;
 
             if (ddx * ddx + ddy * ddy < dist)
-                skillAffectedTiles.push_back({(int) x, (int) y});
+                coordsSkillAffectedTiles.push_back({(int) x, (int) y});
         }
     }
 
@@ -126,14 +126,14 @@ void PlayerActions::Render()
 
     for (int i = 0; i < 256; i += 5)
     {
-        SDL_SetRenderDrawColor(Global::renderer, 255, 255 - i * 3 / 4, 0, i);
+        SDL_SetRenderDrawColor(Global::sdlRendererDefault, 255, 255 - i * 3 / 4, 0, i);
 
         if (i % 15 == 0)
-            SDL_SetRenderDrawColor(Global::renderer, 0, 0, 0, i);
+            SDL_SetRenderDrawColor(Global::sdlRendererDefault, 0, 0, 0, i);
 
-        SDL_RenderDrawLine(Global::renderer, x1, y1, x2 + (rand() % 50) * 200 / (i + 1) - (rand() % 50) * 200 / (i + 1),
+        SDL_RenderDrawLine(Global::sdlRendererDefault, x1, y1, x2 + (rand() % 50) * 200 / (i + 1) - (rand() % 50) * 200 / (i + 1),
                            y2 + (rand() % 50) * 200 / (i + 1) - (rand() % 50) * 200 / (i + 1));
-        SDL_RenderDrawLine(Global::renderer, x1, y1,
+        SDL_RenderDrawLine(Global::sdlRendererDefault, x1, y1,
                            x2 + 1 + (rand() % 50) * 200 / (i + 1) - (rand() % 50) * 200 / (i + 1),
                            y2 + 1 + (rand() % 50) * 200 / (i + 1) - (rand() % 50) * 200 / (i + 1));
     }
@@ -141,15 +141,15 @@ void PlayerActions::Render()
 
 void PlayerActions::UpdateSkillsPerformed()
 {
-    if (skillInAction)
+    if (stateSkillInAction)
     {
         float deltaTime = SDL_GetTicks() - tickStartSkillPerform;
         deltaTime = pow(deltaTime, 1.5f);
 
         if (deltaTime > 4000)
         {
-            skillAffectedTiles.clear();
-            skillInAction = false;
+            coordsSkillAffectedTiles.clear();
+            stateSkillInAction = false;
             Global::statePlayer->m_tickLastSkillCastEnded = SDL_GetTicks();
         }
     }
@@ -157,29 +157,29 @@ void PlayerActions::UpdateSkillsPerformed()
 
 void PlayerActions::UpdateFocusedObject()
 {
-    if (focusedObjectMapx != -1 && focusedObjectMapy != -1)
+    if (coordFocusedObjectMapx != -1 && coordFocusedObjectMapy != -1)
     {
         if (tmrFocusedObjectProgressIncrease.TimeForUpdate())
         {
  
-            if (focusedObjectProgress >= 2)
+            if (stateFocusedObjectProgress >= 2)
             {
 
-                if (Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTree1"), focusedObjectMapx, focusedObjectMapy, SURFACE_FLOOR)
-                    || Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTree2"), focusedObjectMapx, focusedObjectMapy, SURFACE_FLOOR))
+                if (Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTree1"), coordFocusedObjectMapx, coordFocusedObjectMapy, SURFACE_FLOOR)
+                    || Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTree2"), coordFocusedObjectMapx, coordFocusedObjectMapy, SURFACE_FLOOR))
                 {
 
-                    Global::contentCurrentMap->m_tilesGrid[focusedObjectMapx][focusedObjectMapy]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
-                    Global::contentCurrentMap->m_tilesGrid[focusedObjectMapx][focusedObjectMapy]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectFelledTree"));
+                    Global::contentCurrentMap->m_tilesGrid[coordFocusedObjectMapx][coordFocusedObjectMapy]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
+                    Global::contentCurrentMap->m_tilesGrid[coordFocusedObjectMapx][coordFocusedObjectMapy]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectFelledTree"));
 
                 }
 
-                focusedObjectMapx = -1;
-                focusedObjectMapy = -1;
+                coordFocusedObjectMapx = -1;
+                coordFocusedObjectMapy = -1;
 
             }
 
-            focusedObjectProgress += 1;
+            stateFocusedObjectProgress += 1;
 
         }
     }

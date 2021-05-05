@@ -119,12 +119,12 @@ void Drawing::FilledRect(float r, float g, float b, float a, CRectangle rect)
 
 void Drawing::UseDefaultRenderer()
 {
-    activeRenderer = Global::renderer;
-    activeTexturesLib = ImageLoading::texturesArray;
+    activeRenderer = Global::sdlRendererDefault;
+    activeTexturesLib = ImageLoading::libTextures;
 }
 
 void Drawing::UseFullMapRenderer()
 {
-    activeRenderer = Global::rendererFullMapOverview;
-    activeTexturesLib = ImageLoading::texturesMapPreviewArray;
+    activeRenderer = Global::sdlRendererFullMapRender;
+    activeTexturesLib = ImageLoading::libTexturesFullMapRender;
 }

@@ -13,7 +13,7 @@
 #include "Global_CurrentScene.h"
 #include "Global_SDL.h"
 #include "Global_Player.h"
-#include "Global_WorldMap.h"
+#include "Global_Worldmap.h"
 #include "ImageLoading.h"
 #include <memory>
 

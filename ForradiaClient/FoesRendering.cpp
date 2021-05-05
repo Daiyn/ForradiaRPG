@@ -154,7 +154,7 @@ void FoesRendering::RenderTileFoes(int x, int y, CPoint pTile)
 
         }
 
-        if (pTile.m_x == PlayerActions::hoveredTile.m_x && pTile.m_y == PlayerActions::hoveredTile.m_y
+        if (pTile.m_x == PlayerActions::coordHoveredTile.m_x && pTile.m_y == PlayerActions::coordHoveredTile.m_y
             || (Combat::idxTargetedFoe != -1 && foe.m_uniqueID == Global::contentCurrentMap->m_mirrorAllFoes[Combat::idxTargetedFoe].get().m_uniqueID))
         {
             int foeHpBarHeight = 10;

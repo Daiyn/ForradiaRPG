@@ -19,38 +19,38 @@
 void MouseInput::DoMouseDown(Uint8 button)
 {
 
-    pMouseDown = CPoint(HOVERED_TILE);
+    coordMouseDown = CPoint(HOVERED_TILE);
 
     if (button == SDL_BUTTON_LEFT)
     {
-        mouseButtonLeftDown = true;
-        mouseButtonLeftPressed = true;
+        stateMouseButtonLeftDown = true;
+        stateMouseButtonLeftPressed = true;
 
 
-        if (GUISystemMenu::isShown)
+        if (GUISystemMenu::stateIsShown)
         {
-            GUISystemMenu::HandleMouseClickInSystemMenu(mouseButtonLeftDown);
-            mouseButtonLeftDown = false;
+            GUISystemMenu::HandleMouseClickInSystemMenu(stateMouseButtonLeftDown);
+            stateMouseButtonLeftDown = false;
         }
 
         if (GUIWorldMenu::HandleLeftMouseClickInWorld())
-            mouseButtonLeftPressed = false;
+            stateMouseButtonLeftPressed = false;
         else if (ItemMoving::TryStartDragingObjectFromGround(Utilities::GetHoveredMapx(),
                                                                 Utilities::GetHoveredMapy()))
         {
-            mouseButtonLeftPressed = false;
-            mouseButtonLeftDown = false;
+            stateMouseButtonLeftPressed = false;
+            stateMouseButtonLeftDown = false;
         }
 
         if (GUI::HandleMouseClickInGUI())
-            mouseButtonLeftPressed = false;
+            stateMouseButtonLeftPressed = false;
 
     }
 
     if (button == SDL_BUTTON_RIGHT)
     {
-        mouseButtonRightDown = true;
-        mouseButtonRightPressed = true;
+        stateMouseButtonRightDown = true;
+        stateMouseButtonRightPressed = true;
 
         GUIWorldMenu::HandleRightMouseClickInWorld();
     }
@@ -62,19 +62,19 @@ void MouseInput::DoMouseUp(Uint8 button)
 
     if (button == SDL_BUTTON_LEFT)
     {
-        mouseButtonLeftDown = false;
-        mouseButtonLeftReleased = true;
-        mouseButtonLeftPressed = false;
+        stateMouseButtonLeftDown = false;
+        stateMouseButtonLeftReleased = true;
+        stateMouseButtonLeftPressed = false;
 
         if (!GUI::HandleMouseReleaseInGUI())
-            ItemMoving::DropObjectInAirIfExists(Utilities::GetHoveredMapx(), Utilities::GetHoveredMapy());
+            ItemMoving::DropnodupMovedObjectIfExists(Utilities::GetHoveredMapx(), Utilities::GetHoveredMapy());
 
 
-        if (!mouseDownInGUI && !GUI::CheckMouseClickInGUI())
+        if (!stateMouseDownInGUI && !GUI::CheckMouseClickInGUI())
         {
 
-            if (!KeyboardInput::pressedKeys[SDLK_LSHIFT] && !Combat::HandleMouseClickOnFoe()
-            && pMouseDown.Equals(CPoint(HOVERED_TILE)))
+            if (!KeyboardInput::statesPressedKeys[SDLK_LSHIFT] && !Combat::HandleMouseClickOnFoe()
+            && coordMouseDown.Equals(CPoint(HOVERED_TILE)))
                 Global::statePlayer->MouseClickToMove();
 
         }
@@ -83,9 +83,9 @@ void MouseInput::DoMouseUp(Uint8 button)
 
     if (button == SDL_BUTTON_RIGHT)
     {
-        mouseButtonRightDown = false;
-        mouseButtonRightReleased = true;
-        mouseButtonRightPressed = false;
+        stateMouseButtonRightDown = false;
+        stateMouseButtonRightReleased = true;
+        stateMouseButtonRightPressed = false;
     }
 
 }
@@ -97,7 +97,7 @@ void MouseInput::CheckMouseClickOnNPCs()
 
     if (pHoveredTile.WithinMap())
     {
-        if (mouseButtonLeftDown)
+        if (stateMouseButtonLeftDown)
         {
             if (Global::contentCurrentMap->m_tilesGrid[pHoveredTile.m_x][pHoveredTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size() > 0)
             {
@@ -107,7 +107,7 @@ void MouseInput::CheckMouseClickOnNPCs()
                 {
 
                     std::unique_ptr<CWindow> win(new CWindow(100, 100, 400, 300, npc.m_uniqueID, "Dialog"));
-                    GUI::windows.push_back(move(win));
+                    GUI::activeWindows.push_back(move(win));
 
                 }
             }
@@ -118,13 +118,13 @@ void MouseInput::CheckMouseClickOnNPCs()
 void MouseInput::Update()
 {
 
-    mouseDownInGUI = GUI::CheckMouseClickInGUI();
+    stateMouseDownInGUI = GUI::CheckMouseClickInGUI();
 
-    if (mouseButtonLeftPressed && !mouseDownInGUI && !GUI::CheckMouseClickInGUI())
-        if (!KeyboardInput::pressedKeys[SDLK_LSHIFT] && !Combat::HandleMouseClickOnFoe() && ItemMoving::objectInAir == NULL)
+    if (stateMouseButtonLeftPressed && !stateMouseDownInGUI && !GUI::CheckMouseClickInGUI())
+        if (!KeyboardInput::statesPressedKeys[SDLK_LSHIFT] && !Combat::HandleMouseClickOnFoe() && ItemMoving::nodupMovedObject == NULL)
             Global::statePlayer->MouseClickToMove();
 
-    if (KeyboardInput::pressedKeys[SDLK_LSHIFT] && mouseButtonLeftDown && !mouseDownInGUI &&
+    if (KeyboardInput::statesPressedKeys[SDLK_LSHIFT] && stateMouseButtonLeftDown && !stateMouseDownInGUI &&
         !GUI::CheckMouseClickInGUI())
         Global::statePlayer->MouseClickToMove();
 
@@ -136,10 +136,10 @@ void MouseInput::Update()
 void MouseInput::ResetEventVariables()
 {
 
-    mouseButtonLeftDown = false;
-    mouseButtonRightDown = false;
+    stateMouseButtonLeftDown = false;
+    stateMouseButtonRightDown = false;
 
-    mouseButtonLeftReleased = false;
-    mouseButtonRightReleased = false;
+    stateMouseButtonLeftReleased = false;
+    stateMouseButtonRightReleased = false;
 
 }

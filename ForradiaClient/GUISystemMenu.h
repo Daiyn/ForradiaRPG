@@ -27,12 +27,12 @@ using std::string;
 
 namespace GUISystemMenu
 {
-    inline string menuOptions[2] =
+    inline string labelsMenuOptions[2] =
     {
             "Main Menu",
             "Return to Game"
     };
-    inline bool isShown = false;
+    inline bool stateIsShown = false;
 
     void HandleMouseClickInSystemMenu(bool leftMouseButtonDown);
     void RenderIfShown();

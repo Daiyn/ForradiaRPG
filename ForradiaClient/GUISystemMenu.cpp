@@ -16,7 +16,7 @@ using std::make_unique;
 
 void GUISystemMenu::Show()
 {
-    isShown = true;
+    stateIsShown = true;
 }
 
 void GUISystemMenu::HandleMouseClickInSystemMenu(bool leftMouseButtonDown)
@@ -26,7 +26,7 @@ void GUISystemMenu::HandleMouseClickInSystemMenu(bool leftMouseButtonDown)
 
     int i = 0;
 
-    for (auto option : menuOptions) {
+    for (auto option : labelsMenuOptions) {
 
         CRectangle rect = {
                 Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,
@@ -38,11 +38,11 @@ void GUISystemMenu::HandleMouseClickInSystemMenu(bool leftMouseButtonDown)
             switch (i) {
                 case 0:
                     Global::ChangeScene(make_unique<CSceneMainMenu>(CSceneMainMenu()));
-                    isShown = false;
+                    stateIsShown = false;
                     break;
 
                 case 1:
-                    isShown = false;
+                    stateIsShown = false;
                     break;
             }
         }
@@ -55,7 +55,7 @@ void GUISystemMenu::HandleMouseClickInSystemMenu(bool leftMouseButtonDown)
 void GUISystemMenu::Update()
 {
 
-    if (!isShown)
+    if (!stateIsShown)
         return;
 
     CPoint pMouse = Global::GetMousePoint();
@@ -64,7 +64,7 @@ void GUISystemMenu::Update()
 
     int i = 0;
 
-    for (auto option : menuOptions)
+    for (auto option : labelsMenuOptions)
     {
 
         CRectangle rect = {
@@ -84,7 +84,7 @@ void GUISystemMenu::Update()
 
 void GUISystemMenu::RenderIfShown() {
 
-    if (!isShown)
+    if (!stateIsShown)
         return;
 
     CPoint pMouse = Global::GetMousePoint();
@@ -92,7 +92,7 @@ void GUISystemMenu::RenderIfShown() {
 
     int i = 0;
 
-    for (auto option : menuOptions) {
+    for (auto option : labelsMenuOptions) {
 
         CRectangle rect = {
                 Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,

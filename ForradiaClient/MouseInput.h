@@ -25,14 +25,14 @@
 
 namespace MouseInput
 {
-    inline CPoint pMouseDown = { -1, -1 };
-    inline bool mouseButtonLeftDown = false;
-    inline bool mouseButtonRightDown = false;
-    inline bool mouseButtonLeftPressed = false;
-    inline bool mouseButtonRightPressed = false;
-    inline bool mouseButtonLeftReleased = false;
-    inline bool mouseButtonRightReleased = false;
-    inline bool mouseDownInGUI = false;
+    inline CPoint coordMouseDown = { -1, -1 };
+    inline bool stateMouseButtonLeftDown = false;
+    inline bool stateMouseButtonRightDown = false;
+    inline bool stateMouseButtonLeftPressed = false;
+    inline bool stateMouseButtonRightPressed = false;
+    inline bool stateMouseButtonLeftReleased = false;
+    inline bool stateMouseButtonRightReleased = false;
+    inline bool stateMouseDownInGUI = false;
 
     void CheckMouseClickOnNPCs();
     void DoMouseDown(Uint8 button);

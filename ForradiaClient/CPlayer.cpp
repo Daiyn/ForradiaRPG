@@ -257,16 +257,16 @@ void CPlayer::UpdateKeyboardMovement()
 
         CPoint m_positionNew = m_coordPosition;
 
-        if (KeyboardInput::pressedKeys[SDLK_w])
+        if (KeyboardInput::statesPressedKeys[SDLK_w])
             m_positionNew.m_y--;
 
-        if (KeyboardInput::pressedKeys[SDLK_a])
+        if (KeyboardInput::statesPressedKeys[SDLK_a])
             m_positionNew.m_x--;
 
-        if (KeyboardInput::pressedKeys[SDLK_s])
+        if (KeyboardInput::statesPressedKeys[SDLK_s])
             m_positionNew.m_y++;
 
-        if (KeyboardInput::pressedKeys[SDLK_d])
+        if (KeyboardInput::statesPressedKeys[SDLK_d])
             m_positionNew.m_x++;
 
 
@@ -643,11 +643,11 @@ int CPlayer::GetJumpHeight()
 void CPlayer::UpdateJumping()
 {
 
-    if (KeyboardInput::pressedKeys[SDLK_SPACE] && !IsJumping())
+    if (KeyboardInput::statesPressedKeys[SDLK_SPACE] && !IsJumping())
     {
 
         Jump();
-        KeyboardInput::pressedKeys[SDLK_SPACE] = false;
+        KeyboardInput::statesPressedKeys[SDLK_SPACE] = false;
 
     }
 

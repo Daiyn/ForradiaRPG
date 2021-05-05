@@ -12,14 +12,14 @@ void SDLInitialization::Initialize()
     SDL_GetDesktopDisplayMode(0, &dm);
     int windowInitWidth = dm.w*3/4;
     int windowInitHeight = dm.h*3/4;
-    Global::window = SDL_CreateWindow("Forradia",
+    Global::sdlWindow = SDL_CreateWindow("Forradia",
                                         SDL_WINDOWPOS_CENTERED,
                                         SDL_WINDOWPOS_CENTERED, 
                                         windowInitWidth,
                                         windowInitHeight,
                                         SDL_WINDOW_RESIZABLE);
-    Global::renderer = SDL_CreateRenderer(Global::window, -1, SDL_RENDERER_ACCELERATED);
-    SDL_SetRenderDrawBlendMode(Global::renderer, SDL_BLENDMODE_BLEND);
+    Global::sdlRendererDefault = SDL_CreateRenderer(Global::sdlWindow, -1, SDL_RENDERER_ACCELERATED);
+    SDL_SetRenderDrawBlendMode(Global::sdlRendererDefault, SDL_BLENDMODE_BLEND);
     SDL_ShowCursor(SDL_DISABLE);
     TTF_Init();
 

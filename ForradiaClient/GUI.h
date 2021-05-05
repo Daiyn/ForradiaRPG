@@ -33,10 +33,10 @@ class CMap;
 
 namespace GUI
 {
-    inline vector<unique_ptr<CWindow>> windows;
-    const int NUMBER_OF_BUTTONS = 3;
-    const int buttonImages[NUMBER_OF_BUTTONS] = { ID_ICON_INVENTORY, ID_ICON_CRAFTING, ID_ICON_SYSTEM };
-    inline int wOrig = 120;
+    inline vector<unique_ptr<CWindow>> activeWindows;
+    const int numberOfGUIButtons = 3;
+    const int idxsButtonImages[numberOfGUIButtons] = { ID_ICON_INVENTORY, ID_ICON_CRAFTING, ID_ICON_SYSTEM };
+    inline int pxWidthOriginal = 120;
 
     bool CheckMouseClickInGUI();
     bool HandleMouseClickInGUI();

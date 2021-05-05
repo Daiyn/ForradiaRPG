@@ -39,7 +39,7 @@ namespace Global
 inline int Global::GetCanvasWidth()
 {
 
-    if (Global::isFullscreen)
+    if (Global::stateFullscreen)
     {
         int sw = 0;
         int sh = 0;
@@ -51,7 +51,7 @@ inline int Global::GetCanvasWidth()
     else
     {
         int w, h;
-        SDL_GetWindowSize(window, &w, &h);
+        SDL_GetWindowSize(sdlWindow, &w, &h);
 
         return w;
     }
@@ -62,7 +62,7 @@ inline int Global::GetCanvasWidth()
 inline int Global::GetCanvasHeight()
 {
 
-    if (Global::isFullscreen)
+    if (Global::stateFullscreen)
     {
         int sw = 0;
         int sh = 0;
@@ -74,7 +74,7 @@ inline int Global::GetCanvasHeight()
     else
     {
         int w, h;
-        SDL_GetWindowSize(window, &w, &h);
+        SDL_GetWindowSize(sdlWindow, &w, &h);
 
         return h;
     }

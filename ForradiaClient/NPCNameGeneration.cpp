@@ -11,12 +11,12 @@ string NPCNameGeneration::GenerateName()
     int v4 = rand() % 6;
     int c5 = rand() % 20;
 
-    string name = (char) toupper((int) (consonants[c0][0]))
-                        + vowels[v1]
-                        + consonants[c2]
-                        + consonants[c3]
-                        + vowels[v4]
-                        + consonants[c5];
+    string name = (char) toupper((int) (lettersConsonants[c0][0]))
+                        + lettersVowels[v1]
+                        + lettersConsonants[c2]
+                        + lettersConsonants[c3]
+                        + lettersVowels[v4]
+                        + lettersConsonants[c5];
 
     return name;
 

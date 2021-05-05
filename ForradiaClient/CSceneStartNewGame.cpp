@@ -30,8 +30,8 @@ CSceneStartNewGame::CSceneStartNewGame()
 
     m_gamedataMap = make_unique<CMap>(Global::tilesMapSize);
 
-    SDL_DestroyRenderer(Global::rendererFullMapOverview);
-    Global::rendererFullMapOverview = nullptr;
+    SDL_DestroyRenderer(Global::sdlRendererFullMapRender);
+    Global::sdlRendererFullMapRender = nullptr;
 
     if (m_gamedataMap->m_texFullMapRender != NULL)
         SDL_DestroyTexture(m_gamedataMap->m_texFullMapRender);
@@ -89,8 +89,8 @@ void CSceneStartNewGame::DoMouseDown(Uint8 button)
 
         m_gamedataMap = make_unique<CMap>(Global::tilesMapSize);
 
-        SDL_DestroyRenderer(Global::rendererFullMapOverview);
-        Global::rendererFullMapOverview = nullptr;
+        SDL_DestroyRenderer(Global::sdlRendererFullMapRender);
+        Global::sdlRendererFullMapRender = nullptr;
 
         SDL_DestroyTexture(m_gamedataMap->m_texFullMapRender);
         m_gamedataMap->m_texFullMapRender = NULL;
@@ -171,9 +171,9 @@ void CSceneStartNewGame::Update()
 void CSceneStartNewGame::GenerateMapPreview()
 {
 
-    if (!Global::rendererFullMapOverview) {
-        Global::rendererFullMapOverview = SDL_CreateSoftwareRenderer(m_gamedataMap->m_imgFullMapRender);
-        SDL_SetRenderDrawBlendMode(Global::rendererFullMapOverview, SDL_BLENDMODE_BLEND);
+    if (!Global::sdlRendererFullMapRender) {
+        Global::sdlRendererFullMapRender = SDL_CreateSoftwareRenderer(m_gamedataMap->m_imgFullMapRender);
+        SDL_SetRenderDrawBlendMode(Global::sdlRendererFullMapRender, SDL_BLENDMODE_BLEND);
     }
 
     // Generate map preview
@@ -260,38 +260,38 @@ void CSceneStartNewGame::Render()
     {
 
     case 0:
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_FORRADIA_START_TEXT_0], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_0], NULL, &rectText);
         break;
     case 1:
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_FORRADIA_START_TEXT_1], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_1], NULL, &rectText);
         break;
     case 2:
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_FORRADIA_START_TEXT_2], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_2], NULL, &rectText);
         break;
     case 3:
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_FORRADIA_START_TEXT_3], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_3], NULL, &rectText);
         break;
     case 4:
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_FORRADIA_START_TEXT_4], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_4], NULL, &rectText);
         break;
     case 5:
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_FORRADIA_START_TEXT_5], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_5], NULL, &rectText);
         break;
     case 6:
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_FORRADIA_START_TEXT_6], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_6], NULL, &rectText);
         break;
     case 7:
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_FORRADIA_START_TEXT_7], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_7], NULL, &rectText);
         break;
     case 8:
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_FORRADIA_START_TEXT_8], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_8], NULL, &rectText);
         break;
 
     }
 
     SDL_Rect rectTitle = {0, 0, 300 / 1600.0 * Global::GetCanvasWidth(), 60 / 900.0 * Global::GetCanvasHeight() };
 
-    SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_TITLE_START_NEW_GAME], NULL, &rectTitle);
+    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TITLE_START_NEW_GAME], NULL, &rectTitle);
 
     string textBack = "Back";
 
@@ -302,7 +302,7 @@ void CSceneStartNewGame::Render()
     else
         imgIndex = ID_MENU_BUTTON_BACK;
 
-    SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[imgIndex], NULL, &rectBackButton);
+    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[imgIndex], NULL, &rectBackButton);
 
     int xmid = rectBackButton.x + rectBackButton.w / 2;
     int xtextpos = xmid - TextRendering::GetTextWidth(textBack) / 2;
@@ -319,7 +319,7 @@ void CSceneStartNewGame::Render()
     else
         imgIndex = ID_MENU_BUTTON_BACK;
 
-    SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[imgIndex], NULL, &rectGenerateButton);
+    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[imgIndex], NULL, &rectGenerateButton);
 
     xmid = rectGenerateButton.x + rectGenerateButton.w / 2;
     xtextpos = xmid - TextRendering::GetTextWidth(textGenerate) / 2;
@@ -336,7 +336,7 @@ void CSceneStartNewGame::Render()
     else
         imgIndex = ID_MENU_BUTTON_BACK;
 
-    SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[imgIndex], NULL, &rectPlayButton);
+    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[imgIndex], NULL, &rectPlayButton);
 
     xmid = rectPlayButton.x + rectPlayButton.w / 2;
     xtextpos = xmid - TextRendering::GetTextWidth(textPlay) / 2;
@@ -352,9 +352,9 @@ void CSceneStartNewGame::Render()
     TextRendering::DrawString("Game Style", { 0, 0, 0 }, xtextpos, ytextpos);
 
     if (Global::settingGameMode == 0)
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_OPTION_ICON_SELECTED], NULL, &rectOptionIconGameStyleCasual);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_OPTION_ICON_SELECTED], NULL, &rectOptionIconGameStyleCasual);
     else
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_OPTION_ICON_UNSELECTED], NULL, &rectOptionIconGameStyleCasual);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_OPTION_ICON_UNSELECTED], NULL, &rectOptionIconGameStyleCasual);
 
     xtextpos = rectOptionIconGameStyleCasual.x + Global::attrOptionIconSize + Global::attrMargin;
     ytextpos = rectOptionIconGameStyleCasual.y + Global::attrOptionIconSize/2 - TextRendering::GetTextHeight()/2;
@@ -362,9 +362,9 @@ void CSceneStartNewGame::Render()
     TextRendering::DrawString("Casual", { 0, 0, 0 }, xtextpos, ytextpos);
 
     if (Global::settingGameMode == 1)
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_OPTION_ICON_SELECTED], NULL, &rectOptionIconGameStyleChallenging);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_OPTION_ICON_SELECTED], NULL, &rectOptionIconGameStyleChallenging);
     else
-        SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_OPTION_ICON_UNSELECTED], NULL, &rectOptionIconGameStyleChallenging);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_OPTION_ICON_UNSELECTED], NULL, &rectOptionIconGameStyleChallenging);
 
     xtextpos = rectOptionIconGameStyleCasual.x + Global::attrOptionIconSize + Global::attrMargin;
     ytextpos = rectOptionIconGameStyleChallenging.y + Global::attrOptionIconSize / 2 - TextRendering::GetTextHeight() / 2;
@@ -392,16 +392,16 @@ void CSceneStartNewGame::RenderMapPreview()
                           mapPreviewSizeScaled + 2 * m_attrBoxBorderThickness,
                           mapPreviewSizeScaled + 2 * m_attrBoxBorderThickness };
 
-    SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_MAP_PREVIEW_BACK], NULL, &rectFrame);
+    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_MAP_PREVIEW_BACK], NULL, &rectFrame);
 
     rectFrame.x = xLeft - 5;
     rectFrame.y = yTop - 5;
     rectFrame.w = mapPreviewSizeScaled + 10;
     rectFrame.h = mapPreviewSizeScaled + 10;
 
-    SDL_SetRenderDrawColor(Global::renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(Global::sdlRendererDefault, 0, 0, 0, 255);
 
-    SDL_RenderFillRect(Global::renderer, &rectFrame);
+    SDL_RenderFillRect(Global::sdlRendererDefault, &rectFrame);
 
     SDL_Rect rectMapPreview = { xLeft,
                                 yTop,
@@ -411,11 +411,11 @@ void CSceneStartNewGame::RenderMapPreview()
     if (m_doGenerateMapPreview && m_isMapGenerated)
     {
 
-        Global::contentCurrentMap->m_texFullMapRender = SDL_CreateTextureFromSurface(Global::renderer, Global::contentCurrentMap->m_imgFullMapRender);
+        Global::contentCurrentMap->m_texFullMapRender = SDL_CreateTextureFromSurface(Global::sdlRendererDefault, Global::contentCurrentMap->m_imgFullMapRender);
         m_doGenerateMapPreview = false;
     }
 
     if (Global::contentCurrentMap->m_texFullMapRender != NULL)
-        SDL_RenderCopy(Global::renderer, Global::contentCurrentMap->m_texFullMapRender, NULL, &rectMapPreview);
+        SDL_RenderCopy(Global::sdlRendererDefault, Global::contentCurrentMap->m_texFullMapRender, NULL, &rectMapPreview);
 
 }

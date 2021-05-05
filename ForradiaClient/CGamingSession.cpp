@@ -17,7 +17,7 @@
 #include "Global_SDL.h"
 #include "Global_CurrentMap.h"
 #include "Global_MapSize.h"
-#include "Global_WorldMap.h"
+#include "Global_Worldmap.h"
 #include "Global_Train.h"
 #include "FoeDeathAndRespawnHandling.h"
 #include <memory>
@@ -33,7 +33,7 @@ CGamingSession::CGamingSession()
 {
 
     Global::statePlayer = make_unique<CPlayer>(CPlayer(Global::tilesMapSize));
-    Global::train = make_unique<CTrain>(CTrain());
+    Global::defaultTrain = make_unique<CTrain>(CTrain());
 
     //SDL_DestroyTexture(Global::texFullMapOverview);
     //Global::texFullMapOverview = NULL;
@@ -54,7 +54,7 @@ void CGamingSession::Update()
     FoeDeathAndRespawnHandling::Update();
     FoeMovement::Update();
     ObjectsDecay::Update();
-    Global::train->Update();
+    Global::defaultTrain->Update();
     GUI::Update();
     GUISystemMenu::Update();
     GUIWorldMenu::Update();

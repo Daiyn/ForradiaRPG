@@ -14,16 +14,16 @@ bool GUI::CheckMouseClickInGUI()
 
     CPoint pMouse = Global::GetMousePoint();
 
-    CGUIButton buttons[NUMBER_OF_BUTTONS];
+    CGUIButton buttons[numberOfGUIButtons];
 
-    int w = (wOrig / 1600.0 * Global::GetCanvasWidth() + wOrig / 900.0 * Global::GetCanvasHeight()) / 2;
+    int w = (pxWidthOriginal / 1600.0 * Global::GetCanvasWidth() + pxWidthOriginal / 900.0 * Global::GetCanvasHeight()) / 2;
 
     int x = Global::GetCanvasWidth() - 3 * w;
     int y = Global::GetCanvasHeight() - w;
 
-    for (int i = 0; i < NUMBER_OF_BUTTONS; i++)
+    for (int i = 0; i < numberOfGUIButtons; i++)
     {
-        buttons[i] = { { x,y,w,w }, buttonImages[i] };
+        buttons[i] = { { x,y,w,w }, idxsButtonImages[i] };
         x += w;
     }
 
@@ -31,9 +31,9 @@ bool GUI::CheckMouseClickInGUI()
         if (button.m_bounds.ContainsPoint(pMouse))
             return true;
 
-    for (int i = 0; i < windows.size(); i++)
+    for (int i = 0; i < activeWindows.size(); i++)
     {
-        if (windows[i]->CheckMouseClickInWindow())
+        if (activeWindows[i]->CheckMouseClickInWindow())
             return true;
     }
 
@@ -46,20 +46,20 @@ bool GUI::HandleMouseClickInGUI()
 
     CPoint pMouse = Global::GetMousePoint();
 
-    CGUIButton buttons[NUMBER_OF_BUTTONS];
+    CGUIButton buttons[numberOfGUIButtons];
 
-    int w = (wOrig / 1600.0 * Global::GetCanvasWidth() + wOrig / 900.0 * Global::GetCanvasHeight()) / 2;
+    int w = (pxWidthOriginal / 1600.0 * Global::GetCanvasWidth() + pxWidthOriginal / 900.0 * Global::GetCanvasHeight()) / 2;
 
     int x = Global::GetCanvasWidth() - 3 * w;
     int y = Global::GetCanvasHeight() - w;
 
-    for (int i = 0; i < NUMBER_OF_BUTTONS; i++)
+    for (int i = 0; i < numberOfGUIButtons; i++)
     {
-        buttons[i] = { { x,y,w,w }, buttonImages[i] };
+        buttons[i] = { { x,y,w,w }, idxsButtonImages[i] };
         x += w;
     }
 
-    for (int i = 0; i < NUMBER_OF_BUTTONS; i++)
+    for (int i = 0; i < numberOfGUIButtons; i++)
     {
 
         if (buttons[i].m_bounds.ContainsPoint(pMouse))
@@ -68,7 +68,7 @@ bool GUI::HandleMouseClickInGUI()
             switch (i)
             {
             case 0:
-                windows.push_back(std::make_unique<CWindowInventory>(CWindowInventory()));
+                activeWindows.push_back(std::make_unique<CWindowInventory>(CWindowInventory()));
                 break;
             case 2: 
                 GUISystemMenu::Show();
@@ -80,9 +80,9 @@ bool GUI::HandleMouseClickInGUI()
 
     }
 
-    for (int i = 0; i < windows.size(); i++)
+    for (int i = 0; i < activeWindows.size(); i++)
     {
-        if (windows[i]->HandleMouseClickInWindow())
+        if (activeWindows[i]->HandleMouseClickInWindow())
             return true;
     }
 
@@ -93,9 +93,9 @@ bool GUI::HandleMouseClickInGUI()
 bool GUI::HandleMouseReleaseInGUI()
 {
 
-    for (int i = 0; i < windows.size(); i++)
+    for (int i = 0; i < activeWindows.size(); i++)
     {
-        if (windows[i]->HandleMouseReleaseInWindow())
+        if (activeWindows[i]->HandleMouseReleaseInWindow())
             return true;
     }
 
@@ -109,20 +109,20 @@ void GUI::Update()
 
     CPoint pMouse = Global::GetMousePoint();
 
-    CGUIButton buttons[NUMBER_OF_BUTTONS];
+    CGUIButton buttons[numberOfGUIButtons];
 
-    int w = (wOrig / 1600.0 * Global::GetCanvasWidth() + wOrig / 900.0 * Global::GetCanvasHeight()) / 2;
+    int w = (pxWidthOriginal / 1600.0 * Global::GetCanvasWidth() + pxWidthOriginal / 900.0 * Global::GetCanvasHeight()) / 2;
 
     int x = Global::GetCanvasWidth() - 3 * w;
     int y = Global::GetCanvasHeight() - w;
 
-    for (int i = 0; i < NUMBER_OF_BUTTONS; i++)
+    for (int i = 0; i < numberOfGUIButtons; i++)
     {
-        buttons[i] = { { x,y,w,w }, buttonImages[i] };
+        buttons[i] = { { x,y,w,w }, idxsButtonImages[i] };
         x += w;
     }
 
-    for (int i = 0; i < NUMBER_OF_BUTTONS; i++)
+    for (int i = 0; i < numberOfGUIButtons; i++)
     {
 
         if (buttons[i].m_bounds.ContainsPoint(pMouse))
@@ -134,14 +134,14 @@ void GUI::Update()
 
     }
 
-    for (auto it = windows.begin(); it != windows.end(); it++)
+    for (auto it = activeWindows.begin(); it != activeWindows.end(); it++)
     {
 
         (*it)->Update();
 
         if ((*it)->m_activateWindowDestruction)
         {
-            windows.erase(it);
+            activeWindows.erase(it);
             Update();
             return;
         }
@@ -153,21 +153,21 @@ void GUI::Update()
 void GUI::Render()
 {
 
-    for (int i = 0; i < windows.size(); i++)
+    for (int i = 0; i < activeWindows.size(); i++)
     {
-        windows[i]->Render();
+        activeWindows[i]->Render();
     }
 
-    CGUIButton buttons[NUMBER_OF_BUTTONS];
+    CGUIButton buttons[numberOfGUIButtons];
 
-    int w = (wOrig / 1600.0 * Global::GetCanvasWidth() + wOrig / 900.0 * Global::GetCanvasHeight()) / 2;
+    int w = (pxWidthOriginal / 1600.0 * Global::GetCanvasWidth() + pxWidthOriginal / 900.0 * Global::GetCanvasHeight()) / 2;
 
     int x = Global::GetCanvasWidth() - 3 * w;
     int y = Global::GetCanvasHeight() - w;
 
-    for (int i = 0; i < NUMBER_OF_BUTTONS; i++)
+    for (int i = 0; i < numberOfGUIButtons; i++)
     {
-        buttons[i] = { { x,y,w,w }, buttonImages[i] };
+        buttons[i] = { { x,y,w,w }, idxsButtonImages[i] };
         x += w;
     }
 
@@ -179,7 +179,7 @@ void GUI::Render()
 
     Drawing::Image(ID_ICONS_BACKGROUND, xBackground, yBackground, wBackground, hBackground);
 
-    for (int i = 0; i < NUMBER_OF_BUTTONS; i++)
+    for (int i = 0; i < numberOfGUIButtons; i++)
         Drawing::Image(buttons[i].m_idxImage, buttons[i].m_bounds.x, buttons[i].m_bounds.y, buttons[i].m_bounds.w, buttons[i].m_bounds.h);
 
 }

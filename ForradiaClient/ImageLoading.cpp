@@ -11,8 +11,8 @@ void ImageLoading::LoadImages()
 
     for (int i = 0; i < CONTENT_DB_SIZE; i++)
     {
-        texturesArray[i] = NULL;
-        texturesMapPreviewArray[i] = NULL;
+        libTextures[i] = NULL;
+        libTexturesFullMapRender[i] = NULL;
     }
 
     auto imagesDirectory = std::filesystem::directory_iterator(imagesPath);
@@ -27,7 +27,7 @@ void ImageLoading::LoadImages()
         if (imageFilename.substr(imageFilename.length() - 4, 4) == ".png")
         {
             string onlyName = imageFilename.substr(0, imageFilename.find("."));
-            LoadSingleImage(onlyName, Global::renderer);
+            LoadSingleImage(onlyName, Global::sdlRendererDefault);
         }
 
     }
@@ -48,9 +48,9 @@ void ImageLoading::LoadSingleImage(string texName, SDL_Renderer *renderer)
     int texDescId = DataLoading::GetDescriptionIndexByName(texName);
 
     if (texDescId != -1)
-        texturesArray[texDescId] = tex;
+        libTextures[texDescId] = tex;
 
-    surfaces.insert(std::pair<string, SDL_Surface *>(texName, img));
+    libSurfaces.insert(std::pair<string, SDL_Surface *>(texName, img));
 
 }
 
@@ -59,10 +59,10 @@ void ImageLoading::ClearMapPreviewTextures()
 
     for (int i = 0; i < CONTENT_DB_SIZE; i++)
     {
-        if (texturesMapPreviewArray[i] != NULL)
+        if (libTexturesFullMapRender[i] != NULL)
         {
-            SDL_DestroyTexture(texturesMapPreviewArray[i]);
-            texturesMapPreviewArray[i] = NULL;
+            SDL_DestroyTexture(libTexturesFullMapRender[i]);
+            libTexturesFullMapRender[i] = NULL;
         }
     }
 
@@ -71,11 +71,11 @@ void ImageLoading::ClearMapPreviewTextures()
 void ImageLoading::CreateMapPreviewTextures()
 {
 
-    for (auto it: surfaces)
+    for (auto it: libSurfaces)
     {
-        SDL_Texture *texMapPreview = SDL_CreateTextureFromSurface(Global::rendererFullMapOverview, it.second);
+        SDL_Texture *texMapPreview = SDL_CreateTextureFromSurface(Global::sdlRendererFullMapRender, it.second);
         int texDescId = DataLoading::GetDescriptionIndexByName(it.first);
-        texturesMapPreviewArray[texDescId] = texMapPreview;
+        libTexturesFullMapRender[texDescId] = texMapPreview;
     }
 
 }

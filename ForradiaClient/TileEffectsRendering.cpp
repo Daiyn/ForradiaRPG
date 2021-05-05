@@ -12,14 +12,14 @@ void TileEffectsRendering::RenderTileEffects(int x, int y, CPoint pTile)
 
     SDL_Rect rTile = { x * Global::GetTileSize(), y * Global::GetTileSize(), Global::GetTileSize(), Global::GetTileSize() };
 
-    for (auto it = PlayerActions::skillAffectedTiles.begin();
-         it != PlayerActions::skillAffectedTiles.end(); it++)
+    for (auto it = PlayerActions::coordsSkillAffectedTiles.begin();
+         it != PlayerActions::coordsSkillAffectedTiles.end(); it++)
     {
 
         if (pTile.m_x == it->x && pTile.m_y == it->y)
         {
 
-            SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_SKILL_EFFECT_0], NULL, &rTile);
+            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_SKILL_EFFECT_0], NULL, &rTile);
 
             SDL_Rect rectSkill = {x * Global::GetTileSize() + Global::GetTileSize() / 2 - Global::GetTileSize(),
                                   y * Global::GetTileSize() + Global::GetTileSize() - 4 * Global::GetTileSize(),
@@ -33,13 +33,13 @@ void TileEffectsRendering::RenderTileEffects(int x, int y, CPoint pTile)
                 switch (skillEffectAnim)
                 {
                 case 0:
-                    SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_SKILL_EFFECT_1_0], NULL, &rectSkill);
+                    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_SKILL_EFFECT_1_0], NULL, &rectSkill);
                     break;
                 case 1:
-                    SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_SKILL_EFFECT_1_1], NULL, &rectSkill);
+                    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_SKILL_EFFECT_1_1], NULL, &rectSkill);
                     break;
                 case 2:
-                    SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_SKILL_EFFECT_1_2], NULL, &rectSkill);
+                    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_SKILL_EFFECT_1_2], NULL, &rectSkill);
                     break;
                 }
 

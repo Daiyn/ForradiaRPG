@@ -17,19 +17,19 @@ using std::make_unique;
 void MapGeneration::GenerateMap(CMap& map)
 {
 
-    usedTiles["grass"] = DataLoading::GetDescriptionIndexByName("TileGrass");
-    usedTiles["water"] = DataLoading::GetDescriptionIndexByName("TileWater");
-    usedTiles["rock"] = DataLoading::GetDescriptionIndexByName("TileRock");
-    usedTiles["clay"] = DataLoading::GetDescriptionIndexByName("TileClay");
-    usedTiles["sand"] = DataLoading::GetDescriptionIndexByName("TileSand");
-    usedTiles["woodFloor"] = DataLoading::GetDescriptionIndexByName("TileWoodFloor");
-    usedTiles["stoneSlab"] = DataLoading::GetDescriptionIndexByName("TileStoneSlab");
+    idxsUsedTiles["grass"] = DataLoading::GetDescriptionIndexByName("TileGrass");
+    idxsUsedTiles["water"] = DataLoading::GetDescriptionIndexByName("TileWater");
+    idxsUsedTiles["rock"] = DataLoading::GetDescriptionIndexByName("TileRock");
+    idxsUsedTiles["clay"] = DataLoading::GetDescriptionIndexByName("TileClay");
+    idxsUsedTiles["sand"] = DataLoading::GetDescriptionIndexByName("TileSand");
+    idxsUsedTiles["woodFloor"] = DataLoading::GetDescriptionIndexByName("TileWoodFloor");
+    idxsUsedTiles["stoneSlab"] = DataLoading::GetDescriptionIndexByName("TileStoneSlab");
 
-    usedObjects["reed"] = DataLoading::GetDescriptionIndexByName("ObjectReed");
+    idxsUsedObjects["reed"] = DataLoading::GetDescriptionIndexByName("ObjectReed");
 
-    parameters["numRivers"] = 50;
-    parameters["riverInterval"] = 5;
-    parameters["mountainLength"] = 50;
+    paramsGenerationInput["numRivers"] = 50;
+    paramsGenerationInput["riverInterval"] = 5;
+    paramsGenerationInput["mountainLength"] = 50;
 
     srand(SDL_GetTicks());
 
@@ -42,7 +42,7 @@ void MapGeneration::GenerateAll(CMap& map)
 
 
     int intervalRivers = 0;
-    int numRiverStarts = parameters["numRivers"];
+    int numRiverStarts = paramsGenerationInput["numRivers"];
 
     int stationLength = 15;
     int plazaSize = stationLength;
@@ -79,7 +79,7 @@ void MapGeneration::GenerateAll(CMap& map)
                 if (iteration == 0)
                 {
 
-                    map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = usedTiles["grass"];
+                    map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["grass"];
 
                     
 
@@ -95,19 +95,19 @@ void MapGeneration::GenerateAll(CMap& map)
 
                         double rock = cos(2 * (1 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
                         if (rock > 0.1)
-                            map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = usedTiles["rock"];
+                            map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["rock"];
 
                     }
 
                 }
 
                     if (map.m_tilesGrid[x][y]->m_elevationHeight < 0
-                        && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != usedTiles["water"] || iteration == 1))
+                        && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"] || iteration == 1))
                     {
 
 
                         if (iteration == 0)
-                            map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = usedTiles["water"];
+                            map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["water"];
 
                     }
 
@@ -120,7 +120,7 @@ void MapGeneration::GenerateAll(CMap& map)
                             double sand = cos(2 * (1 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
                             if (sand > 0.1)
                             {
-                                map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = usedTiles["sand"];
+                                map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["sand"];
                                 map.m_tilesGrid[x][y]->m_elevationHeight = 0;
                             }
                         }
@@ -136,7 +136,7 @@ void MapGeneration::GenerateAll(CMap& map)
                         tree1 *= cos(2*(x + y + x * y));
                         tree1 *= (10 + (x * y)/60) % 2;
                         tree1 *= (11 + (x * y) / 33) % 2;
-                        if (tree1 > 0.2 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == usedTiles["grass"]
+                        if (tree1 > 0.2 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["grass"]
                             && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
                             map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTree1"));
 
@@ -147,28 +147,28 @@ void MapGeneration::GenerateAll(CMap& map)
                         tree2 *= cos(2*(3 + x + y + x * y));
                         tree2 *= (12 + (x * y) / 60 + 1) % 2;
                         tree2 *= (13 + (x * y) / 23 + 1) % 2;
-                        if (tree2 > 0.2 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == usedTiles["grass"]
+                        if (tree2 > 0.2 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["grass"]
                             && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
                             map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTree2"));
 
 
 
                         double bush = (x + 1 * y + 2 * x * y + 3 * xx * y + 4 * x * yy) % 83;
-                        if (bush == 1 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == usedTiles["grass"]
+                        if (bush == 1 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["grass"]
                             && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
                             map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectBush"));
 
 
                         double bushTall = (40 + x + 1 * y + 2 * x * y + 3 * xx * y + 4 * x * yy) % 83;
-                        if (bushTall == 1 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == usedTiles["grass"]
+                        if (bushTall == 1 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["grass"]
                             && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
                             map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectBushTall"));
 
 
                         double boulder = (40 + x + 1 * y + 2 * x * y + 3 * xx * y + 4 * x * yy) % 313;
                         if (boulder == 1
-                            && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == usedTiles["rock"]
-                            || map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == usedTiles["water"])
+                            && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["rock"]
+                            || map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["water"])
                             )
                             map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectBoulder"));
 
@@ -177,25 +177,25 @@ void MapGeneration::GenerateAll(CMap& map)
                         foe *= cos(5 + y / 20.0);
                         foe *= cos(6 + x / 20.0);
                         foe *= cos(7 + (x + y + x * y) / 10.0);
-                        if (foe >= 0.8 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != usedTiles["water"]
+                        if (foe >= 0.8 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"]
                             && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects()
                             && !map.SeenFloorHasFoes(x, y))
                             map.AddFoe(make_unique<CFoe>(CFoe(1, x, y)), SURFACE_FLOOR);
 
                         double butterfly = (40 + x + 1 * y + 2 * x * y + 3 * xx * y + 4 * x * yy) % 390;
                         if (butterfly == 1
-                            && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != usedTiles["water"]
-                                && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != usedTiles["woodFloor"]))
+                            && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"]
+                                && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["woodFloor"]))
                             map.AddFoe(make_unique<CFoe>(CFoe(ID_BUTTERFLY, x, y)), SURFACE_FLOOR);
 
                         double pinkSlime = (40 + x + 1 * y + 2 * x * y + 3 * xx * y + 4 * x * yy) % 390;
                         if (pinkSlime == 1
-                            && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != usedTiles["water"]
-                                && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != usedTiles["woodFloor"]))
+                            && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"]
+                                && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["woodFloor"]))
                             map.AddFoe(make_unique<CFoe>(CFoe(ID_PINKSLIME, x, y)), SURFACE_FLOOR);
 
 
-                        if (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == usedTiles["water"])
+                        if (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["water"])
                         {
                             int waterDepth = -map.m_tilesGrid[x][y]->m_elevationHeight;
                             if (waterDepth == 1)
@@ -206,14 +206,14 @@ void MapGeneration::GenerateAll(CMap& map)
                                 clay *= cos(x / 10.0);
                                 if (clay > 0.2 && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
                                 {
-                                    map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = usedTiles["clay"];
+                                    map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["clay"];
                                     map.m_tilesGrid[x][y]->m_elevationHeight = 0;
                                 }
                             }
                         }
 
 
-                        if (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == usedTiles["water"])
+                        if (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["water"])
                         {
                             int waterDepth = -map.m_tilesGrid[x][y]->m_elevationHeight;
                             double reed = cos(std::max(0, waterDepth) / 7.0 * M_PI / 2.0);
@@ -261,7 +261,7 @@ void MapGeneration::GenerateAll(CMap& map)
                             {
 
                                 map.m_tilesGrid[x][y]->m_elevationHeight = map.m_tilesGrid[Global::tilesMapSize / 2 - stationLength / 2][Global::tilesMapSize / 2 + 3]->m_elevationHeight;
-                                map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = usedTiles["stoneSlab"];
+                                map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["stoneSlab"];
 
                                 map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
 
@@ -336,7 +336,7 @@ void MapGeneration::GenerateRiversFromMountainTop(CMap& map, int mapx, int mapy)
 
                 }
 
-                if (r < 15 && map.m_tilesGrid[int(xx)][int(yy)]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == usedTiles["water"])
+                if (r < 15 && map.m_tilesGrid[int(xx)][int(yy)]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["water"])
                     return;
             }
 
@@ -395,7 +395,7 @@ void MapGeneration::GenerateRiversFromMountainTop(CMap& map, int mapx, int mapy)
         }
 
         if (xx >= 0 && yy >= 0 && xx < Global::tilesMapSize && yy < Global::tilesMapSize
-            && (map.m_tilesGrid[xx][yy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != usedTiles["water"] || j == 0))
+            && (map.m_tilesGrid[xx][yy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"] || j == 0))
         {
             for (int _yy = yy; _yy < yy + width; _yy++)
             {
@@ -419,7 +419,7 @@ void MapGeneration::GenerateRiversFromMountainTop(CMap& map, int mapx, int mapy)
 
                         map.m_tilesGrid[_xx][_yy]->m_elevationHeight -= inverse;
                         
-                        map.m_tilesGrid[_xx][_yy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = usedTiles["water"];
+                        map.m_tilesGrid[_xx][_yy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["water"];
                         map.m_tilesGrid[_xx][_yy]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
                     }
                 }

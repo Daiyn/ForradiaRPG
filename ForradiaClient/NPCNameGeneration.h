@@ -22,7 +22,7 @@ using std::string;
 
 namespace NPCNameGeneration
 {
-    inline string consonants[20] = {
+    inline string lettersConsonants[20] = {
         "b",
         "c",
         "d",
@@ -44,7 +44,7 @@ namespace NPCNameGeneration
         "x",
         "z"
     };
-    inline string vowels[6] = {
+    inline string lettersVowels[6] = {
         "a",
         "e",
         "i",

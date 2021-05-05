@@ -27,9 +27,9 @@ using std::unordered_map;
 
 namespace MapGeneration
 {
-    inline unordered_map<string, int> usedObjects;
-    inline unordered_map<string, int> usedTiles;
-    inline unordered_map<string, int> parameters;
+    inline unordered_map<string, int> idxsUsedObjects;
+    inline unordered_map<string, int> idxsUsedTiles;
+    inline unordered_map<string, int> paramsGenerationInput;
 
     void GenerateAll(CMap& map);
     void GenerateMap(CMap& map);

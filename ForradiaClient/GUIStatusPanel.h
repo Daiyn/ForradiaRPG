@@ -19,9 +19,9 @@
 
 namespace GUIStatusPanel
 {
-    inline int wOrig = 350;
-    inline int hOrig = 150;
-    inline int margin = 10;
+    inline int pxWidthOriginal = 350;
+    inline int pxHeightOriginal = 150;
+    inline int pxMargin = 10;
 
     void Render();
 };

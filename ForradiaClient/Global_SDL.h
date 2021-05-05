@@ -21,12 +21,11 @@
 
 namespace Global
 {
-    //inline SDL_Texture* texFullMapOverview = NULL;
-    inline SDL_Window* window = NULL;
-    inline TTF_Font* Sans = NULL;
-    inline SDL_Renderer* rendererFullMapOverview = NULL;
-    inline SDL_Renderer* renderer = NULL;
-    inline bool isFullscreen;
+    inline SDL_Window* sdlWindow = NULL;
+    inline TTF_Font* fontFreesans = NULL;
+    inline SDL_Renderer* sdlRendererFullMapRender = NULL;
+    inline SDL_Renderer* sdlRendererDefault = NULL;
+    inline bool stateFullscreen;
 
     SDL_Texture* ConvertSurfaceToTexture(SDL_Surface* surface);
     void DestroySDLObjects();
@@ -35,27 +34,28 @@ namespace Global
 
 inline SDL_Texture* Global::ConvertSurfaceToTexture(SDL_Surface* surface)
 {
-    return SDL_CreateTextureFromSurface(renderer, surface);
+    return SDL_CreateTextureFromSurface(sdlRendererDefault, surface);
 }
 
 inline void Global::ToggleFullscreen()
 {
 
-    isFullscreen = !isFullscreen;
+    stateFullscreen = !stateFullscreen;
 
-    if (isFullscreen)
-        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    if (stateFullscreen)
+        SDL_SetWindowFullscreen(sdlWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
     else
-        SDL_SetWindowFullscreen(window, SDL_WINDOW_RESIZABLE);
+        SDL_SetWindowFullscreen(sdlWindow, SDL_WINDOW_RESIZABLE);
 
 }
 
 inline void Global::DestroySDLObjects()
 {
 
-    TTF_CloseFont(Sans);
+    TTF_CloseFont(fontFreesans);
 
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyRenderer(rendererFullMapOverview);
+    SDL_DestroyRenderer(sdlRendererDefault);
+    SDL_DestroyRenderer(sdlRendererFullMapRender);
+    SDL_DestroyWindow(sdlWindow);
 
 }

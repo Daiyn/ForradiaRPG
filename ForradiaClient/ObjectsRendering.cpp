@@ -81,10 +81,10 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
                     imgSize.m_w,
                     imgSize.m_h };
 
-            if (pTile.m_x == PlayerActions::focusedObjectMapx && pTile.m_y == PlayerActions::focusedObjectMapy)
+            if (pTile.m_x == PlayerActions::coordFocusedObjectMapx && pTile.m_y == PlayerActions::coordFocusedObjectMapy)
             {
 
-                int animIndex = PlayerActions::focusedObjectProgress;
+                int animIndex = PlayerActions::stateFocusedObjectProgress;
                 string imageFocusedObjectAnimationName = desc.m_propAttributes["ImageFocusedObjectAnimation"];
 
                 if (DataLoading::GetDescriptionIndexByName("ObjectTree1") == it->m_idxObjectType)
@@ -168,8 +168,8 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
 
 
             if (it != nullptr
-                && pTile.m_x == PlayerActions::hoveredTile.m_x
-                && pTile.m_y == PlayerActions::hoveredTile.m_y)
+                && pTile.m_x == PlayerActions::coordHoveredTile.m_x
+                && pTile.m_y == PlayerActions::coordHoveredTile.m_y)
             {
                 string objectName = DataLoading::libDescriptions[it->m_idxObjectType]->m_propAttributes["ReadableName"];
 
