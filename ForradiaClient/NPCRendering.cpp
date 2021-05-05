@@ -14,20 +14,20 @@ void NPCRendering::RenderNpcs(int x, int y, CPoint pTile)
 
     auto TILESIZE = Global::GetTileSize();
 
-    int seenFloorIndex = Global::currentMap->m_2DTiles[pTile.m_x][pTile.m_y]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->GetIndexForSeenFloor();
 
     if (seenFloorIndex == -1)
         return;
 
-    auto& FLOOR = Global::currentMap->m_2DTiles[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex];
+    auto& FLOOR = Global::contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex];
 
 
     if (FLOOR->HasNpcs())
     {
-        for (int i = 0; i < FLOOR->m_npcs.size(); i++)
+        for (int i = 0; i < FLOOR->m_containedNPCs.size(); i++)
         {
 
-            CNPC& npc = *FLOOR->m_npcs[i];
+            CNPC& npc = *FLOOR->m_containedNPCs[i];
 
             int npcSize = 1.5 * TILESIZE;
             int shadowSize = 1.5 * TILESIZE;
@@ -40,12 +40,12 @@ void NPCRendering::RenderNpcs(int x, int y, CPoint pTile)
             CRectangle rectNPC = {x * TILESIZE + TILESIZE / 2 - npcSize / 2,
                                 y * TILESIZE + TILESIZE - npcSize, npcSize, npcSize };
 
-            int textw = TextRendering::GetTextWidth(npc.m_nameCharacter);
+            int textw = TextRendering::GetTextWidth(npc.m_readableCharacterName);
             CPoint pNameText = { x * TILESIZE + TILESIZE / 2 - textw / 2 , rectNPC.y - 30 };
             
             Drawing::Image(ID_SHADOW, rectShadow);
             Drawing::Image(ID_NPC, rectNPC);
-            TextRendering::DrawString(npc.m_nameCharacter, {255, 255, 255, 255}, pNameText);
+            TextRendering::DrawString(npc.m_readableCharacterName, {255, 255, 255, 255}, pNameText);
 
             if (npc.m_stateCurrentActivity == CNPC::NPCActivites::StandingInPlazaTalkable)
             {

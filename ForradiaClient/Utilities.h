@@ -35,7 +35,6 @@ namespace Utilities
     bool InMapExcludingEdges(int mapx, int mapy);
     bool InMapIncludingEdges(int mapx, int mapy);
     int Normalize(int a, int b);
-    bool DoTickCheck(int& tickVariable, int threshold);
 };
 
 

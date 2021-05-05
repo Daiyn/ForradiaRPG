@@ -11,7 +11,7 @@ bool CInventory::UseItemInInventory(int objectType, int _quantity)
 
     int index = INVALID_INDEX;
 
-    for (auto it = m_belongingCollection.begin(); it != m_belongingCollection.end(); it++)
+    for (auto it = m_containedItems.begin(); it != m_containedItems.end(); it++)
     {
         if (it->second->m_idxObjectType == objectType)
         {
@@ -22,14 +22,14 @@ bool CInventory::UseItemInInventory(int objectType, int _quantity)
 
     if (index != INVALID_INDEX)
     {
-        if (m_belongingCollection[index]->m_qtyCurrent > _quantity)
+        if (m_containedItems[index]->m_propCurrentQuantity > _quantity)
         {
-            m_belongingCollection[index]->m_qtyCurrent -= _quantity;
+            m_containedItems[index]->m_propCurrentQuantity -= _quantity;
             return true;
         }
-        else if (m_belongingCollection[index]->m_qtyCurrent == _quantity)
+        else if (m_containedItems[index]->m_propCurrentQuantity == _quantity)
         {
-            m_belongingCollection.erase(index);
+            m_containedItems.erase(index);
             return true;
         }
     }
@@ -41,7 +41,7 @@ bool CInventory::UseItemInInventory(int objectType, int _quantity)
 bool CInventory::HasItemInInventory(int objectType)
 {
 
-    for (auto it = m_belongingCollection.begin(); it != m_belongingCollection.end(); it++)
+    for (auto it = m_containedItems.begin(); it != m_containedItems.end(); it++)
         if (it->second->m_idxObjectType == objectType)
             return true;
 
@@ -51,18 +51,18 @@ bool CInventory::HasItemInInventory(int objectType)
 
 bool CInventory::SlotIsOccupied(int index)
 {
-    return m_belongingCollection.count(index) > 0;
+    return m_containedItems.count(index) > 0;
 }
 
 void CInventory::AddItemToInventory(int objectType)
 {
 
 
-    for (int i = 0; i < m_belongingCollection.size() + 1; i++)
+    for (int i = 0; i < m_containedItems.size() + 1; i++)
     {
-        if (m_belongingCollection.count(i) == 0)
+        if (m_containedItems.count(i) == 0)
         {
-            m_belongingCollection.insert(pair<int, unique_ptr<CObject>>(i, make_unique<CObject>(CObject(objectType, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+            m_containedItems.insert(pair<int, unique_ptr<CObject>>(i, make_unique<CObject>(CObject(objectType, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
             break;
         }
 

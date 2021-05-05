@@ -17,12 +17,12 @@ void Combat::Update()
     if (idxTargetedFoe != -1)
     {
 
-        CFoe& targetedFoe = Global::currentMap->m_allFoesArray[idxTargetedFoe];
+        CFoe& targetedFoe = Global::contentCurrentMap->m_mirrorAllFoes[idxTargetedFoe];
 
         if (targetedFoe.IsAlive())
         {
 
-            CPoint tc(targetedFoe.m_posCurrent.m_x, targetedFoe.m_posCurrent.m_y);
+            CPoint tc(targetedFoe.m_coordPosition.m_x, targetedFoe.m_coordPosition.m_y);
             CPoint tcDist = tc.GetAbsDistanceToPlayer();
 
             int maxDist = std::max(tcDist.m_x, tcDist.m_y);
@@ -44,9 +44,9 @@ bool Combat::HandleMouseClickOnFoe()
     CPoint tc;
     tc.JumpToHoveredTile();
 
-    if (Global::currentMap->SeenFloorHasFoes(tc.m_x, tc.m_y))
+    if (Global::contentCurrentMap->SeenFloorHasFoes(tc.m_x, tc.m_y))
     {
-        int indexAllFoesArray = Global::currentMap->GetTopFoeInMapAllFoeArrayIndex(tc.m_x, tc.m_y);
+        int indexAllFoesArray = Global::contentCurrentMap->GetTopFoeInMapAllFoeArrayIndex(tc.m_x, tc.m_y);
         if (indexAllFoesArray != -1)
         {
             idxTargetedFoe = indexAllFoesArray;

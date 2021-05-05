@@ -18,12 +18,15 @@
 #define FORRADIAFORMATION_FPSCOUNTER_H
 
 #include <SDL2/SDL_timer.h>
+#include "CTimer.h"
 
 namespace FPSCounter
 {
-    inline int frames = 0;
+    const int msOneSec = 1000;
+    inline int framesCountForOneSec = 0;
     inline int tickSinceLastSecond = SDL_GetTicks();
-    inline int fps = 0;
+    inline int resultFPS = 0;
+    inline CTimer tmrFPSSave(msOneSec);
 
     void Render();
     void Update();

@@ -18,7 +18,7 @@ void PlayerRendering::RenderPlayer(int x, int y, CPoint pTile)
 
     SDL_Rect rTile = { x * Global::GetTileSize(), y * Global::GetTileSize(), Global::GetTileSize(), Global::GetTileSize() };
 
-    if (pTile.m_x == Global::player->m_posCurrent.m_x && pTile.m_y == Global::player->m_posCurrent.m_y)
+    if (pTile.m_x == Global::player->m_coordPosition.m_x && pTile.m_y == Global::player->m_coordPosition.m_y)
     {
 
         CSize szPlayer(1.5 * Global::GetTileSize());

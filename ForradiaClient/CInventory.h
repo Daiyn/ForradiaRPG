@@ -44,7 +44,7 @@ class CInventory
 {
 public:
 
-    unordered_map<int, unique_ptr<CObject>> m_belongingCollection;
+    unordered_map<int, unique_ptr<CObject>> m_containedItems;
 
 	bool HasItemInInventory(int objectType);
 	bool SlotIsOccupied(int index);

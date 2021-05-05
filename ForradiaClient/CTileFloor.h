@@ -51,12 +51,12 @@ public:
     static const int MAX_OBJECTS_ON_FLOOR = 10;
     static const int MAX_FOES_ON_FLOOR = 3;
 
-    int m_groundType;
-    int m_mapx;
-    int m_mapy;
-    unique_ptr<CObject> m_floorObjectsArr[MAX_OBJECTS_ON_FLOOR];
-    unique_ptr<CFoe> m_floorFoesArr[MAX_FOES_ON_FLOOR];
-    std::vector<unique_ptr<CNPC>> m_npcs;
+    int m_idxGroundType;
+    int m_coordMapX;
+    int m_coordMapY;
+    unique_ptr<CObject> m_containedObjects[MAX_OBJECTS_ON_FLOOR];
+    unique_ptr<CFoe> m_containedFoes[MAX_FOES_ON_FLOOR];
+    std::vector<unique_ptr<CNPC>> m_containedNPCs;
 
     CTileFloor(int _mapx, int _mapy);
     CTileFloor(int _mapx, int _mapy, int _groundType);

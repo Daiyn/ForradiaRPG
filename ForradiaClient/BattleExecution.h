@@ -17,6 +17,7 @@
 #pragma once
 
 #include <memory>
+#include "CTimer.h"
 
 using std::unique_ptr;
 
@@ -25,7 +26,8 @@ class CFightableCharacter;
 namespace BattleExecution
 {
 	const int tickCombatSpeed = 30;
-	inline int tickLastCombatIteration = 0;
+	inline CTimer tmrBattleIteration(tickCombatSpeed);
+	//inline int tickLastCombatIteration = 0;
 
 	void HitFightableCharacter(CFightableCharacter& character, int maxDamage);
 	void PerformCombat();

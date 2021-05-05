@@ -71,8 +71,8 @@
 
 namespace Forradia
 {
-    inline SDL_Event event;
-    inline bool altKeyPressed = false;
+    inline SDL_Event inputUnhandledEvent;
+    inline bool stateAltKeyPressed = false;
     
     void HandleEvents();
     void Initialize();

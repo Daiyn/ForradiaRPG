@@ -18,7 +18,7 @@ void Cursor::Render()
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
 
-    SDL_Rect rectCursor = {mx, my, cursorSize, cursorSize};
+    SDL_Rect rectCursor = {mx, my, attrCursorSize, attrCursorSize};
     
     if (isHoveringButtonBuffer)
         SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_CURSOR_HOVERING], NULL, &rectCursor);

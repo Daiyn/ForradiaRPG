@@ -47,11 +47,11 @@ class CSceneStartNewGame : public CScene
 {
 public:
 
-    unique_ptr<CMap> m_generatedWorldMap;
-    SDL_Texture *m_texMapPreview = NULL;
+    unique_ptr<CMap> m_gamedataMap;
+    SDL_Texture *m_texMapFull = NULL;
     bool m_doGenerateMapPreview = false;
-    bool m_mapGenerated = false;
-    const int m_boxBorderSize = 30;
+    bool m_isMapGenerated = false;
+    const int m_attrBoxBorderThickness = 30;
 
     CSceneStartNewGame();
 

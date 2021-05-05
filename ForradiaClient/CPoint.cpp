@@ -9,7 +9,6 @@
 #include "Global_CurrentMap.h"
 #include "CMap.h"
 
-
 CPoint::CPoint(int _x, int _y)
 {
 	m_x = _x;
@@ -38,14 +37,13 @@ CPoint::CPoint(int flags)
 		m_x = Utilities::GetHoveredMapx();
 		m_y = Utilities::GetHoveredMapy();
 	}
-
 }
 
 void CPoint::JumpToHoveredTile()
 {
 
-	m_x = Global::player->m_posCurrent.m_x - (Global::GetNumberOfColumns() - 1) / 2 + Utilities::GetHoveredScreenMapx();
-	m_y = Global::player->m_posCurrent.m_y - (Global::numberOfRows - 1) / 2 + Utilities::GetHoveredScreenMapy();
+	m_x = Global::player->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2 + Utilities::GetHoveredScreenMapx();
+	m_y = Global::player->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 + Utilities::GetHoveredScreenMapy();
 
 }
 
@@ -84,10 +82,10 @@ bool CPoint::Equals(CPoint p)
 
 CPoint CPoint::GetAbsDistanceToPlayer()
 {
-	CFoe& targetedFoe = Global::currentMap->m_allFoesArray[Combat::idxTargetedFoe];
+	CFoe& targetedFoe = Global::contentCurrentMap->m_mirrorAllFoes[Combat::idxTargetedFoe];
 
 	CPoint tc;
-	tc.m_x = abs(Global::player->m_posCurrent.m_x - targetedFoe.m_posCurrent.m_x);
-	tc.m_y = abs(Global::player->m_posCurrent.m_y - targetedFoe.m_posCurrent.m_y);
+	tc.m_x = abs(Global::player->m_coordPosition.m_x - targetedFoe.m_coordPosition.m_x);
+	tc.m_y = abs(Global::player->m_coordPosition.m_y - targetedFoe.m_coordPosition.m_y);
 	return tc;
 }

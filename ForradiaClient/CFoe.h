@@ -46,12 +46,12 @@ class CFoe : public CFightableCharacter
 {
 public:
 
-    CPoint m_posCurrent = { -1, -1 };
-    CPoint m_posSpawn = { -1, -1 };
+    CPoint m_coordPosition = { -1, -1 };
+    CPoint m_coordSpawn = { -1, -1 };
     int m_idxFoeType = -1;
     int m_spdMovement = 500;
-    int m_hpMax = 10;
-    int m_uniqueId;
+    int m_statMaxHP = 10;
+    int m_uniqueID;
     int m_tickTimeToRespawn = 0;
     int m_spdRespawn = 16000;
     Clock::time_point m_tickLastMove = Clock::now();

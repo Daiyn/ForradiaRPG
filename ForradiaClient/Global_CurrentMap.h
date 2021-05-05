@@ -24,5 +24,5 @@ class CMap;
 
 namespace Global
 {
-	inline unique_ptr<CMap> currentMap;
+	inline unique_ptr<CMap> contentCurrentMap;
 }

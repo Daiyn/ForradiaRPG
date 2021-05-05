@@ -42,10 +42,10 @@ class CObject
 public:
 
     int m_idxObjectType = -1;
-    int m_2DMapX;
-    int m_2DMapY;
-    int m_amountCurrent = 100;
-    int m_qtyCurrent = 1;
+    int m_coordMapX;
+    int m_coordMapY;
+    int m_propCurrentAmount = 100;
+    int m_propCurrentQuantity = 1;
     int m_uniqueID;
     int m_tickTimeToVanish = 0;
     int m_idxVanishingEffect = -1;

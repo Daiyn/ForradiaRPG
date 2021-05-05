@@ -17,7 +17,7 @@
 
 namespace Cursor
 {
-    inline int cursorSize = 40;
+    inline int attrCursorSize = 40;
     inline bool isHoveringButton = false;
     inline bool isHoveringButtonBuffer = false;
 

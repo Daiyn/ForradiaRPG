@@ -13,8 +13,9 @@
 #include "Global_Mouse.h"
 #include "CSize.h"
 #include "CTile.h"
+#include "Animations.h"
 
-using Global::currentMap;
+using Global::contentCurrentMap;
 
 void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint pTile)
 {
@@ -23,25 +24,25 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
     auto TILESIZE = tileSizeCeil;
     auto& PLAYER = Global::player;
 
-    int seenFloorIndex = currentMap->m_2DTiles[pTile.m_x][pTile.m_y]->GetIndexForSeenFloor();
+    int seenFloorIndex = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->GetIndexForSeenFloor();
 
     if (seenFloorIndex == -1)
         return;
 
     CRectangle rTile = { int(x * tileSize), int(y * tileSize), TILESIZE, TILESIZE };
 
-    if (currentMap->m_2DTiles[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->HoldsObjects())
+    if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->HoldsObjects())
     {
 
         for (int jjj = 0; jjj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jjj++)
         {
 
-            if (currentMap->m_2DTiles[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->m_floorObjectsArr[jjj] == NULL)
+            if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->m_containedObjects[jjj] == NULL)
                 continue;
 
-            auto&  it = currentMap->m_2DTiles[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->m_floorObjectsArr[jjj];
+            auto&  it = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->m_containedObjects[jjj];
 
-            CDataDescription& desc = *DataLoading::descriptions[it->m_idxObjectType];
+            CDataDescription& desc = *DataLoading::libDescriptions[it->m_idxObjectType];
 
             CSize imgSize = { TILESIZE * std::atof(desc.m_propAttributes["ImageWidthMultiplier"].c_str()) ,
                             TILESIZE * std::atof(desc.m_propAttributes["ImageHeightMultiplier"].c_str()) };
@@ -122,7 +123,7 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
             else
             {
 
-                Drawing::Image(it->m_idxObjectType, rTile);
+                Drawing::Image(Animations::RunThroughAnimationFilter(it->m_idxObjectType, pTile.m_x, pTile.m_y), rTile);
 
             }
 
@@ -170,22 +171,22 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
                 && pTile.m_x == PlayerActions::hoveredTile.m_x
                 && pTile.m_y == PlayerActions::hoveredTile.m_y)
             {
-                string objectName = DataLoading::descriptions[it->m_idxObjectType]->m_propAttributes["ReadableName"];
+                string objectName = DataLoading::libDescriptions[it->m_idxObjectType]->m_propAttributes["ReadableName"];
 
-                if (it->m_qtyCurrent > 1)
-                    objectName = std::to_string(it->m_qtyCurrent) + "x " + objectName; +"s";
+                if (it->m_propCurrentQuantity > 1)
+                    objectName = std::to_string(it->m_propCurrentQuantity) + "x " + objectName; +"s";
 
                 int mx = Global::GetMouseX();
                 int my = Global::GetMouseY();
 
-                if (DataLoading::descriptions[it->m_idxObjectType]->ContainsPropertyWithValue("HasAmount", "True"))
+                if (DataLoading::libDescriptions[it->m_idxObjectType]->ContainsPropertyWithValue("HasAmount", "True"))
                 {
                     int w = TextRendering::GetTextWidth(objectName) + 20;
                     CRectangle rect = { mx - w / 2, my - TILESIZE - 22, w, 22 };
                     Drawing::FilledRect({ 150, 190, 255, 170 }, rect);
                     TextRendering::DrawString(objectName, { 0, 0, 0 }, rect.x + 10, rect.y + 3);
 
-                    string strAmount = "Amount: " + std::to_string(it->m_amountCurrent) + " %";
+                    string strAmount = "Amount: " + std::to_string(it->m_propCurrentAmount) + " %";
                     w = TextRendering::GetTextWidth(strAmount) + 20;
                     rect = { mx - w / 2, my - TILESIZE, w, 22 };
                     Drawing::FilledRect({ 150, 190, 255, 170 }, rect);

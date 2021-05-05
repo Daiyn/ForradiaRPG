@@ -44,7 +44,8 @@ CGamingSession::CGamingSession()
 
 
 
-void CGamingSession::Update() {
+void CGamingSession::Update()
+{
 
     MouseInput::Update();
     Global::player->Update();
@@ -57,7 +58,7 @@ void CGamingSession::Update() {
     GUI::Update();
     GUISystemMenu::Update();
     GUIWorldMenu::Update();
-    Global::currentMap->UpdateNPCs();
+    Global::contentCurrentMap->UpdateNPCs();
     FoodEating::Update();
 
 }

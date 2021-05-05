@@ -12,7 +12,7 @@
 void TrainRendering::RenderTrainLocomotive(int x, int y, CPoint pTile)
 {
 
-    if (pTile.m_x == Global::train->m_trainPosition.x && pTile.m_y == Global::train->m_trainPosition.y)
+    if (pTile.m_x == Global::train->m_coordPosition.x && pTile.m_y == Global::train->m_coordPosition.y)
     {
 
         int imgWidth = Global::GetTileSize() * 4;
@@ -40,7 +40,7 @@ void TrainRendering::RenderTrainLocomotive(int x, int y, CPoint pTile)
 
         }
 
-        for (int i = 0; i < Global::train->m_npcsOnTrain.size(); i++)
+        for (int i = 0; i < Global::train->m_containedNPCsOnTrain.size(); i++)
         {
 
             int imgWidth = Global::GetTileSize() * 1.5;
@@ -61,8 +61,8 @@ void TrainRendering::RenderTrainLocomotive(int x, int y, CPoint pTile)
 void TrainRendering::RenderTrainCarriages(int x, int y, CPoint pTile)
 {
 
-    for (auto it = Global::train->m_trainCarriagePositions.begin();
-         it != Global::train->m_trainCarriagePositions.end(); it++)
+    for (auto it = Global::train->m_coordsCarriagePositions.begin();
+         it != Global::train->m_coordsCarriagePositions.end(); it++)
     {
 
         if (pTile.m_x == (*it).x && pTile.m_y == (*it).y)

@@ -11,10 +11,11 @@
 #include "Global_MapSize.h"
 #include "CPlayer.h"
 #include "TextRendering.h"
+#include "Animations.h"
 
 namespace D = Drawing;
 
-using Global::currentMap;
+using Global::contentCurrentMap;
 
 bool TileRendering::CheckUnseenTiles(int x, int y, CPoint pTile)
 {
@@ -22,42 +23,42 @@ bool TileRendering::CheckUnseenTiles(int x, int y, CPoint pTile)
     auto TILESIZE = Global::GetTileSize();
     auto& PLAYER = Global::player;
 
-    if (currentMap->TileIsMinedAtElev(PLAYER->m_elevCurrent, pTile.m_x, pTile.m_y))
+    if (contentCurrentMap->TileIsMinedAtElev(PLAYER->m_locCurrentElevation, pTile.m_x, pTile.m_y))
         return false;
 
-    if (currentMap->TileIsMinedAtElev(currentMap->m_2DElevation[pTile.m_x][pTile.m_y], pTile.m_x, pTile.m_y)
+    if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight, pTile.m_x, pTile.m_y)
         && pTile.m_x < Global::mapSize - 1
-        && currentMap->m_2DElevation[pTile.m_x + 1][pTile.m_y] > currentMap->m_2DElevation[pTile.m_x][pTile.m_y])
+        && contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight)
     {
         return false;
     }
 
-    if (currentMap->TileIsMinedAtElev(currentMap->m_2DElevation[pTile.m_x][pTile.m_y], pTile.m_x, pTile.m_y)
+    if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight, pTile.m_x, pTile.m_y)
         && pTile.m_y > 0
-        && currentMap->m_2DElevation[pTile.m_x][pTile.m_y - 1] > currentMap->m_2DElevation[pTile.m_x][pTile.m_y])
+        && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight)
     {
         return false;
     }
 
-    if (currentMap->TileIsMinedAtElev(currentMap->m_2DElevation[pTile.m_x + 1][pTile.m_y], pTile.m_x, pTile.m_y)
+    if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight, pTile.m_x, pTile.m_y)
         && pTile.m_x < Global::mapSize - 1
-        && currentMap->m_2DElevation[pTile.m_x][pTile.m_y] > currentMap->m_2DElevation[pTile.m_x + 1][pTile.m_y])
+        && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight)
     {
         return false;
     }
 
-    if (currentMap->TileIsMinedAtElev(currentMap->m_2DElevation[pTile.m_x][pTile.m_y - 1], pTile.m_x, pTile.m_y)
+    if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->m_elevationHeight, pTile.m_x, pTile.m_y)
         && pTile.m_y > 0
-        && currentMap->m_2DElevation[pTile.m_x][pTile.m_y] > currentMap->m_2DElevation[pTile.m_x][pTile.m_y - 1])
+        && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->m_elevationHeight)
     {
         return false;
     }
     
-    if (currentMap->m_2DElevation[PLAYER->m_posCurrent.m_x][PLAYER->m_posCurrent.m_y] < 0
-        && currentMap->m_2DElevation[pTile.m_x][pTile.m_y] <= 0)
+    if (contentCurrentMap->m_tilesGrid[PLAYER->m_coordPosition.m_x][PLAYER->m_coordPosition.m_y]->m_elevationHeight < 0
+        && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight <= 0)
         return false;
 
-    if (currentMap->m_2DElevation[pTile.m_x][pTile.m_y] > currentMap->m_2DElevation[PLAYER->m_posCurrent.m_x][PLAYER->m_posCurrent.m_y])
+    if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[PLAYER->m_coordPosition.m_x][PLAYER->m_coordPosition.m_y]->m_elevationHeight)
     {
 
 
@@ -74,7 +75,7 @@ void TileRendering::CoverUnseenTiles(int x, int y, CPoint pTile)
     auto TILESIZE = Global::GetTileSize();
     auto& PLAYER = Global::player;
 
-    if (currentMap->m_2DElevation[pTile.m_x][pTile.m_y] > currentMap->m_2DElevation[PLAYER->m_posCurrent.m_x][PLAYER->m_posCurrent.m_y]) {
+    if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[PLAYER->m_coordPosition.m_x][PLAYER->m_coordPosition.m_y]->m_elevationHeight) {
 
         int increasedSize = TILESIZE*1.7;
 
@@ -97,12 +98,12 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
     auto TILESIZE = tileSizeCeil;
     auto& PLAYER = Global::player;
 
-    int floorIndex = currentMap->m_2DTiles[pTile.m_x][pTile.m_y]->GetIndexForSeenFloor();
+    int floorIndex = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->GetIndexForSeenFloor();
 
     if (floorIndex == -1)
         return;
 
-    auto& tfSeenFloor = currentMap->m_2DTiles[pTile.m_x][pTile.m_y]->m_floorsArray[floorIndex];
+    auto& tfSeenFloor = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_floorsArray[floorIndex];
 
 
 
@@ -115,10 +116,10 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
 
     if (PLAYER != NULL)
     {
-        if (PLAYER->m_elevCurrent != SURFACE_FLOOR)
+        if (PLAYER->m_locCurrentElevation != SURFACE_FLOOR)
         {
 
-            if (!currentMap->TileIsMinedAtElev(PLAYER->m_elevCurrent, pTile.m_x, pTile.m_y))
+            if (!contentCurrentMap->TileIsMinedAtElev(PLAYER->m_locCurrentElevation, pTile.m_x, pTile.m_y))
             {
                 return;
             }
@@ -132,10 +133,12 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
     string imageName;
     string imageNameWaterDepth;
 
-    CDataDescription& desc = *DataLoading::descriptions[tfSeenFloor->m_groundType];
+    CDataDescription& desc = *DataLoading::libDescriptions[tfSeenFloor->m_idxGroundType];
 
 
-    D::ImageCurrentRect(tfSeenFloor->m_groundType);
+    //D::ImageCurrentRect(tfSeenFloor->m_idxGroundType);
+
+    D::ImageCurrentRect(Animations::RunThroughAnimationFilter(tfSeenFloor->m_idxGroundType, pTile.m_x, pTile.m_y));
 
 
 
@@ -143,15 +146,15 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
     bool tileEastIsWater = false;
     bool tileNorthIsWater = false;
 
-    bool isDeepWater = currentMap->m_2DElevation[pTile.m_x][pTile.m_y] < 0;
+    bool isDeepWater = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight < 0;
 
-    tileCurrentIsWater = tfSeenFloor->m_groundType == ID_TILE_WATER;
+    tileCurrentIsWater = tfSeenFloor->m_idxGroundType == ID_TILE_WATER;
 
-    if (currentMap->m_2DTiles[pTile.m_x + 1][pTile.m_y]->GetIndexForSeenFloor() != -1)
-        tileEastIsWater = tfSeenFloor->m_groundType == ID_TILE_WATER;
+    if (contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->GetIndexForSeenFloor() != -1)
+        tileEastIsWater = tfSeenFloor->m_idxGroundType == ID_TILE_WATER;
 
-    if (currentMap->m_2DTiles[pTile.m_x][pTile.m_y - 1]->GetIndexForSeenFloor() != -1)
-        tileNorthIsWater = tfSeenFloor->m_groundType == ID_TILE_WATER;
+    if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->GetIndexForSeenFloor() != -1)
+        tileNorthIsWater = tfSeenFloor->m_idxGroundType == ID_TILE_WATER;
 
     if (!tileCurrentIsWater && tileEastIsWater && !isDeepWater)
         D::ImageCurrentRect(ID_EDGE_RIGHT);
@@ -167,16 +170,16 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
 
     bool doDrawGrassStraws = true;
 
-    bool tileIsRock = tfSeenFloor->m_groundType == ID_TILE_ROCK;
-    bool tileIsStoneSlab = tfSeenFloor->m_groundType == ID_TILE_STONESLAB;
+    bool tileIsRock = tfSeenFloor->m_idxGroundType == ID_TILE_ROCK;
+    bool tileIsStoneSlab = tfSeenFloor->m_idxGroundType == ID_TILE_STONESLAB;
 
-    int elevCurrent = currentMap->m_2DElevation[pTile.m_x][pTile.m_y];
-    int elevNorth = currentMap->m_2DElevation[pTile.m_x][pTile.m_y - 1];
-    int elevNorthEast = currentMap->m_2DElevation[pTile.m_x + 1][pTile.m_y - 1];
-    int elevEast = currentMap->m_2DElevation[pTile.m_x + 1][pTile.m_y];
-    int elevSouth = currentMap->m_2DElevation[pTile.m_x][pTile.m_y + 1];
-    int elevSouthEast = currentMap->m_2DElevation[pTile.m_x + 1][pTile.m_y + 1];
-    int elevWest = currentMap->m_2DElevation[pTile.m_x - 1][pTile.m_y];
+    int elevCurrent = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight;
+    int elevNorth = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->m_elevationHeight;
+    int elevNorthEast = contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y - 1]->m_elevationHeight;
+    int elevEast = contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight;
+    int elevSouth = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y + 1]->m_elevationHeight;
+    int elevSouthEast = contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y + 1]->m_elevationHeight;
+    int elevWest = contentCurrentMap->m_tilesGrid[pTile.m_x - 1][pTile.m_y]->m_elevationHeight;
 
     bool slopeUpNorth = elevNorth > elevCurrent;
     bool slopeUpNorthEast = elevNorthEast > elevCurrent;
@@ -308,31 +311,31 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
     }
 
 
-    if (currentMap->TileIsMinedAtElev(currentMap->m_2DElevation[pTile.m_x][pTile.m_y], pTile.m_x, pTile.m_y)
-        && currentMap->m_2DElevation[pTile.m_x + 1][pTile.m_y] > currentMap->m_2DElevation[pTile.m_x][pTile.m_y])
+    if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight, pTile.m_x, pTile.m_y)
+        && contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight)
     {
         D::ImageCurrentRect(ID_CAVE_ENTRANCE_WEST);
     }
 
-    if (currentMap->TileIsMinedAtElev(currentMap->m_2DElevation[pTile.m_x][pTile.m_y], pTile.m_x, pTile.m_y)
-        && currentMap->m_2DElevation[pTile.m_x][pTile.m_y - 1] > currentMap->m_2DElevation[pTile.m_x][pTile.m_y])
+    if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight, pTile.m_x, pTile.m_y)
+        && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight)
     {
         D::ImageCurrentRect(ID_CAVE_ENTRANCE_SOUTH);
     }
 
-    if (currentMap->TileIsMinedAtElev(currentMap->m_2DElevation[pTile.m_x + 1][pTile.m_y], pTile.m_x, pTile.m_y)
-        && currentMap->m_2DElevation[pTile.m_x][pTile.m_y] > currentMap->m_2DElevation[pTile.m_x + 1][pTile.m_y])
+    if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight, pTile.m_x, pTile.m_y)
+        && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight)
     {
         D::ImageCurrentRect(ID_CAVE_ENTRANCE_EAST);
     }
 
-    if (currentMap->TileIsMinedAtElev(currentMap->m_2DElevation[pTile.m_x][pTile.m_y - 1], pTile.m_x, pTile.m_y)
-        && currentMap->m_2DElevation[pTile.m_x][pTile.m_y] > currentMap->m_2DElevation[pTile.m_x][pTile.m_y - 1])
+    if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->m_elevationHeight, pTile.m_x, pTile.m_y)
+        && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->m_elevationHeight)
     {
         D::ImageCurrentRect(ID_CAVE_ENTRANCE_NORTH);
     }
 
-    int tileFloorGroundType = tfSeenFloor->m_groundType;
+    int tileFloorGroundType = tfSeenFloor->m_idxGroundType;
 
     srand(pTile.m_x * 100 + pTile.m_y * 100);
     float scale = (float)(rand() % 10) / 10.0f + 0.5f;

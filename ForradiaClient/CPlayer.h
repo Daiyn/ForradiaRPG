@@ -53,18 +53,18 @@ public:
     Clock::time_point m_tickLastMove = Clock::now();
     Clock::time_point m_tickLastActualMove = Clock::now();
     CInventory m_inventory;
-    CPoint m_posCurrent = { -1, -1 };
-    CPoint m_posMoveDestination = {-1, -1};
+    CPoint m_coordPosition = { -1, -1 };
+    CPoint m_coordMoveDestination = {-1, -1};
     int m_spdMovement = 70;
     int m_tickStartJump = 0;
     int m_duraJumping = 1000;
-    int m_hpMax = 100;
-    int m_elevCurrent = SURFACE_FLOOR;
+    int m_statMaxHP = 100;
+    int m_locCurrentElevation = SURFACE_FLOOR;
     CPoint3D m_coordWorldSubmap = { 0, 0, 0 };
     int m_tickLastSkillCastEnded = 0;
     int m_spdSkillCasting = 300;
-    double m_nrgyMax = 100;
-    double m_nrgyCurrent = 100;
+    double m_statMaxNRGY = 100;
+    double m_statCurrentNRGY = 100;
 
     CPlayer(int mapSize);
 

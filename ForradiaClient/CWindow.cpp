@@ -27,33 +27,31 @@ CWindow::CWindow(int _x, int _y, int _w, int _h, int _uniqueNPCID, string _title
     m_w = _w;
     m_h = _h;
 
-    m_connectedNPCDialogUniqueNPCID = _uniqueNPCID;
+    m_uniqueNPCIDCoupled = _uniqueNPCID;
 
-    //m_dialog = _dialog;
-
-    m_title = _title;
+    m_attrTitle = _title;
 
 }
 
 void CWindow::Update()
 {
 
-    if (m_isMovingWindow)
+    if (m_stateIsMovingWindow)
     {
 
         int mx = Global::GetMouseX();
         int my = Global::GetMouseY();
 
-        m_x = m_xStartMovingWindow + mx - m_mxStartMovingWindow;
-        m_y = m_yStartMovingWindow + my - m_myStartMovingWindow;
+        m_x = m_pxXStartMovingWindow + mx - m_mxStartMovingWindow;
+        m_y = m_pxYStartMovingWindow + my - m_myStartMovingWindow;
 
     }
 
     CPoint pMouse = Global::GetMousePoint();
 
-    int iconCloseWindowSize = m_titleBarHeight - 2 * m_titleBarMargin;
+    int iconCloseWindowSize = m_pxTitleBarHeight - 2 * m_pxTitleBarMargin;
 
-    CRectangle rect = { m_x + m_w - iconCloseWindowSize - m_titleBarMargin, m_y + m_titleBarMargin, iconCloseWindowSize, iconCloseWindowSize };
+    CRectangle rect = { m_x + m_w - iconCloseWindowSize - m_pxTitleBarMargin, m_y + m_pxTitleBarMargin, iconCloseWindowSize, iconCloseWindowSize };
 
     if (rect.ContainsPoint(pMouse))
         Cursor::isHoveringButton = true;
@@ -63,30 +61,30 @@ void CWindow::Update()
 bool CWindow::HandleMouseClickInWindowBase()
 {
 
-    if (m_isMovingWindow)
+    if (m_stateIsMovingWindow)
         return true;
 
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
 
-    int iconCloseWindowSize = m_titleBarHeight - 2 * m_titleBarMargin;
+    int iconCloseWindowSize = m_pxTitleBarHeight - 2 * m_pxTitleBarMargin;
 
-    SDL_Rect rect = {m_x + m_w - iconCloseWindowSize - m_titleBarMargin, m_y + m_titleBarMargin, iconCloseWindowSize, iconCloseWindowSize};
+    SDL_Rect rect = {m_x + m_w - iconCloseWindowSize - m_pxTitleBarMargin, m_y + m_pxTitleBarMargin, iconCloseWindowSize, iconCloseWindowSize};
 
     if (mx >= rect.x && my >= rect.y && mx < rect.x + rect.w && my < rect.y + rect.h)
     {
 
-        m_destroyWindow = true;
+        m_activateWindowDestruction = true;
         return true;
 
     }
 
-    if (mx >= m_x && my >= m_y && mx < m_x + m_w && my < m_y + m_titleBarHeight)
+    if (mx >= m_x && my >= m_y && mx < m_x + m_w && my < m_y + m_pxTitleBarHeight)
     {
 
-        m_isMovingWindow = true;
-        m_xStartMovingWindow = m_x;
-        m_yStartMovingWindow = m_y;
+        m_stateIsMovingWindow = true;
+        m_pxXStartMovingWindow = m_x;
+        m_pxYStartMovingWindow = m_y;
         m_mxStartMovingWindow = mx;
         m_myStartMovingWindow = my;
 
@@ -101,7 +99,7 @@ bool CWindow::HandleMouseClickInWindowBase()
 bool CWindow::HandleMouseReleaseInWindowBase()
 {
 
-    m_isMovingWindow = false;
+    m_stateIsMovingWindow = false;
 
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
@@ -131,7 +129,7 @@ bool CWindow::CheckMouseClickInWindow()
     if (mx >= m_x && my >= m_y && mx < m_x + m_w && my < m_y + m_h)
         return true;
 
-    if (m_isMovingWindow)
+    if (m_stateIsMovingWindow)
         return true;
 
     return false;
@@ -146,21 +144,16 @@ bool CWindow::HandleMouseClickInWindow()
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
 
-    
-
-    for (auto it : Global::currentMap->m_listAllNPCs)
+    for (auto it : Global::contentCurrentMap->m_mirrorAllNPCs)
     {
-        if (it.get().m_uniqueID == m_connectedNPCDialogUniqueNPCID)
+        if (it.get().m_uniqueID == m_uniqueNPCIDCoupled)
         {
-            CNPCDialog& dialog = *it.get().m_talkCurrentDialog;
-
-
-
+            CNPCDialog& dialog = *it.get().m_interactiveCurrentDialog;
 
             for (int i = 0; i < dialog.getCurrentPhrase().m_optAnswers.size(); i++)
             {
 
-                SDL_Rect rectButton = { m_x + m_margin + i * (m_buttonWidth + m_margin), m_y + m_h - m_buttonHeight - m_margin, m_buttonWidth, m_buttonHeight };
+                SDL_Rect rectButton = { m_x + m_pxMargin + i * (m_pxButtonWidth + m_pxMargin), m_y + m_h - m_pxButtonHeight - m_pxMargin, m_pxButtonWidth, m_pxButtonHeight };
 
                 if (mx >= rectButton.x && my >= rectButton.y && mx < rectButton.x + rectButton.w &&
                     my < rectButton.y + rectButton.h)
@@ -178,10 +171,10 @@ bool CWindow::HandleMouseClickInWindow()
                         for (int jjj = 0; jjj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jjj++)
                         {
 
-                            if (Global::currentMap->m_2DTiles[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->m_floorObjectsArr[jjj] == NULL)
+                            if (Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->m_containedObjects[jjj] == NULL)
                             {
 
-                                Global::currentMap->m_2DTiles[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->m_floorObjectsArr[jjj] = make_unique<CObject>(CObject(objectIndex, { mapx, mapy }));
+                                Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->m_containedObjects[jjj] = make_unique<CObject>(CObject(objectIndex, { mapx, mapy }));
                                 break;
 
                             }
@@ -199,7 +192,7 @@ bool CWindow::HandleMouseClickInWindow()
                     else
                     {
 
-                        m_destroyWindow = true;
+                        m_activateWindowDestruction = true;
 
                     }
 
@@ -209,15 +202,9 @@ bool CWindow::HandleMouseClickInWindow()
 
             }
 
-
-
-
-
             break;
         }
     }
-
-    
 
     return baseResult;
 }
@@ -235,7 +222,7 @@ void CWindow::RenderBase()
 
     SDL_SetRenderDrawColor(Global::renderer, 200, 200, 255, 255);
 
-    rect = {m_x, m_y, m_w, m_titleBarHeight};
+    rect = {m_x, m_y, m_w, m_pxTitleBarHeight};
 
     SDL_RenderFillRect(Global::renderer, &rect);
 
@@ -243,16 +230,15 @@ void CWindow::RenderBase()
 
     SDL_RenderDrawRect(Global::renderer, &rect);
 
-    int titleTextMargin = m_titleBarHeight / 2 - TextRendering::GetTextHeight() / 2;
+    int titleTextMargin = m_pxTitleBarHeight / 2 - TextRendering::GetTextHeight() / 2;
 
-    TextRendering::DrawString(m_title, {0, 0, 0}, m_x + titleTextMargin, m_y + titleTextMargin);
+    TextRendering::DrawString(m_attrTitle, {0, 0, 0}, m_x + titleTextMargin, m_y + titleTextMargin);
 
-    int iconCloseWindowSize = m_titleBarHeight - 2 * m_titleBarMargin;
+    int iconCloseWindowSize = m_pxTitleBarHeight - 2 * m_pxTitleBarMargin;
 
-    rect = {m_x + m_w - iconCloseWindowSize - m_titleBarMargin, m_y + m_titleBarMargin, iconCloseWindowSize, iconCloseWindowSize};
+    rect = {m_x + m_w - iconCloseWindowSize - m_pxTitleBarMargin, m_y + m_pxTitleBarMargin, iconCloseWindowSize, iconCloseWindowSize};
 
     SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_ICON_CLOSE_WINDOW], NULL, &rect);
-
 
 }
 
@@ -261,19 +247,17 @@ void CWindow::Render()
 
     RenderBase();
 
-
-
-    for (auto it : Global::currentMap->m_listAllNPCs)
+    for (auto it : Global::contentCurrentMap->m_mirrorAllNPCs)
     {
-        if (it.get().m_uniqueID == m_connectedNPCDialogUniqueNPCID)
+        if (it.get().m_uniqueID == m_uniqueNPCIDCoupled)
         {
-            CNPCDialog& dialog = *it.get().m_talkCurrentDialog;
+            CNPCDialog& dialog = *it.get().m_interactiveCurrentDialog;
 
-            for (int i = 0; i < dialog.getCurrentPhrase().m_txtblockTextLines.size(); i++)
+            for (int i = 0; i < dialog.getCurrentPhrase().m_textblockTextLines.size(); i++)
             {
 
-                string str = dialog.getCurrentPhrase().m_txtblockTextLines[i];
-                TextRendering::DrawString(str, { 0, 0, 0 }, m_x + m_margin, m_y + m_titleBarHeight + m_margin + i * m_rowHeight);
+                string str = dialog.getCurrentPhrase().m_textblockTextLines[i];
+                TextRendering::DrawString(str, { 0, 0, 0 }, m_x + m_pxMargin, m_y + m_pxTitleBarHeight + m_pxMargin + i * m_pxRowHeight);
 
             }
 
@@ -282,7 +266,7 @@ void CWindow::Render()
 
                 string strAnswer = dialog.getCurrentPhrase().m_optAnswers[i].m_answerText;
 
-                SDL_Rect rectButton = { m_x + m_margin + i * (m_buttonWidth + m_margin), m_y + m_h - m_buttonHeight - m_margin, m_buttonWidth, m_buttonHeight };
+                SDL_Rect rectButton = { m_x + m_pxMargin + i * (m_pxButtonWidth + m_pxMargin), m_y + m_h - m_pxButtonHeight - m_pxMargin, m_pxButtonWidth, m_pxButtonHeight };
 
                 SDL_SetRenderDrawColor(Global::renderer, 255, 200, 200, 255);
 
@@ -295,7 +279,6 @@ void CWindow::Render()
                 TextRendering::DrawString(strAnswer, { 0, 0, 0 }, rectButton.x, rectButton.y);
 
             }
-
 
         }
 

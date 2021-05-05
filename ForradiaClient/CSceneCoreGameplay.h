@@ -46,7 +46,7 @@ class CSceneCoreGameplay : public CScene
 {
 public:
 
-    unique_ptr<CGamingSession> m_gamingSession;
+    unique_ptr<CGamingSession> m_activeGamingSession;
 
     CSceneCoreGameplay();
 

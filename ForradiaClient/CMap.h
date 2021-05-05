@@ -62,15 +62,12 @@ class CMap
 {
 public:
 
-    vector<CObject> m_listChangingObject;
-    vector<reference_wrapper<CNPC>> m_listAllNPCs;
-    CPoint m_posPlaza;
-    int m_sizePlaza;
-    vector<reference_wrapper<CFoe>> m_allFoesArray;
-    vector<vector < unique_ptr<CTile>>> m_2DTiles;
-    vector<vector<int>> m_2DElevation;
-    vector<vector<vector<int>>> m_2DMinedTiles;
-    vector<vector<bool>> m_2DNPCOwnedLand;
+    vector<CObject> m_objectsWithUpdateNeed;
+    vector<reference_wrapper<CNPC>> m_mirrorAllNPCs;
+    CPoint m_coordPlazaPosition;
+    int m_tilesNumPlazaSize;
+    vector<reference_wrapper<CFoe>> m_mirrorAllFoes;
+    vector<vector < unique_ptr<CTile>>> m_tilesGrid;
     SDL_Surface *m_imgFullMapRender = NULL;
 
     CMap(int mapSize);

@@ -10,12 +10,10 @@
 #include "CPlayer.h"
 #include <SDL2/SDL_timer.h>
 
-
-
 void BattleExecution::PerformCombat()
 {
     
-    if (Utilities::DoTickCheck(tickLastCombatIteration, tickCombatSpeed))
+    if (tmrBattleIteration.TimeForUpdate())
     {
 
         if (Combat::tickCombatInitiated == 0)
@@ -23,12 +21,14 @@ void BattleExecution::PerformCombat()
 
         srand(SDL_GetTicks());
 
-        CFoe& targetedFoe = Global::currentMap->m_allFoesArray[Combat::idxTargetedFoe];
+        CFoe& targetedFoe = Global::contentCurrentMap->m_mirrorAllFoes[Combat::idxTargetedFoe];
 
+        /* Determine the maxDamage for the player and the foe and hit both
+           the player and the foe once every timer tick. */
         int maxDamage = 3;
         auto& pFoe = (CFightableCharacter&)targetedFoe;
         HitFightableCharacter(pFoe, maxDamage);
-        Global::currentMap->AddObjectIfDoesntAlreadyExist(DataLoading::GetDescriptionIndexByName("ObjectPoolOfBlood"), targetedFoe.m_posCurrent.m_x, targetedFoe.m_posCurrent.m_y, SURFACE_FLOOR);
+        Global::contentCurrentMap->AddObjectIfDoesntAlreadyExist(DataLoading::GetDescriptionIndexByName("ObjectPoolOfBlood"), targetedFoe.m_coordPosition.m_x, targetedFoe.m_coordPosition.m_y, SURFACE_FLOOR);
         auto& pPlayer = (CFightableCharacter&)(*Global::player);
         HitFightableCharacter(pPlayer, maxDamage);
 
@@ -36,6 +36,7 @@ void BattleExecution::PerformCombat()
 
 }
 
+/* This function applies to both the player and the foes. */
 void BattleExecution::HitFightableCharacter(CFightableCharacter& character, int maxDamage)
 {
 

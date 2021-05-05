@@ -45,24 +45,24 @@ class CWindow
 {
 public:
 
-    string m_title = "";
+    string m_attrTitle = "";
     int m_x;
     int m_y;
     int m_w;
     int m_h;
-    int m_titleBarHeight = 40;
-    int m_titleBarMargin = 3;
-    int m_margin = 15;
-    int m_rowHeight = 25;
-    int m_buttonWidth = 160;
-    int m_buttonHeight = 35;
-    int m_xStartMovingWindow = -1;
-    int m_yStartMovingWindow = -1;
+    int m_pxTitleBarHeight = 40;
+    int m_pxTitleBarMargin = 3;
+    int m_pxMargin = 15;
+    int m_pxRowHeight = 25;
+    int m_pxButtonWidth = 160;
+    int m_pxButtonHeight = 35;
+    int m_pxXStartMovingWindow = -1;
+    int m_pxYStartMovingWindow = -1;
     int m_mxStartMovingWindow = -1;
     int m_myStartMovingWindow = -1;
-    int m_connectedNPCDialogUniqueNPCID = -1;
-    bool m_isMovingWindow = false;
-    bool m_destroyWindow = false;
+    int m_uniqueNPCIDCoupled = -1;
+    bool m_stateIsMovingWindow = false;
+    bool m_activateWindowDestruction = false;
 
     CWindow() = default;
     CWindow(int _x, int _y, int _w, int _h, int _uniqueNPCID, string _title);

@@ -26,7 +26,7 @@ class CScene;
 
 namespace Global
 {
-	inline unique_ptr<CScene> currentScene;
+	inline unique_ptr<CScene> stateCurrentScene;
 
 	void ChangeScene(unique_ptr<CScene> newScene);
 }
@@ -35,7 +35,7 @@ namespace Global
 inline void Global::ChangeScene(unique_ptr<CScene> newScene)
 {
 
-	currentScene = move(newScene);
+	stateCurrentScene = move(newScene);
 	Global::restartGameLoop = true;
 
 }

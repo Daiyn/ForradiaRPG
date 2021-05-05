@@ -14,20 +14,19 @@ void Crafting::ChopDownTree(CPoint p)
 	PlayerActions::FocusOnObject(p);
 }
 
-
 void Crafting::CreateUnloadedCampfire(CPoint p)
 {
 
 	int objectStone = DataLoading::GetDescriptionIndexByName("ObjectStone");
 	int objectUnloadedCampfire = DataLoading::GetDescriptionIndexByName("ObjectUnloadedCampfire");
 
-    int seenFloorIndex = Global::currentMap->m_2DTiles[p.m_x][p.m_y]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
 
     if (seenFloorIndex == -1)
         return;
 
     if (Global::player->ConsumeNRGY(20))
-	    Global::currentMap->m_2DTiles[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex]->ReplaceObject(objectStone, 5, objectUnloadedCampfire, 1);
+	    Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex]->ReplaceObject(objectStone, 5, objectUnloadedCampfire, 1);
 
 }
 
@@ -37,12 +36,12 @@ void Crafting::LoadCampfire(CPoint p)
     int objectUnloadedCampfire = DataLoading::GetDescriptionIndexByName("ObjectUnloadedCampfire");
     int objectLoadedCampfire = DataLoading::GetDescriptionIndexByName("ObjectLoadedCampfire");
 
-    int seenFloorIndex = Global::currentMap->m_2DTiles[p.m_x][p.m_y]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
 
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::currentMap->m_2DTiles[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectUnloadedCampfire))
         if (Global::player->m_inventory.UseItemInInventory(objectWoodLog, 1))
@@ -57,12 +56,12 @@ void Crafting::LightCampfire(CPoint p)
     int objectLoadedCampfire = DataLoading::GetDescriptionIndexByName("ObjectLoadedCampfire");
     int objectBurningCampfire = DataLoading::GetDescriptionIndexByName("ObjectBurningCampfire");
 
-    int seenFloorIndex = Global::currentMap->m_2DTiles[p.m_x][p.m_y]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
 
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::currentMap->m_2DTiles[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectLoadedCampfire))
         if (Global::player->m_inventory.HasItemInInventory(objectMatches))
@@ -77,12 +76,12 @@ void Crafting::ChopUpWoodLog(CPoint p)
     int objectWoodLog = DataLoading::GetDescriptionIndexByName("ObjectWoodLog");
     int objectFelledTree = DataLoading::GetDescriptionIndexByName("ObjectFelledTree");
 
-    int seenFloorIndex = Global::currentMap->m_2DTiles[p.m_x][p.m_y]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
 
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::currentMap->m_2DTiles[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     bool breakLoop = false;
 
@@ -91,12 +90,12 @@ void Crafting::ChopUpWoodLog(CPoint p)
         for (int x = p.m_x - 1; x <= p.m_x + 1 && !breakLoop; x++)
         {
 
-            int seenFloorIndexFreeSpace = Global::currentMap->m_2DTiles[x][y]->GetIndexForSeenFloor();
+            int seenFloorIndexFreeSpace = Global::contentCurrentMap->m_tilesGrid[x][y]->GetIndexForSeenFloor();
 
             if (seenFloorIndexFreeSpace == -1)
                 continue;
 
-            CTileFloor& floorFreeSpace = *Global::currentMap->m_2DTiles[x][y]->m_floorsArray[seenFloorIndexFreeSpace];
+            CTileFloor& floorFreeSpace = *Global::contentCurrentMap->m_tilesGrid[x][y]->m_floorsArray[seenFloorIndexFreeSpace];
 
             if (floorFreeSpace.HoldsObjects())
                 continue;
@@ -105,15 +104,15 @@ void Crafting::ChopUpWoodLog(CPoint p)
 
             if (Global::player->ConsumeNRGY(20))
             {
-                floorFreeSpace.m_floorObjectsArr[freeObjectSpaceIndex] = make_unique<CObject>(CObject(objectWoodLog, { x, y }));
+                floorFreeSpace.m_containedObjects[freeObjectSpaceIndex] = make_unique<CObject>(CObject(objectWoodLog, { x, y }));
 
                 int index = floor.GetObjectIndexForObjectType(objectFelledTree);
 
                 if (index != INVALID_INDEX)
                 {
-                    floor.m_floorObjectsArr[index]->m_amountCurrent -= 20;
+                    floor.m_containedObjects[index]->m_propCurrentAmount -= 20;
 
-                    if (floor.m_floorObjectsArr[index]->m_amountCurrent <= 0)
+                    if (floor.m_containedObjects[index]->m_propCurrentAmount <= 0)
                         floor.DeleteObjectAtIndex(index);
 
                     breakLoop = true;
@@ -131,14 +130,14 @@ void Crafting::DigClay(CPoint p)
     int objectShovel = DataLoading::GetDescriptionIndexByName("ObjectShovel");
     int objectClayLump = DataLoading::GetDescriptionIndexByName("ObjectClayLump");
 
-    int seenFloorIndex = Global::currentMap->m_2DTiles[p.m_x][p.m_y]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
 
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::currentMap->m_2DTiles[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
-    if (floor.m_groundType == tileClay)
+    if (floor.m_idxGroundType == tileClay)
         if (Global::player->m_inventory.HasItemInInventory(objectShovel))
             if (Global::player->ConsumeNRGY(20))
                 floor.AddObject(objectClayLump);
@@ -151,12 +150,12 @@ void Crafting::CreateBrick(CPoint p)
     int objectBrick = DataLoading::GetDescriptionIndexByName("ObjectBrick");
     int objectBurningCampfire = DataLoading::GetDescriptionIndexByName("ObjectBurningCampfire");
 
-    int seenFloorIndex = Global::currentMap->m_2DTiles[p.m_x][p.m_y]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
 
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::currentMap->m_2DTiles[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectBurningCampfire))
         if (Global::player->ConsumeNRGY(20))
@@ -169,12 +168,12 @@ void Crafting::CreateMeltingFurnace(CPoint p)
     int objectBrick = DataLoading::GetDescriptionIndexByName("ObjectBrick");
     int objectUnloadedMeltingFurnace = DataLoading::GetDescriptionIndexByName("ObjectUnloadedMeltingFurnace");
 
-    int seenFloorIndex = Global::currentMap->m_2DTiles[p.m_x][p.m_y]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
 
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::currentMap->m_2DTiles[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfTypeAndQuantity(objectBrick, MELTING_FURNACE_NUM_REQ_BRICKS))
         if (Global::player->ConsumeNRGY(20))

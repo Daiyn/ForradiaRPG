@@ -41,7 +41,7 @@ class CNPCDialog
 {
 public:
 
-    std::vector<CNPCDialogPhrase> m_talkPhrases;
+    std::vector<CNPCDialogPhrase> m_talkingPhrases;
     int m_iterCurrentPhrase = 0;
 
     CNPCDialogPhrase getCurrentPhrase();

@@ -20,7 +20,7 @@ void GUICoordPanel::Render()
 
     Drawing::FilledRect(MEDIUM_BLUE_TRANSPARENT, x, y, w, h);
 
-    string strCoord = "(" + std::to_string(Global::player->m_posCurrent.m_x) + ", " + std::to_string(Global::player->m_posCurrent.m_y) + ")";
+    string strCoord = "(" + std::to_string(Global::player->m_coordPosition.m_x) + ", " + std::to_string(Global::player->m_coordPosition.m_y) + ")";
 
     TextRendering::DrawString(strCoord, BLACK, x + margin, y + margin);
 

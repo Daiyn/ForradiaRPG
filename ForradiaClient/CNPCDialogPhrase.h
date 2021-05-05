@@ -45,7 +45,7 @@ class CNPCDialogPhrase
 {
 public:
 
-    vector<string> m_txtblockTextLines;
+    vector<string> m_textblockTextLines;
     vector<CNPCDialogPhraseAnswerOption> m_optAnswers;
 
 protected:

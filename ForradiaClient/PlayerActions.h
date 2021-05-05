@@ -27,6 +27,7 @@
 #include <SDL2/SDL_rect.h>
 #include <vector>
 #include "CPoint.h"
+#include "CTimer.h"
 
 void RenderPlayerActions();
 
@@ -38,8 +39,9 @@ namespace PlayerActions
     inline int focusedObjectMapx = -1;
     inline int focusedObjectMapy = -1;
     inline int focusedObjectProgress = 0;
-    inline int ticksFocusedObjectProgressIncrease = 0;
-    inline int focusedObjectProgressIncreaseSpeed = 300;
+    //inline int ticksFocusedObjectProgressIncrease = 0;
+    const int focusedObjectProgressIncreaseSpeed = 300;
+    inline CTimer tmrFocusedObjectProgressIncrease(focusedObjectProgressIncreaseSpeed);
     inline int skillElapseDuration = 500;
     inline float xStart;
     inline float yStart;

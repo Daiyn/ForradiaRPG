@@ -21,8 +21,6 @@
 #include "CTile.h"
 #include <memory>
 
-using std::make_unique;
-
 #define FOR(x,y,z) for (int x = y; x < z; x++)
 
 using std::make_unique;
@@ -30,16 +28,16 @@ using std::make_unique;
 CSceneStartNewGame::CSceneStartNewGame()
 {
 
-    m_generatedWorldMap = make_unique<CMap>(Global::mapSize);
+    m_gamedataMap = make_unique<CMap>(Global::mapSize);
 
     SDL_DestroyRenderer(Global::rendererFullMapOverview);
     Global::rendererFullMapOverview = nullptr;
 
-    SDL_DestroyTexture(m_texMapPreview);
-    m_texMapPreview = NULL;
+    SDL_DestroyTexture(m_texMapFull);
+    m_texMapFull = NULL;
 
     m_doGenerateMapPreview = true;
-    m_mapGenerated = false;
+    m_isMapGenerated = false;
 
 }
 
@@ -87,16 +85,16 @@ void CSceneStartNewGame::DoMouseDown(Uint8 button)
         my < rectGenerateButton.y + rectGenerateButton.h)
     {
 
-        m_generatedWorldMap = make_unique<CMap>(Global::mapSize);
+        m_gamedataMap = make_unique<CMap>(Global::mapSize);
 
         SDL_DestroyRenderer(Global::rendererFullMapOverview);
         Global::rendererFullMapOverview = nullptr;
 
-        SDL_DestroyTexture(m_texMapPreview);
-        m_texMapPreview = NULL;
+        SDL_DestroyTexture(m_texMapFull);
+        m_texMapFull = NULL;
 
         m_doGenerateMapPreview = true;
-        m_mapGenerated = false;
+        m_isMapGenerated = false;
     }
 
     if (mx >= rectPlayButton.x && my >= rectPlayButton.y && mx < rectPlayButton.x + rectPlayButton.w &&
@@ -172,7 +170,7 @@ void CSceneStartNewGame::GenerateMapPreview()
 {
 
     if (!Global::rendererFullMapOverview) {
-        Global::rendererFullMapOverview = SDL_CreateSoftwareRenderer(m_generatedWorldMap->m_imgFullMapRender);
+        Global::rendererFullMapOverview = SDL_CreateSoftwareRenderer(m_gamedataMap->m_imgFullMapRender);
         SDL_SetRenderDrawBlendMode(Global::rendererFullMapOverview, SDL_BLENDMODE_BLEND);
     }
 
@@ -187,7 +185,7 @@ void CSceneStartNewGame::GenerateMapPreview()
 
     double tileSize = (double)Global::mapPreviewSize / Global::mapSize;
 
-    Global::currentMap = move(m_generatedWorldMap);
+    Global::contentCurrentMap = move(m_gamedataMap);
 
     FOR(mapy, 1, Global::mapSize - 1)
     {
@@ -206,7 +204,7 @@ void CSceneStartNewGame::GenerateMapPreview()
     //=====================
 
 
-    m_mapGenerated = true;
+    m_isMapGenerated = true;
 
 }
 
@@ -387,10 +385,10 @@ void CSceneStartNewGame::RenderMapPreview()
     int xLeft = xmid - mapPreviewSizeScaled / 2;
     int yTop = ymid - mapPreviewSizeScaled / 2;
 
-    SDL_Rect rectFrame = {xLeft - m_boxBorderSize,
-                          yTop - m_boxBorderSize,
-                          mapPreviewSizeScaled + 2 * m_boxBorderSize,
-                          mapPreviewSizeScaled + 2 * m_boxBorderSize};
+    SDL_Rect rectFrame = {xLeft - m_attrBoxBorderThickness,
+                          yTop - m_attrBoxBorderThickness,
+                          mapPreviewSizeScaled + 2 * m_attrBoxBorderThickness,
+                          mapPreviewSizeScaled + 2 * m_attrBoxBorderThickness };
 
     SDL_RenderCopy(Global::renderer, ImageLoading::texturesArray[ID_MAP_PREVIEW_BACK], NULL, &rectFrame);
 
@@ -408,14 +406,14 @@ void CSceneStartNewGame::RenderMapPreview()
                                 mapPreviewSizeScaled,
                                 mapPreviewSizeScaled };
 
-    if (m_doGenerateMapPreview && m_mapGenerated)
+    if (m_doGenerateMapPreview && m_isMapGenerated)
     {
 
-        m_texMapPreview = SDL_CreateTextureFromSurface(Global::renderer, Global::currentMap->m_imgFullMapRender);
+        m_texMapFull = SDL_CreateTextureFromSurface(Global::renderer, Global::contentCurrentMap->m_imgFullMapRender);
         m_doGenerateMapPreview = false;
     }
 
-    if (m_texMapPreview != NULL)
-        SDL_RenderCopy(Global::renderer, m_texMapPreview, NULL, &rectMapPreview);
+    if (m_texMapFull != NULL)
+        SDL_RenderCopy(Global::renderer, m_texMapFull, NULL, &rectMapPreview);
 
 }

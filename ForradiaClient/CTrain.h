@@ -46,15 +46,15 @@ class CTrain
 {
 public:
 
-    vector<SDL_Point> m_trainCarriagePositions;
-    vector<unique_ptr<CNPC>> m_npcsOnTrain;
-    SDL_Point m_trainPosition = { -1, -1 };
+    vector<SDL_Point> m_coordsCarriagePositions;
+    vector<unique_ptr<CNPC>> m_containedNPCsOnTrain;
+    SDL_Point m_coordPosition = { -1, -1 };
     int m_tickLastTimeTrainMove = 0;
-    int m_trainMoveSpeed = 200;
-    int m_numCarriages = -1;
-    int m_stopAtStationDuration = 8000;
-    int m_stationSize = 0;
-    int m_numCreatedNpcs = 0;
+    int m_spdMovement = 200;
+    int m_propNumberCarriages = -1;
+    int m_propStopAtStationDuration = 8000;
+    int m_propStationSize = 0;
+    int m_counterNumberCreatedNpcs = 0;
 
     void Update();
 

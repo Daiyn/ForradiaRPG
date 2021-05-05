@@ -39,8 +39,8 @@ class CWindowInventory : public CWindow
 {
 public:
 
-    int m_slotSize = 60;
-    int m_margin = 2;
+    int m_pxSlotSize = 60;
+    int m_pxMargin = 2;
 
     CWindowInventory();
 

@@ -57,10 +57,10 @@ void Forradia::Run()
 void Forradia::HandleEvents()
 {
 
-    while (SDL_PollEvent(&event))
+    while (SDL_PollEvent(&inputUnhandledEvent))
     {
 
-        switch (event.type)
+        switch (inputUnhandledEvent.type)
         {
 
             case SDL_QUIT:
@@ -69,30 +69,30 @@ void Forradia::HandleEvents()
 
             case SDL_KEYDOWN:
 
-                if (event.key.keysym.sym == SDLK_LALT)
-                    altKeyPressed = true;
+                if (inputUnhandledEvent.key.keysym.sym == SDLK_LALT)
+                    stateAltKeyPressed = true;
 
-                if (event.key.keysym.sym == SDLK_RETURN
-                    && altKeyPressed)
+                if (inputUnhandledEvent.key.keysym.sym == SDLK_RETURN
+                    && stateAltKeyPressed)
                     Global::ToggleFullscreen();
 
-                Global::currentScene->DoKeyDown(event.key.keysym.sym);
+                Global::currentScene->DoKeyDown(inputUnhandledEvent.key.keysym.sym);
                 break;
 
             case SDL_KEYUP:
 
-                if (event.key.keysym.sym == SDLK_LALT)
-                    altKeyPressed = false;
+                if (inputUnhandledEvent.key.keysym.sym == SDLK_LALT)
+                    stateAltKeyPressed = false;
 
-                Global::currentScene->DoKeyUp(event.key.keysym.sym);
+                Global::currentScene->DoKeyUp(inputUnhandledEvent.key.keysym.sym);
                 break;
 
             case SDL_MOUSEBUTTONDOWN:
-                Global::currentScene->DoMouseDown(event.button.button);
+                Global::currentScene->DoMouseDown(inputUnhandledEvent.button.button);
                 break;
 
             case SDL_MOUSEBUTTONUP:
-                Global::currentScene->DoMouseUp(event.button.button);
+                Global::currentScene->DoMouseUp(inputUnhandledEvent.button.button);
                 break;
 
         }

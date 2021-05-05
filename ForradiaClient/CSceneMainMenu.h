@@ -46,10 +46,7 @@ class CSceneMainMenu : public CScene
 {
 public:
 
-    std::vector<string> m_text;
-    std::vector<string> m_menuButtons = { "Start New Game", "Quit" };
-
-    CSceneMainMenu();
+    std::vector<string> m_labelsMenuButtons = { "Start New Game", "Quit" };
 
     void DoMouseDown(Uint8 button);
     void Render();

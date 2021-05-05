@@ -20,8 +20,8 @@
 #include <memory>
 #include "CPlayer.h"
 
-#define XSCREENSTART Global::player->m_posCurrent.m_x - (Global::GetNumberOfColumns() - 1) / 2
-#define YSCREENSTART Global::player->m_posCurrent.m_y - (Global::numberOfRows - 1) / 2 - 3
+#define XSCREENSTART Global::player->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2
+#define YSCREENSTART Global::player->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 - 3
 
 using std::unique_ptr;
 

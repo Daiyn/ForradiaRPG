@@ -34,9 +34,9 @@ struct SDL_Texture;
 
 namespace Drawing
 {
-    inline SDL_Rect currentRect;
-    inline SDL_Renderer* currentRenderer = NULL;
-    inline SDL_Texture** currentTexturesArray = NULL;
+    inline SDL_Rect activeDestRectangle;
+    inline SDL_Renderer* activeRenderer = NULL;
+    inline SDL_Texture** activeTexturesLib = NULL;
 
     void BlankScreen();
     void FilledCurrentRect(float r, float g, float b);

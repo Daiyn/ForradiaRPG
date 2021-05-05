@@ -15,14 +15,6 @@
 
 using std::make_unique;
 
-
-CSceneMainMenu::CSceneMainMenu()
-{
-
-    m_text.push_back("Initializing game...");
-
-}
-
 void CSceneMainMenu::DoMouseDown(Uint8 button)
 {
 
@@ -36,7 +28,7 @@ void CSceneMainMenu::DoMouseDown(Uint8 button)
 
     int i = 0;
 
-    for (auto menuButton : m_menuButtons)
+    for (auto menuButton : m_labelsMenuButtons)
     {
 
         SDL_Rect rect = {Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2,
@@ -75,7 +67,7 @@ void CSceneMainMenu::Update()
 
     int i = 0;
 
-    for (auto menuButton : m_menuButtons)
+    for (auto menuButton : m_labelsMenuButtons)
     {
 
         int xMenuButton = Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2;
@@ -147,7 +139,7 @@ void CSceneMainMenu::Render()
     
     int i = 0;
 
-    for (auto menuButton : m_menuButtons)
+    for (auto menuButton : m_labelsMenuButtons)
     {
 
         int xMenuButton = Global::GetCanvasWidth() / 2 - Global::menuButtonWidth / 2;

@@ -4,7 +4,7 @@
 class CPoint3D
 {
 public:
-	int x;
-	int y;
-	int z;
+	int m_x;
+	int m_y;
+	int m_z;
 };

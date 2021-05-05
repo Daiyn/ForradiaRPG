@@ -57,14 +57,14 @@ int Utilities::GetHoveredScreenMapy() {
 int Utilities::GetHoveredMapx()
 {
 
-    return Global::player->m_posCurrent.m_x - (Global::GetNumberOfColumns() - 1) / 2 + Utilities::GetHoveredScreenMapx();
+    return Global::player->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2 + Utilities::GetHoveredScreenMapx();
 
 }
 
 int Utilities::GetHoveredMapy()
 {
 
-    return Global::player->m_posCurrent.m_y - (Global::numberOfRows - 1) / 2 + Utilities::GetHoveredScreenMapy();
+    return Global::player->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 + Utilities::GetHoveredScreenMapy();
 
 }
 
@@ -86,15 +86,4 @@ bool Utilities::InMapExcludingEdges(int mapx, int mapy)
 
     return true;
 
-}
-
-
-bool Utilities::DoTickCheck(int& tickVariable, int threshold)
-{
-    bool result = SDL_GetTicks() - tickVariable > threshold;
-
-    if (result)
-        tickVariable = SDL_GetTicks();
-
-    return result;
 }

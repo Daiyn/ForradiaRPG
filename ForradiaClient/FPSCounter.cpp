@@ -6,23 +6,25 @@
 
 using std::to_string;
 
-void FPSCounter::Update() {
+void FPSCounter::Update()
+{
 
-    frames++;
+    framesCountForOneSec++;
 
-    if (Utilities::DoTickCheck(tickSinceLastSecond, 1000))
+    if (tmrFPSSave.TimeForUpdate())
     {
 
-        fps = frames;
-        frames = 0;
+        resultFPS = framesCountForOneSec;
+        framesCountForOneSec = 0;
 
     }
 
 }
 
-void FPSCounter::Render() {
+void FPSCounter::Render()
+{
 
-    string strFPS = "FPS: " + to_string(fps);
+    string strFPS = "FPS: " + to_string(resultFPS);
     TextRendering::DrawString(strFPS, WHITE, BOTTOM_CENTER);
 
 }

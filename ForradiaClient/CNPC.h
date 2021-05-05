@@ -29,6 +29,7 @@
 #include <SDL2/SDL_rect.h>
 #include <memory>
 #include "CNPCDialog.h"
+#include "CTimer.h"
 
 using std::string;
 using std::unique_ptr;
@@ -63,17 +64,17 @@ public:
         StandingInPlazaTalkable
     };
 
-    string m_nameCharacter;
+    string m_readableCharacterName;
     string m_nameImage;
-    SDL_Point m_posMoveDestination = { -1, -1 };
-    int m_2DMapX = -1;
-    int m_2DMapY = -1;
-    int m_tickLastMove = 0;
-    int m_spdMovement = 400;
+    SDL_Point m_coordMoveDestination = { -1, -1 };
+    int m_coordMapX = -1;
+    int m_coordMapY = -1;
+    const int m_spdMovement = 400;
+    CTimer m_tmrMovementUpdate = CTimer(m_spdMovement);
     int m_uniqueID;
-    int m_2DHouseMapX = -1;
-    int m_2DHouseMapY = -1;
-    unique_ptr<CNPCDialog> m_talkCurrentDialog;
+    int m_coordHouseMapX = -1;
+    int m_coordHouseMapY = -1;
+    unique_ptr<CNPCDialog> m_interactiveCurrentDialog;
     NPCActivites m_stateCurrentActivity = NotDefined;
 
     static int s_cntMaxNPCID;

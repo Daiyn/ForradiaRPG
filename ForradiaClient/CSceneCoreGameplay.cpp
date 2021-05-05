@@ -7,7 +7,7 @@ using std::make_unique;
 
 CSceneCoreGameplay::CSceneCoreGameplay()
 {
-    m_gamingSession = make_unique<CGamingSession>(CGamingSession());
+    m_activeGamingSession = make_unique<CGamingSession>(CGamingSession());
 }
 
 void CSceneCoreGameplay::DoKeyDown(SDL_Keycode key)
@@ -41,13 +41,13 @@ void CSceneCoreGameplay::DoMouseUp(Uint8 button)
 void CSceneCoreGameplay::Update()
 {
 
-    m_gamingSession->Update();
+    m_activeGamingSession->Update();
 
 }
 
 void CSceneCoreGameplay::Render()
 {
 
-    m_gamingSession->Render();
+    m_activeGamingSession->Render();
 
 }

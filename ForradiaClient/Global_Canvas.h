@@ -25,7 +25,7 @@
 
 namespace Global
 {
-	const int numberOfRows = 27;
+	const int tilesNumberOfRows = 27;
 
     int GetCanvasHeight();
 	int GetCanvasWidth();
@@ -95,6 +95,6 @@ inline double Global::GetScalingAverage()
     return (GetScalingHorizontal() + GetScalingVertical()) / 2.0;
 }
 
-inline int Global::GetTileSize() { return GetCanvasHeight() / Global::numberOfRows; }
+inline int Global::GetTileSize() { return GetCanvasHeight() / Global::tilesNumberOfRows; }
 
 inline int Global::GetNumberOfColumns() { return GetCanvasWidth() / GetTileSize(); }

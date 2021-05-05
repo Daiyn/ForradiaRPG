@@ -39,7 +39,7 @@ class CFightableCharacter
 public:
 
 	int m_idxCharacterType = -1;
-	int m_hpCurrent;
+	int m_statCurrentHP;
 
 	CFightableCharacter(int starthp, int characterType);
 

@@ -25,33 +25,33 @@ bool ItemMoving::TryStartDragingObjectFromGround(int mapx, int mapy)
     if (mapx < 0 || mapy < 0 || mapx >= Global::mapSize || mapy >= Global::mapSize)
         return false;
 
-    int seenFloorIndex = Global::currentMap->m_2DTiles[mapx][mapy]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->GetIndexForSeenFloor();
     
     if (seenFloorIndex == -1)
         return false;
 
-    int dist = std::max(abs(mapx - Global::player->m_posCurrent.m_x), abs(mapy - Global::player->m_posCurrent.m_y));
+    int dist = std::max(abs(mapx - Global::player->m_coordPosition.m_x), abs(mapy - Global::player->m_coordPosition.m_y));
 
     if (dist <= 1)
     {
 
-        bool tileHasObjects = Global::currentMap->m_2DTiles[mapx][mapy]->m_floorsArray[seenFloorIndex]->HoldsObjects();
+        bool tileHasObjects = Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->HoldsObjects();
 
         if (!tileHasObjects)
             return false;
 
-        auto topObject = Global::currentMap->GetTopObject(mapx, mapy);
+        auto topObject = Global::contentCurrentMap->GetTopObject(mapx, mapy);
 
         if (topObject != nullptr)
         {
             int objectType = topObject->m_idxObjectType;
 
-            if (DataLoading::descriptions[objectType]->m_propAttributes["Movable"] == "True")
+            if (DataLoading::libDescriptions[objectType]->m_propAttributes["Movable"] == "True")
             {
 
                 objectInAir = move(topObject);
-                objectInAir->m_2DMapX = OBJECT_IN_AIR_OR_INVENTORY;
-                objectInAir->m_2DMapY = OBJECT_IN_AIR_OR_INVENTORY;
+                objectInAir->m_coordMapX = OBJECT_IN_AIR_OR_INVENTORY;
+                objectInAir->m_coordMapY = OBJECT_IN_AIR_OR_INVENTORY;
 
             }
 
@@ -70,30 +70,30 @@ void ItemMoving::DropObjectInAirIfExists(int mapx, int mapy)
     if (mapx < 0 || mapy < 0 || mapx >= Global::mapSize || mapy >= Global::mapSize)
         return;
 
-    int seenFloorIndex = Global::currentMap->m_2DTiles[mapx][mapy]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->GetIndexForSeenFloor();
 
     if (seenFloorIndex == -1)
         return;
 
     if (objectInAir != NULL)
     {
-        objectInAir->m_2DMapX = mapx;
-        objectInAir->m_2DMapY = mapy;
+        objectInAir->m_coordMapX = mapx;
+        objectInAir->m_coordMapY = mapy;
 
         for (int jj = 0; jj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jj++)
         {
-            if (Global::currentMap->m_2DTiles[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_floorObjectsArr[jj] != NULL)
+            if (Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj] != NULL)
             {
-                if (Global::currentMap->m_2DTiles[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_floorObjectsArr[jj]->m_idxObjectType == objectInAir->m_idxObjectType)
+                if (Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj]->m_idxObjectType == objectInAir->m_idxObjectType)
                 {
-                    Global::currentMap->m_2DTiles[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_floorObjectsArr[jj]->m_qtyCurrent += objectInAir->m_qtyCurrent;
+                    Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj]->m_propCurrentQuantity += objectInAir->m_propCurrentQuantity;
                     break;
                 }
                 
             }
             else
             {
-                Global::currentMap->m_2DTiles[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_floorObjectsArr[jj] = move(objectInAir);
+                Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj] = move(objectInAir);
                 break;
             }
         }

@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animations.cpp" />
     <ClCompile Include="CActiveFoodItem.cpp" />
     <ClCompile Include="CoreGameRendering.cpp" />
     <ClCompile Include="BattleExecution.cpp" />
     <ClCompile Include="Combat.cpp" />
     <ClCompile Include="Crafting.cpp" />
+    <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="Cursor.cpp" />
     <ClCompile Include="CDataDescription.cpp" />
     <ClCompile Include="DataLoading.cpp" />
@@ -86,6 +88,7 @@
     <ClCompile Include="CWindowInventory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animations.h" />
     <ClInclude Include="CActiveFoodItem.h" />
     <ClInclude Include="CoreGameRendering.h" />
     <ClInclude Include="BattleExecution.h" />
@@ -94,6 +97,7 @@
     <ClInclude Include="Combat.h" />
     <ClInclude Include="CPoint3D.h" />
     <ClInclude Include="Crafting.h" />
+    <ClInclude Include="CTimer.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="CDataDescription.h" />
     <ClInclude Include="DataLoading.h" />

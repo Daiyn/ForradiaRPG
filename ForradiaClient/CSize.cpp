@@ -1,7 +1,5 @@
 #include "CSize.h"
 
-
-
 CSize::CSize(int _w, int _h)
 {
 	m_w = _w;

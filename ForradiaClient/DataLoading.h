@@ -20,14 +20,17 @@
 #include "CDataDescription.h"
 #include <memory>
 #include "Constants.h"
+#include <unordered_map>
 
 using std::string;
 using std::unique_ptr;
+using std::unordered_map;
 
 
 namespace DataLoading
 {
-    inline unique_ptr<CDataDescription> descriptions[CONTENT_DB_SIZE];
+    inline unique_ptr<CDataDescription> libDescriptions[CONTENT_DB_SIZE];
+    inline unordered_map<string, int> contentIndicesByName[CONTENT_DB_SIZE];
 
     int GetDescriptionIndexByName(string name);
     void LoadDescriptions();

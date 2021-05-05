@@ -21,7 +21,6 @@ void PlayerActions::FocusOnObject(CPoint p)
     focusedObjectMapx = p.m_x;
     focusedObjectMapy = p.m_y;
     focusedObjectProgress = 0;
-    ticksFocusedObjectProgressIncrease = SDL_GetTicks();
 
 }
 
@@ -42,7 +41,7 @@ void PlayerActions::UpdateHoveredTile()
 
         SDL_GetMouseState(&p.m_x, &p.m_y);
         p = { p.m_x / Global::GetTileSize(), p.m_y / Global::GetTileSize() };
-        p = { Global::player->m_posCurrent.m_x - (Global::GetNumberOfColumns() - 1) / 2 + p.m_x, Global::player->m_posCurrent.m_y - (Global::numberOfRows - 1) / 2 + p.m_y };
+        p = { Global::player->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2 + p.m_x, Global::player->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2 + p.m_y };
         hoveredTile = p;
     }
 
@@ -57,16 +56,16 @@ void PlayerActions::StartPerformSkill()
     if (skillInAction)
         return;
 
-    float dx = hoveredTile.m_x - Global::player->m_posCurrent.m_x;
-    float dy = hoveredTile.m_y - Global::player->m_posCurrent.m_y;
+    float dx = hoveredTile.m_x - Global::player->m_coordPosition.m_x;
+    float dy = hoveredTile.m_y - Global::player->m_coordPosition.m_y;
 
     float dist = sqrt(dx * dx + dy * dy);
 
     dxStep = dx / dist;
     dyStep = dy / dist;
 
-    xStart = Global::player->m_posCurrent.m_x;
-    yStart = Global::player->m_posCurrent.m_y;
+    xStart = Global::player->m_coordPosition.m_x;
+    yStart = Global::player->m_coordPosition.m_y;
 
     tickStartSkillPerform = SDL_GetTicks();
 
@@ -89,14 +88,14 @@ void PlayerActions::Render()
     float currentX = xStart + deltaTime * dxStep / 2;
     float currentY = yStart + deltaTime * dyStep / 2;
 
-    float tileX = currentX - (Global::player->m_posCurrent.m_x - (Global::GetNumberOfColumns() - 1) / 2);
-    float tileY = currentY - (Global::player->m_posCurrent.m_y - (Global::numberOfRows - 1) / 2);
+    float tileX = currentX - (Global::player->m_coordPosition.m_x - (Global::GetNumberOfColumns() - 1) / 2);
+    float tileY = currentY - (Global::player->m_coordPosition.m_y - (Global::tilesNumberOfRows - 1) / 2);
 
     skillAffectedTiles.push_back({(int) currentX, (int) currentY});
 
 
-    int dx = currentX - Global::player->m_posCurrent.m_x;
-    int dy = currentY - Global::player->m_posCurrent.m_y;
+    int dx = currentX - Global::player->m_coordPosition.m_x;
+    int dy = currentY - Global::player->m_coordPosition.m_y;
 
     int dist = sqrt(dx * dx + dy * dy);
 
@@ -117,7 +116,7 @@ void PlayerActions::Render()
 
 
     int x1 = (Global::GetNumberOfColumns() - 1) / 2 * Global::GetTileSize() - 0 * Global::GetTileSize();
-    int y1 = (Global::numberOfRows - 1) / 2 * Global::GetTileSize();
+    int y1 = (Global::tilesNumberOfRows - 1) / 2 * Global::GetTileSize();
 
     int x2 = (int) (tileX * Global::GetTileSize());
     int y2 = (int) (tileY * Global::GetTileSize());
@@ -160,20 +159,18 @@ void PlayerActions::UpdateFocusedObject()
 {
     if (focusedObjectMapx != -1 && focusedObjectMapy != -1)
     {
-        if (SDL_GetTicks() - ticksFocusedObjectProgressIncrease > focusedObjectProgressIncreaseSpeed)
+        if (tmrFocusedObjectProgressIncrease.TimeForUpdate())
         {
-            ticksFocusedObjectProgressIncrease = SDL_GetTicks();
-
-
+ 
             if (focusedObjectProgress >= 2)
             {
 
-                if (Global::currentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTree1"), focusedObjectMapx, focusedObjectMapy, SURFACE_FLOOR)
-                    || Global::currentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTree2"), focusedObjectMapx, focusedObjectMapy, SURFACE_FLOOR))
+                if (Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTree1"), focusedObjectMapx, focusedObjectMapy, SURFACE_FLOOR)
+                    || Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTree2"), focusedObjectMapx, focusedObjectMapy, SURFACE_FLOOR))
                 {
 
-                    Global::currentMap->m_2DTiles[focusedObjectMapx][focusedObjectMapy]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
-                    Global::currentMap->m_2DTiles[focusedObjectMapx][focusedObjectMapy]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectFelledTree"));
+                    Global::contentCurrentMap->m_tilesGrid[focusedObjectMapx][focusedObjectMapy]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
+                    Global::contentCurrentMap->m_tilesGrid[focusedObjectMapx][focusedObjectMapy]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectFelledTree"));
 
                 }
 

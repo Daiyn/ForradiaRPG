@@ -8,17 +8,18 @@ CFoe::CFoe(int _foeType, int _mapx, int _mapy) : CFightableCharacter(10, CHARACT
 {
 
     m_idxFoeType = _foeType;
-    m_posCurrent = { _mapx, _mapy };
-    m_posSpawn.m_x = _mapx;
-    m_posSpawn.m_y = _mapy;
-    m_uniqueId = s_idCountFoes;
+    m_coordPosition = { _mapx, _mapy };
+    m_coordSpawn.m_x = _mapx;
+    m_coordSpawn.m_y = _mapy;
+    m_uniqueID = s_idCountFoes;
 
     s_idCountFoes++;
 
 }
 
-bool CFoe::IsAlive() {
+bool CFoe::IsAlive()
+{
 
-    return SDL_GetTicks() > m_tickTimeToRespawn && m_hpCurrent > 0;
+    return SDL_GetTicks() > m_tickTimeToRespawn && m_statCurrentHP > 0;
 
 }

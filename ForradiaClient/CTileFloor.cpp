@@ -8,33 +8,33 @@ using std::make_unique;
 CTileFloor::CTileFloor(int _mapx, int _mapy)
 {
 
-    m_mapx = _mapx;
-    m_mapy = _mapy;
+    m_coordMapX = _mapx;
+    m_coordMapY = _mapy;
 
     for (int i = 0; i < MAX_OBJECTS_ON_FLOOR; i++)
     {
-        m_floorObjectsArr[i] = NULL;
+        m_containedObjects[i] = NULL;
     }
 
-    m_groundType = -1;
+    m_idxGroundType = -1;
 
 }
 
 CTileFloor::CTileFloor(int _mapx, int _mapy, int _groundType)
 {
 
-    m_mapx = _mapx;
-    m_mapy = _mapy;
-    m_groundType = _groundType;
+    m_coordMapX = _mapx;
+    m_coordMapY = _mapy;
+    m_idxGroundType = _groundType;
 
     for (int i = 0; i < MAX_FOES_ON_FLOOR; i++)
     {
-        m_floorFoesArr[i] = NULL;
+        m_containedFoes[i] = NULL;
     }
 
     for (int i = 0; i < MAX_OBJECTS_ON_FLOOR; i++)
     {
-        m_floorObjectsArr[i] = NULL;
+        m_containedObjects[i] = NULL;
     }
 
 }
@@ -43,17 +43,17 @@ void CTileFloor::ReplaceObject(int objectTypeToReplace, int objectToReplaceQuant
 {
     for (int i = 0; i < CTileFloor::MAX_OBJECTS_ON_FLOOR; i++)
     {
-        if (m_floorObjectsArr[i] != NULL)
+        if (m_containedObjects[i] != NULL)
         {
-            if (m_floorObjectsArr[i]->m_idxObjectType == objectTypeToReplace)
+            if (m_containedObjects[i]->m_idxObjectType == objectTypeToReplace)
             {
 
-                if (m_floorObjectsArr[i]->m_qtyCurrent == objectToReplaceQuantity)
+                if (m_containedObjects[i]->m_propCurrentQuantity == objectToReplaceQuantity)
                 {
-                    int mapx = m_floorObjectsArr[i]->m_2DMapX;
-                    int mapy = m_floorObjectsArr[i]->m_2DMapY;
-                    m_floorObjectsArr[i].reset();
-                    m_floorObjectsArr[i] = make_unique<CObject>(CObject(objectTypeToReplaceWith, { mapx, mapy }, objectToReplaceWithQuantity));
+                    int mapx = m_containedObjects[i]->m_coordMapX;
+                    int mapy = m_containedObjects[i]->m_coordMapY;
+                    m_containedObjects[i].reset();
+                    m_containedObjects[i] = make_unique<CObject>(CObject(objectTypeToReplaceWith, { mapx, mapy }, objectToReplaceWithQuantity));
                     break;
                 }
             }
@@ -66,9 +66,9 @@ bool CTileFloor::HoldsObjectOfType(int _objectType)
 
     for (int jj = 0; jj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jj++)
     {
-        if (m_floorObjectsArr[jj] != NULL)
+        if (m_containedObjects[jj] != NULL)
         {
-            if (m_floorObjectsArr[jj]->m_idxObjectType == _objectType)
+            if (m_containedObjects[jj]->m_idxObjectType == _objectType)
                 return true;
         }
     }
@@ -82,11 +82,11 @@ bool CTileFloor::HoldsObjectOfTypeAndQuantity(int _objectType, int _quantity)
 
     for (int jj = 0; jj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jj++)
     {
-        if (m_floorObjectsArr[jj] != NULL)
+        if (m_containedObjects[jj] != NULL)
         {
-            if (m_floorObjectsArr[jj]->m_idxObjectType == _objectType)
+            if (m_containedObjects[jj]->m_idxObjectType == _objectType)
             {
-                if (m_floorObjectsArr[jj]->m_qtyCurrent == _quantity)
+                if (m_containedObjects[jj]->m_propCurrentQuantity == _quantity)
                     return true;
             }
         }
@@ -99,8 +99,8 @@ bool CTileFloor::HoldsObjectOfTypeAndQuantity(int _objectType, int _quantity)
 int CTileFloor::GetObjectIndexForObjectType(int _objectType)
 {
     for (int jj = 0; jj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jj++)
-        if (m_floorObjectsArr[jj] != NULL)
-            if (m_floorObjectsArr[jj]->m_idxObjectType == _objectType)
+        if (m_containedObjects[jj] != NULL)
+            if (m_containedObjects[jj]->m_idxObjectType == _objectType)
                 return jj;
 
     return INVALID_INDEX;
@@ -109,7 +109,7 @@ int CTileFloor::GetObjectIndexForObjectType(int _objectType)
 bool CTileFloor::HoldsObjects()
 {
     for (int jj = 0; jj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jj++)
-        if (m_floorObjectsArr[jj] != NULL)
+        if (m_containedObjects[jj] != NULL)
             return true;
 
     return false;
@@ -118,7 +118,7 @@ bool CTileFloor::HoldsObjects()
 int CTileFloor::GetFreeObjectIndex()
 {
     for (int jj = 0; jj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jj++)
-        if (m_floorObjectsArr[jj] == NULL)
+        if (m_containedObjects[jj] == NULL)
             return jj;
 
     return INVALID_INDEX;
@@ -126,17 +126,17 @@ int CTileFloor::GetFreeObjectIndex()
 
 void CTileFloor::DeleteObjectAtIndex(int i)
 {
-    if (m_floorObjectsArr[i] != nullptr)
-        m_floorObjectsArr[i].reset();
+    if (m_containedObjects[i] != nullptr)
+        m_containedObjects[i].reset();
 }
 
 void CTileFloor::AddObject(int _objectType)
 {
     for (int jj = 0; jj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jj++)
     {
-        if (m_floorObjectsArr[jj] == NULL)
+        if (m_containedObjects[jj] == NULL)
         {
-            m_floorObjectsArr[jj] = make_unique<CObject>(CObject(_objectType, { m_mapx, m_mapy }));
+            m_containedObjects[jj] = make_unique<CObject>(CObject(_objectType, { m_coordMapX, m_coordMapY }));
             break;
         }
     }
@@ -146,16 +146,16 @@ void CTileFloor::ClearObjects()
 {
     for (int jjj = 0; jjj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jjj++)
     {
-        if (m_floorObjectsArr[jjj] != NULL)
+        if (m_containedObjects[jjj] != NULL)
         {
-            m_floorObjectsArr[jjj].reset();
+            m_containedObjects[jjj].reset();
         }
     }
 }
 
 bool CTileFloor::HasNpcs()
 {
-    return m_npcs.size() > 0;
+    return m_containedNPCs.size() > 0;
 }
 
 void CTileFloor::DeleteObjectWithId(int id)
@@ -164,14 +164,14 @@ void CTileFloor::DeleteObjectWithId(int id)
     for (int jjj = 0; jjj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jjj++)
     {
 
-        unique_ptr<CObject>& jt = m_floorObjectsArr[jjj];
+        unique_ptr<CObject>& jt = m_containedObjects[jjj];
         if (jt == nullptr)
             continue;
 
         if ((*jt).m_uniqueID == id)
         {
 
-            m_floorObjectsArr[jjj].reset();
+            m_containedObjects[jjj].reset();
 
             break;
         }
@@ -183,13 +183,13 @@ bool CTileFloor::RemoveIfHoldsObjectOfTypeAndQuantity(int _objectType, int _quan
 {
     for (int jj = 0; jj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jj++)
     {
-        if (m_floorObjectsArr[jj] != NULL)
+        if (m_containedObjects[jj] != NULL)
         {
-            if (m_floorObjectsArr[jj]->m_idxObjectType == _objectType)
+            if (m_containedObjects[jj]->m_idxObjectType == _objectType)
             {
-                if (m_floorObjectsArr[jj]->m_qtyCurrent == _quantity)
+                if (m_containedObjects[jj]->m_propCurrentQuantity == _quantity)
                 {
-                    m_floorObjectsArr[jj].reset();
+                    m_containedObjects[jj].reset();
 
                     return true;
                 }
@@ -206,7 +206,7 @@ int CTileFloor::GetObjectIndexWithId(int id)
     for (int jjj = 0; jjj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jjj++)
     {
 
-        unique_ptr<CObject>& jt = m_floorObjectsArr[jjj];
+        unique_ptr<CObject>& jt = m_containedObjects[jjj];
         if (jt == nullptr)
             continue;
 

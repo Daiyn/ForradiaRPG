@@ -3,7 +3,6 @@
 #include "ImageLoading.h"
 #include "Global_SDL.h"
 
-
 void Drawing::BlankScreen()
 {
     Drawing::FilledScreen(10, 10, 10);
@@ -11,31 +10,31 @@ void Drawing::BlankScreen()
 
 void Drawing::FilledCurrentRect(float r, float g, float b)
 {
-    FilledRect(r, g, b, currentRect.x, currentRect.y, currentRect.w, currentRect.h);
+    FilledRect(r, g, b, activeDestRectangle.x, activeDestRectangle.y, activeDestRectangle.w, activeDestRectangle.h);
 }
 
 void Drawing::CurrentRectContour(float r, float g, float b)
 {
-    SDL_SetRenderDrawColor(currentRenderer, r, g, b, 255);
-    SDL_RenderDrawRect(currentRenderer, &currentRect);
+    SDL_SetRenderDrawColor(activeRenderer, r, g, b, 255);
+    SDL_RenderDrawRect(activeRenderer, &activeDestRectangle);
 }
 
 void Drawing::CurrentRectContour(float r, float g, float b, float a)
 {
-    SDL_SetRenderDrawColor(currentRenderer, r, g, b, a);
-    SDL_RenderDrawRect(currentRenderer, &currentRect);
+    SDL_SetRenderDrawColor(activeRenderer, r, g, b, a);
+    SDL_RenderDrawRect(activeRenderer, &activeDestRectangle);
 }
 
 void Drawing::FilledScreen(float r, float g, float b)
 {
-    SDL_SetRenderDrawColor(currentRenderer, r, g, b, 255);
-    SDL_RenderClear(currentRenderer);
+    SDL_SetRenderDrawColor(activeRenderer, r, g, b, 255);
+    SDL_RenderClear(activeRenderer);
 }
 
 void Drawing::Image(int imgIndex)
 {
-    auto tex = currentTexturesArray[imgIndex];
-    SDL_RenderCopy(currentRenderer, tex, NULL, NULL);
+    auto tex = activeTexturesLib[imgIndex];
+    SDL_RenderCopy(activeRenderer, tex, NULL, NULL);
 }
 
 void Drawing::RectContour(float r, float g, float b, int x, int y, int w, int h)
@@ -47,14 +46,14 @@ void Drawing::RectContour(float r, float g, float b, float a, int x, int y, int 
 {
     SDL_Rect rect = {x, y, w, h};
 
-    SDL_SetRenderDrawColor(currentRenderer, r, g, b, a);
-    SDL_RenderDrawRect(currentRenderer, &rect);
+    SDL_SetRenderDrawColor(activeRenderer, r, g, b, a);
+    SDL_RenderDrawRect(activeRenderer, &rect);
 }
 
 void Drawing::RectContour(SDL_Color color, CRectangle rect)
 {
-    SDL_SetRenderDrawColor(currentRenderer, color.r, color.g, color.b, color.a);
-    SDL_RenderDrawRect(currentRenderer, &rect);
+    SDL_SetRenderDrawColor(activeRenderer, color.r, color.g, color.b, color.a);
+    SDL_RenderDrawRect(activeRenderer, &rect);
 }
 
 void Drawing::FilledRect(SDL_Color color, CRectangle rect)
@@ -76,56 +75,56 @@ void Drawing::FilledRect(float r, float g, float b, float a, int x, int y, int w
 {
     SDL_Rect rect = {x, y, w, h};
 
-    SDL_SetRenderDrawColor(currentRenderer, r, g, b, a);
-    SDL_RenderFillRect(currentRenderer, &rect);
+    SDL_SetRenderDrawColor(activeRenderer, r, g, b, a);
+    SDL_RenderFillRect(activeRenderer, &rect);
 }
 
 void Drawing::PresentToScreen()
 {
-    SDL_RenderPresent(currentRenderer);
+    SDL_RenderPresent(activeRenderer);
 }
 
 void Drawing::Image(SDL_Texture* texture, CRectangle rect)
 {
-    SDL_RenderCopy(currentRenderer, texture, NULL, &rect);
+    SDL_RenderCopy(activeRenderer, texture, NULL, &rect);
 }
 
 void Drawing::Image(int imgIndex, CRectangle rect)
 {
-    SDL_RenderCopy(currentRenderer, currentTexturesArray[imgIndex], NULL, &rect);
+    SDL_RenderCopy(activeRenderer, activeTexturesLib[imgIndex], NULL, &rect);
 }
 
 void Drawing::Image(int imgIndex, int x, int y, int w, int h)
 {
     SDL_Rect rect = { x, y, w, h };
-    SDL_RenderCopy(currentRenderer, currentTexturesArray[imgIndex], NULL, &rect);
+    SDL_RenderCopy(activeRenderer, activeTexturesLib[imgIndex], NULL, &rect);
 }
 
 void Drawing::RectPrepare(int x, int y, int w, int h)
 {
-    currentRect = { x, y, w, h };
+    activeDestRectangle = { x, y, w, h };
 }
 
 
 void Drawing::ImageCurrentRect(int imageIndex)
 {
-    SDL_RenderCopy(currentRenderer, currentTexturesArray[imageIndex], NULL, &currentRect);
+    SDL_RenderCopy(activeRenderer, activeTexturesLib[imageIndex], NULL, &activeDestRectangle);
 }
 
 void Drawing::FilledRect(float r, float g, float b, float a, CRectangle rect)
 {
-    SDL_SetRenderDrawColor(currentRenderer, r, g, b, a);
-    SDL_RenderFillRect(currentRenderer, &rect);
+    SDL_SetRenderDrawColor(activeRenderer, r, g, b, a);
+    SDL_RenderFillRect(activeRenderer, &rect);
 }
 
 void Drawing::UseDefaultRenderer()
 {
-    currentRenderer = Global::renderer;
-    currentTexturesArray = ImageLoading::texturesArray;
+    activeRenderer = Global::renderer;
+    activeTexturesLib = ImageLoading::texturesArray;
 }
 
 void Drawing::UseFullMapRenderer()
 {
-    currentRenderer = Global::rendererFullMapOverview;
-    currentTexturesArray = ImageLoading::texturesMapPreviewArray;
+    activeRenderer = Global::rendererFullMapOverview;
+    activeTexturesLib = ImageLoading::texturesMapPreviewArray;
 }

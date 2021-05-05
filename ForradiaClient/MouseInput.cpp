@@ -99,9 +99,9 @@ void MouseInput::CheckMouseClickOnNPCs()
     {
         if (mouseButtonLeftDown)
         {
-            if (Global::currentMap->m_2DTiles[pHoveredTile.m_x][pHoveredTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size() > 0)
+            if (Global::contentCurrentMap->m_tilesGrid[pHoveredTile.m_x][pHoveredTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size() > 0)
             {
-                CNPC& npc = *Global::currentMap->m_2DTiles[pHoveredTile.m_x][pHoveredTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_npcs[0].get();
+                CNPC& npc = *Global::contentCurrentMap->m_tilesGrid[pHoveredTile.m_x][pHoveredTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs[0].get();
 
                 if (npc.m_stateCurrentActivity == CNPC::NPCActivites::StandingInPlazaTalkable)
                 {

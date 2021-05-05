@@ -9,7 +9,6 @@
 #include "Cursor.h"
 #include "CGUIButton.h"
 
-
 bool GUI::CheckMouseClickInGUI()
 {
 
@@ -81,7 +80,6 @@ bool GUI::HandleMouseClickInGUI()
 
     }
 
-    //for (auto it : windows)
     for (int i = 0; i < windows.size(); i++)
     {
         if (windows[i]->HandleMouseClickInWindow())
@@ -141,7 +139,7 @@ void GUI::Update()
 
         (*it)->Update();
 
-        if ((*it)->m_destroyWindow)
+        if ((*it)->m_activateWindowDestruction)
         {
             windows.erase(it);
             Update();

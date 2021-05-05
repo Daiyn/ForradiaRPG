@@ -24,12 +24,10 @@
 #include "GUISystemMenu.h"
 #include "FoodEating.h"
 
-
-
 #define FOR(x,y,z) for (int x = y; x < z; x++)
 
 #define LOOP_OVER_SCREEN(xyz) \
-            FOR(y, -3, Global::numberOfRows + 3) \
+            FOR(y, -3, Global::tilesNumberOfRows + 3) \
             { \
                 FOR(x, 0, Global::GetNumberOfColumns() + 3) \
                 { \
@@ -44,7 +42,8 @@
             }
 
 
-void CoreGameRendering::Render() {
+void CoreGameRendering::Render()
+{
 
     Drawing::BlankScreen();
     RenderGroundWithObjects();
@@ -92,7 +91,8 @@ void CoreGameRendering::RenderGroundWithObjects()
 
 
 
-void CoreGameRendering::RenderGUI() {
+void CoreGameRendering::RenderGUI()
+{
 
     FoodEating::Render();
     GUIMinimap::Render();

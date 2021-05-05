@@ -45,6 +45,10 @@ public:
 
     unique_ptr<CTileFloor> m_floorsArray[MAX_NUM_FLOORS + 1];
 
+    int m_elevationHeight = 0;
+    vector<int> m_checkMinedTiles;
+    bool m_isNPCOwnedLand = false;
+
     int GetIndexForSeenFloor();
 
 protected:

@@ -17,7 +17,7 @@ void CTrain::Update()
 
     for (int y = 0; y < Global::mapSize; y++)
     {
-        if (Global::currentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEW"), 0, y, SURFACE_FLOOR)) {
+        if (Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEW"), 0, y, SURFACE_FLOOR)) {
             railStartX = 0;
             railStartY = y;
             break;
@@ -27,35 +27,34 @@ void CTrain::Update()
     int railx = railStartX;
     int raily = railStartY;
 
-    m_stationSize = 0;
+    m_propStationSize = 0;
 
     while (railx != Global::mapSize - 1)
     {
 
-        if (Global::currentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEWStationS"), railx, raily, SURFACE_FLOOR)) {
-            m_stationSize++;
+        if (Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEWStationS"), railx, raily, SURFACE_FLOOR)) {
+            m_propStationSize++;
         }
 
         railx++;
     }
 
-    m_numCarriages = m_stationSize / 4;
+    m_propNumberCarriages = m_propStationSize / 4;
 
-
-    if (m_trainPosition.x == -1 && m_trainPosition.y == -1)
+    if (m_coordPosition.x == -1 && m_coordPosition.y == -1)
     {
 
-        m_trainPosition = {railStartX, railStartY};
+        m_coordPosition = {railStartX, railStartY};
 
-        m_npcsOnTrain.clear();
+        m_containedNPCsOnTrain.clear();
 
-        if (m_numCreatedNpcs < 6)
+        if (m_counterNumberCreatedNpcs < 6)
         {
 
-            for (int i = 0; i < m_stationSize / 2 - 1; i++)
+            for (int i = 0; i < m_propStationSize / 2 - 1; i++)
             {
-                m_npcsOnTrain.push_back(make_unique<CNPC>(CNPC("NPC0", -1, -1, Global::mapSize)));
-                m_numCreatedNpcs++;
+                m_containedNPCsOnTrain.push_back(make_unique<CNPC>(CNPC("NPC0", -1, -1, Global::mapSize)));
+                m_counterNumberCreatedNpcs++;
             }
 
         }
@@ -64,55 +63,55 @@ void CTrain::Update()
     else
     {
 
-        if (SDL_GetTicks() - m_tickLastTimeTrainMove > m_trainMoveSpeed) 
+        if (SDL_GetTicks() - m_tickLastTimeTrainMove > m_spdMovement) 
         {
 
             bool pauseAtStation = false;
 
-            if (Global::currentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEWStationS"), m_trainPosition.x, m_trainPosition.y, SURFACE_FLOOR)
-                && Global::currentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEW"), m_trainPosition.x + 1, m_trainPosition.y, SURFACE_FLOOR))
+            if (Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEWStationS"), m_coordPosition.x, m_coordPosition.y, SURFACE_FLOOR)
+                && Global::contentCurrentMap->TileHoldsObjectOfType(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEW"), m_coordPosition.x + 1, m_coordPosition.y, SURFACE_FLOOR))
             {
 
-                if (SDL_GetTicks() - m_tickLastTimeTrainMove < m_stopAtStationDuration)
+                if (SDL_GetTicks() - m_tickLastTimeTrainMove < m_propStopAtStationDuration)
                 {
 
                     pauseAtStation = true;
 
                     int i = 1;
 
-                    for (auto it = m_npcsOnTrain.begin(); it != m_npcsOnTrain.end(); it++)
+                    for (auto it = m_containedNPCsOnTrain.begin(); it != m_containedNPCsOnTrain.end(); it++)
                     {
 
-                        (*it)->m_2DMapX = m_trainPosition.x - i * 2 - 2;
-                        (*it)->m_2DMapY = m_trainPosition.y + 2;
+                        (*it)->m_coordMapX = m_coordPosition.x - i * 2 - 2;
+                        (*it)->m_coordMapY = m_coordPosition.y + 2;
                         (*it)->m_stateCurrentActivity = CNPC::NPCActivites::FindingFreeSpotInPlaza;
-                        Global::currentMap->m_listAllNPCs.push_back(*(*it));
-                        Global::currentMap->m_2DTiles[(*it)->m_2DMapX][(*it)->m_2DMapY]->m_floorsArray[SURFACE_FLOOR]->m_npcs.push_back(move(*it));
+                        Global::contentCurrentMap->m_mirrorAllNPCs.push_back(*(*it));
+                        Global::contentCurrentMap->m_tilesGrid[(*it)->m_coordMapX][(*it)->m_coordMapY]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.push_back(move(*it));
 
                         i++;
 
                     }
 
-                    m_npcsOnTrain.clear();
+                    m_containedNPCsOnTrain.clear();
                 }
             }
 
             if (!pauseAtStation)
             {
 
-                m_trainPosition.x++;
+                m_coordPosition.x++;
                 m_tickLastTimeTrainMove = SDL_GetTicks();
-                m_trainCarriagePositions.clear();
+                m_coordsCarriagePositions.clear();
 
-                for (int i = 1; i <= m_numCarriages; i++)
-                    m_trainCarriagePositions.push_back({ m_trainPosition.x - i * 4, m_trainPosition.y });
+                for (int i = 1; i <= m_propNumberCarriages; i++)
+                    m_coordsCarriagePositions.push_back({ m_coordPosition.x - i * 4, m_coordPosition.y });
 
             }
         }
     }
 
-    if (m_trainPosition.x >= Global::mapSize)
-        m_trainPosition = {-1, -1};
+    if (m_coordPosition.x >= Global::mapSize)
+        m_coordPosition = {-1, -1};
 
 }
 

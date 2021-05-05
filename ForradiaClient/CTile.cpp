@@ -2,17 +2,16 @@
 #include "Global_Player.h"
 #include "CPlayer.h"
 
-
 int CTile::GetIndexForSeenFloor()
 {
 
     if (Global::player == nullptr)
         return SURFACE_FLOOR;
 
-    if (Global::player->m_elevCurrent == SURFACE_FLOOR)
+    if (Global::player->m_locCurrentElevation == SURFACE_FLOOR)
         return SURFACE_FLOOR;
-    else if (m_floorsArray[Global::player->m_elevCurrent] != nullptr)
-            return Global::player->m_elevCurrent;
+    else if (m_floorsArray[Global::player->m_locCurrentElevation] != nullptr)
+            return Global::player->m_locCurrentElevation;
 
     return -1;
 

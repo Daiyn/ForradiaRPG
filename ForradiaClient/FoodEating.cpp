@@ -34,7 +34,7 @@ void FoodEating::Render()
         Drawing::Image(it->m_foodItem->m_idxObjectType, rect);
         Drawing::Image(ID_ICON_ACTIVE_FOOD_ITEM_FRAME, rect);
 
-        auto& desc = DataLoading::descriptions[it->m_foodItem->m_idxObjectType];
+        auto& desc = DataLoading::libDescriptions[it->m_foodItem->m_idxObjectType];
 
         if (desc->ContainsProperty("FoodAmount") && desc->ContainsProperty("FoodSpeed"))
         {
@@ -58,17 +58,16 @@ void FoodEating::Render()
     }
 }
 
-
 void FoodEating::EatAppleFromGround(CPoint p)
 {
     int objectApple = DataLoading::GetDescriptionIndexByName("ObjectApple");
 
-    int seenFloorIndex = Global::currentMap->m_2DTiles[p.m_x][p.m_y]->GetIndexForSeenFloor();
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
 
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::currentMap->m_2DTiles[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.RemoveIfHoldsObjectOfTypeAndQuantity(objectApple, 1))
     {
@@ -85,10 +84,9 @@ void FoodEating::Update()
     for (int i = 0; i < activeFoodItems.size(); i++)
     {
         
-
         auto& it = activeFoodItems[i];
 
-        auto& desc = DataLoading::descriptions[it.m_foodItem->m_idxObjectType];
+        auto& desc = DataLoading::libDescriptions[it.m_foodItem->m_idxObjectType];
 
         if (desc->ContainsProperty("FoodAmount") && desc->ContainsProperty("FoodSpeed"))
         {

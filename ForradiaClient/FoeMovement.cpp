@@ -19,22 +19,21 @@ void FoeMovement::Update() {
 
     srand(SDL_GetTicks());
 
-    FOR(i, 0, Global::currentMap->m_allFoesArray.size())
+    FOR(i, 0, Global::contentCurrentMap->m_mirrorAllFoes.size())
     {
 
-        CFoe& foe = Global::currentMap->m_allFoesArray[i];
+        CFoe& foe = Global::contentCurrentMap->m_mirrorAllFoes[i];
 
         if (!foe.IsAlive())
             continue;
 
-        CPoint p = foe.m_posCurrent;
-        int uniqueID = foe.m_uniqueId;
+        CPoint p = foe.m_coordPosition;
+        int uniqueID = foe.m_uniqueID;
 
         Clock::time_point t0 = Clock::now();
         Clock::time_point t1 = Clock::now();
 
         auto d = std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - foe.m_tickLastMove).count();
-
 
         if (d > foe.m_spdMovement)
         {
@@ -59,8 +58,8 @@ void FoeMovement::Update() {
 
                 pNew.Translate(rand() % 2 - rand()% 2, rand() % 2 - rand()% 2);
 
-                int dx = pNew.m_x - foe.m_posSpawn.m_x;
-                int dy = pNew.m_y - foe.m_posSpawn.m_y;
+                int dx = pNew.m_x - foe.m_coordSpawn.m_x;
+                int dy = pNew.m_y - foe.m_coordSpawn.m_y;
 
                 distanceFromSpawn = sqrt(dx * dx + dy * dy);
 
@@ -73,12 +72,12 @@ void FoeMovement::Update() {
             if (pNew.WithinMap())
             {
 
-                if (Global::currentMap->m_2DTiles[pNew.m_x][pNew.m_y]->m_floorsArray[SURFACE_FLOOR]->m_groundType != DataLoading::GetDescriptionIndexByName("TileWater")
-                    && Global::currentMap->m_2DNPCOwnedLand[pNew.m_x][pNew.m_y] == false)
+                if (Global::contentCurrentMap->m_tilesGrid[pNew.m_x][pNew.m_y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != DataLoading::GetDescriptionIndexByName("TileWater")
+                    && Global::contentCurrentMap->m_tilesGrid[pNew.m_x][pNew.m_y]->m_isNPCOwnedLand == false)
                 {
 
                     if (!pNew.Equals(p))
-                        Global::currentMap->TranslateFoe(uniqueID, p, pNew, SURFACE_FLOOR);
+                        Global::contentCurrentMap->TranslateFoe(uniqueID, p, pNew, SURFACE_FLOOR);
                 }
             }
         }

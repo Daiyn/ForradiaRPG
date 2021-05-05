@@ -14,44 +14,43 @@ using std::make_unique;
 
 int CNPC::s_cntMaxNPCID = 0;
 
-
 CNPC::CNPC(string _imageName, int _mapx, int _mapy, int mapSize)
 {
 
-    m_nameCharacter = NPCNameGeneration::GenerateName();
+    m_readableCharacterName = NPCNameGeneration::GenerateName();
     m_nameImage = _imageName;
-    m_2DMapX = _mapx;
-    m_2DMapY = _mapy;
+    m_coordMapX = _mapx;
+    m_coordMapY = _mapy;
     m_uniqueID = s_cntMaxNPCID;
 
-    m_2DHouseMapX = rand() % mapSize;
-    m_2DHouseMapY = rand() % mapSize;
+    m_coordHouseMapX = rand() % mapSize;
+    m_coordHouseMapY = rand() % mapSize;
 
     CNPCDialogPhrase phrase0;
     CNPCDialogPhrase phrase1;
 
-    phrase0.m_txtblockTextLines.push_back("Hello!");
-    phrase0.m_txtblockTextLines.push_back("");
-    phrase0.m_txtblockTextLines.push_back("Can you help me build a house?");
-    phrase0.m_txtblockTextLines.push_back("I will pay you good.");
+    phrase0.m_textblockTextLines.push_back("Hello!");
+    phrase0.m_textblockTextLines.push_back("");
+    phrase0.m_textblockTextLines.push_back("Can you help me build a house?");
+    phrase0.m_textblockTextLines.push_back("I will pay you good.");
 
     phrase0.m_optAnswers.push_back(CNPCDialogPhraseAnswerOption("No", -1));
     CNPCDialogPhraseAnswerOption answerYes("Yes, of course!", 1);
 
-    answerYes.m_instructObjectCreation = std::tuple<int, int, int>(m_2DHouseMapX, m_2DHouseMapY, 18);
+    answerYes.m_instructObjectCreation = std::tuple<int, int, int>(m_coordHouseMapX, m_coordHouseMapY, 18);
 
     phrase0.m_optAnswers.push_back(answerYes);
 
-    phrase1.m_txtblockTextLines.push_back("Great!");
-    phrase1.m_txtblockTextLines.push_back("The house needs to be built at");
-    phrase1.m_txtblockTextLines.push_back("coordinate (" + std::to_string(m_2DHouseMapX) + ", " + std::to_string(m_2DHouseMapY) + ").");
+    phrase1.m_textblockTextLines.push_back("Great!");
+    phrase1.m_textblockTextLines.push_back("The house needs to be built at");
+    phrase1.m_textblockTextLines.push_back("coordinate (" + std::to_string(m_coordHouseMapX) + ", " + std::to_string(m_coordHouseMapY) + ").");
 
     phrase1.m_optAnswers.push_back(CNPCDialogPhraseAnswerOption("Ok, bye", -1));
 
-    m_talkCurrentDialog = make_unique<CNPCDialog>(CNPCDialog());
+    m_interactiveCurrentDialog = make_unique<CNPCDialog>(CNPCDialog());
 
-    m_talkCurrentDialog->m_talkPhrases.push_back(phrase0);
-    m_talkCurrentDialog->m_talkPhrases.push_back(phrase1);
+    m_interactiveCurrentDialog->m_talkingPhrases.push_back(phrase0);
+    m_interactiveCurrentDialog->m_talkingPhrases.push_back(phrase1);
 
     s_cntMaxNPCID++;
 }
@@ -67,20 +66,20 @@ void CNPC::Update(CMap *parentMap)
 
         while (!suitableSpotFound)
         {
-            x = parentMap->m_posPlaza.m_x + 1 + rand() % (parentMap->m_sizePlaza - 2);
-            y = parentMap->m_posPlaza.m_y + 1 + rand() % (parentMap->m_sizePlaza - 2);
+            x = parentMap->m_coordPlazaPosition.m_x + 1 + rand() % (parentMap->m_tilesNumPlazaSize - 2);
+            y = parentMap->m_coordPlazaPosition.m_y + 1 + rand() % (parentMap->m_tilesNumPlazaSize - 2);
 
             int numNPCsInSpot = 0;
 
-            numNPCsInSpot += parentMap->m_2DTiles[x][y]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-            numNPCsInSpot += parentMap->m_2DTiles[x][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-            numNPCsInSpot += parentMap->m_2DTiles[x + 1][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-            numNPCsInSpot += parentMap->m_2DTiles[x + 1][y]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-            numNPCsInSpot += parentMap->m_2DTiles[x + 1][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-            numNPCsInSpot += parentMap->m_2DTiles[x][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-            numNPCsInSpot += parentMap->m_2DTiles[x - 1][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-            numNPCsInSpot += parentMap->m_2DTiles[x - 1][y]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-            numNPCsInSpot += parentMap->m_2DTiles[x - 1][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
+            numNPCsInSpot += parentMap->m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+            numNPCsInSpot += parentMap->m_tilesGrid[x][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+            numNPCsInSpot += parentMap->m_tilesGrid[x + 1][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+            numNPCsInSpot += parentMap->m_tilesGrid[x + 1][y]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+            numNPCsInSpot += parentMap->m_tilesGrid[x + 1][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+            numNPCsInSpot += parentMap->m_tilesGrid[x][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+            numNPCsInSpot += parentMap->m_tilesGrid[x - 1][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+            numNPCsInSpot += parentMap->m_tilesGrid[x - 1][y]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+            numNPCsInSpot += parentMap->m_tilesGrid[x - 1][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
 
             if (numNPCsInSpot <= 1)
             {
@@ -88,7 +87,7 @@ void CNPC::Update(CMap *parentMap)
             }
         }
 
-        m_posMoveDestination = {x, y};
+        m_coordMoveDestination = {x, y};
         m_stateCurrentActivity = NPCActivites::GoingToSpotInPlaza;
 
     }
@@ -96,31 +95,29 @@ void CNPC::Update(CMap *parentMap)
     if (m_stateCurrentActivity == NPCActivites::GoingToSpotInPlaza)
     {
 
-        int x = m_posMoveDestination.x;
-        int y = m_posMoveDestination.y;
+        int x = m_coordMoveDestination.x;
+        int y = m_coordMoveDestination.y;
 
         int numNPCsInSpot = 0;
 
-        numNPCsInSpot += parentMap->m_2DTiles[x][y]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-        numNPCsInSpot += parentMap->m_2DTiles[x][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-        numNPCsInSpot += parentMap->m_2DTiles[x + 1][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-        numNPCsInSpot += parentMap->m_2DTiles[x + 1][y]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-        numNPCsInSpot += parentMap->m_2DTiles[x + 1][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-        numNPCsInSpot += parentMap->m_2DTiles[x][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-        numNPCsInSpot += parentMap->m_2DTiles[x - 1][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-        numNPCsInSpot += parentMap->m_2DTiles[x - 1][y]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
-        numNPCsInSpot += parentMap->m_2DTiles[x - 1][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_npcs.size();
+        numNPCsInSpot += parentMap->m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+        numNPCsInSpot += parentMap->m_tilesGrid[x][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+        numNPCsInSpot += parentMap->m_tilesGrid[x + 1][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+        numNPCsInSpot += parentMap->m_tilesGrid[x + 1][y]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+        numNPCsInSpot += parentMap->m_tilesGrid[x + 1][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+        numNPCsInSpot += parentMap->m_tilesGrid[x][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+        numNPCsInSpot += parentMap->m_tilesGrid[x - 1][y + 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+        numNPCsInSpot += parentMap->m_tilesGrid[x - 1][y]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
+        numNPCsInSpot += parentMap->m_tilesGrid[x - 1][y - 1]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size();
 
         if (numNPCsInSpot <= 1)
         {
 
-            if (SDL_GetTicks() - m_tickLastMove > m_spdMovement)
+            if (m_tmrMovementUpdate.TimeForUpdate())
             {
 
-                m_tickLastMove = SDL_GetTicks();
-
-                int dx = m_posMoveDestination.x - m_2DMapX;
-                int dy = m_posMoveDestination.y - m_2DMapY;
+                int dx = m_coordMoveDestination.x - m_coordMapX;
+                int dy = m_coordMoveDestination.y - m_coordMapY;
 
                 int absdx = abs(dx);
                 int absdy = abs(dy);
@@ -134,32 +131,32 @@ void CNPC::Update(CMap *parentMap)
                 if (dy != 0)
                     normy = dy / absdy;
 
-                int xNew = m_2DMapX + normx;
-                int yNew = m_2DMapY + normy;
+                int xNew = m_coordMapX + normx;
+                int yNew = m_coordMapY + normy;
 
-                if (xNew != m_2DMapX || yNew != m_2DMapY)
+                if (xNew != m_coordMapX || yNew != m_coordMapY)
                 {
 
-                    int oldx = m_2DMapX;
-                    int oldy = m_2DMapY;
+                    int oldx = m_coordMapX;
+                    int oldy = m_coordMapY;
 
-                    m_2DMapX = xNew;
-                    m_2DMapY = yNew;
+                    m_coordMapX = xNew;
+                    m_coordMapY = yNew;
 
-                    if (m_2DMapX == m_posMoveDestination.x && m_2DMapY == m_posMoveDestination.y)
+                    if (m_coordMapX == m_coordMoveDestination.x && m_coordMapY == m_coordMoveDestination.y)
                     {
                         m_stateCurrentActivity = NPCActivites::StandingInPlazaTalkable;
                     }
 
 
-                    for (auto jt = parentMap->m_2DTiles[oldx][oldy]->m_floorsArray[SURFACE_FLOOR]->m_npcs.begin();
-                         jt != parentMap->m_2DTiles[oldx][oldy]->m_floorsArray[SURFACE_FLOOR]->m_npcs.end(); jt++)
+                    for (auto jt = parentMap->m_tilesGrid[oldx][oldy]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.begin();
+                         jt != parentMap->m_tilesGrid[oldx][oldy]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.end(); jt++)
                     {
                         if ((*this).m_uniqueID == (*jt)->m_uniqueID)
                         {
                             unique_ptr<CNPC> npc = move(*jt);
-                            parentMap->m_2DTiles[oldx][oldy]->m_floorsArray[SURFACE_FLOOR]->m_npcs.erase(jt);
-                            parentMap->m_2DTiles[xNew][yNew]->m_floorsArray[SURFACE_FLOOR]->m_npcs.push_back(move(npc));
+                            parentMap->m_tilesGrid[oldx][oldy]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.erase(jt);
+                            parentMap->m_tilesGrid[xNew][yNew]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.push_back(move(npc));
 
                             break;
                         }
