@@ -33,5 +33,12 @@ namespace Crafting
 	void CreateBrick(CPoint p);
 	void CreateMeltingFurnace(CPoint p);
 	void LoadMeltingFurnace(CPoint p);
+	void LightMeltingFurnace(CPoint p);
+	void HeatIron(CPoint p);
+	void CreateIronNail(CPoint p);
+	void DigGround(CPoint p);
+	void CreateWoodWallNS(CPoint p);
+	void CreateWoodWallEW(CPoint p);
+	void CreateWoodWallCorner(CPoint p);
 };
 

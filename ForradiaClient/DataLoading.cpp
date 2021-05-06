@@ -71,6 +71,11 @@ void DataLoading::LoadDescriptions()
     AddDescription(descriptionIndex++, "ObjectBurningCampfire0");
     AddDescription(descriptionIndex++, "ObjectBurningCampfire1");
     AddDescription(descriptionIndex++, "ObjectBurningCampfire2");
+    AddDescriptionEx(descriptionIndex++, "ObjectSmallAnvil", 1, 1, "", false, true, "Small Anvil", false, false, -1, 0, 0, false, 0, 0);
+    AddDescriptionEx(descriptionIndex++, "ObjectHotMeltingFurnace", 1.5, 3, "", true, false, "Hot Melting Furnace", false, false, -1, 0, 0, true, 0, 0);
+    AddDescriptionEx(descriptionIndex++, "ObjectHotIronLump", 1, 1, "", false, true, "Hot Iron Lump", false, false, -1, 0, 0, false, 0, 0);
+    AddDescriptionEx(descriptionIndex++, "ObjectIronNail", 1, 1, "", false, true, "Iron Nail", false, false, -1, 0, 0, false, 0, 0);
+    AddDescriptionEx(descriptionIndex++, "ObjectStoneHammer", 1, 1, "", false, true, "Stone Hammer", false, false, -1, 0, 0, false, 0, 0);
 
 //==========================
 //      ADDITIONAL

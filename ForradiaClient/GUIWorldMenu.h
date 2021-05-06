@@ -39,6 +39,13 @@
 #define MENU_ID_CREATE_WOODPLANK            11
 #define MENU_ID_CREATE_WOODFLOOR            12
 #define MENU_ID_LOAD_MELTING_FURNACE        13
+#define MENU_ID_LIGHT_MELTING_FURNACE       14
+#define MENU_ID_HEAT_IRON                   15
+#define MENU_ID_CREATE_IRON_NAIL            16
+#define MENU_ID_DIG_GROUND                  17
+#define MENU_ID_CREATE_WOODWALL_NS          18
+#define MENU_ID_CREATE_WOODWALL_EW          19
+#define MENU_ID_CREATE_WOODWALL_CORNER      20
 
 using std::string;
 
@@ -59,7 +66,14 @@ namespace GUIWorldMenu
         {MENU_ID_EAT_APPLE,                 "Eat Apple" },
         {MENU_ID_CREATE_WOODPLANK,          "Create Woodplank" },
         {MENU_ID_CREATE_WOODFLOOR,          "Create Woodfloor" },
-        {MENU_ID_LOAD_MELTING_FURNACE,      "Load Melting Furnace" }
+        {MENU_ID_LOAD_MELTING_FURNACE,      "Load Melting Furnace" },
+        {MENU_ID_LIGHT_MELTING_FURNACE,     "Light Melting Furnace" },
+        {MENU_ID_HEAT_IRON,                 "Heat Iron" },
+        {MENU_ID_CREATE_IRON_NAIL,          "Create Iron Nail" },
+        {MENU_ID_DIG_GROUND,                "Dig Ground" },
+        {MENU_ID_CREATE_WOODWALL_NS,        "Create Woodwall NS" },
+        {MENU_ID_CREATE_WOODWALL_EW,        "Create Woodwall EW" },
+        {MENU_ID_CREATE_WOODWALL_CORNER,    "Create Woodwall Corner" }
     };
     inline std::vector<int> stateShownMenuOptions;
     inline CPoint coordClickedTile = { -1, -1 };

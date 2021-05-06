@@ -32,7 +32,7 @@ bool GUIWorldMenu::HandleLeftMouseClickInWorld() {
         int xRow = pxMenuX + pxMargin;
         int yRow = pxMenuY + pxMargin + i * pxRowHeight;
 
-        CRectangle rect = { xRow, yRow, pxMenuWidth, pxMenuHeight };
+        CRectangle rect = { xRow, yRow, pxMenuWidth, pxRowHeight };
 
         if (rect.ContainsPoint(pMouse))
         {
@@ -77,6 +77,30 @@ bool GUIWorldMenu::HandleLeftMouseClickInWorld() {
             if (stateShownMenuOptions[i] == MENU_ID_LOAD_MELTING_FURNACE)
                 Crafting::LoadMeltingFurnace(coordClickedTile);
 
+            if (stateShownMenuOptions[i] == MENU_ID_LIGHT_MELTING_FURNACE)
+                Crafting::LightMeltingFurnace(coordClickedTile);
+
+            if (stateShownMenuOptions[i] == MENU_ID_HEAT_IRON)
+                Crafting::HeatIron(coordClickedTile);
+
+            if (stateShownMenuOptions[i] == MENU_ID_CREATE_IRON_NAIL)
+                Crafting::CreateIronNail(coordClickedTile);
+
+            if (stateShownMenuOptions[i] == MENU_ID_DIG_GROUND)
+                Crafting::DigGround(coordClickedTile);
+
+            if (stateShownMenuOptions[i] == MENU_ID_CREATE_WOODWALL_NS)
+                Crafting::CreateWoodWallNS(coordClickedTile);
+
+            if (stateShownMenuOptions[i] == MENU_ID_CREATE_WOODWALL_EW)
+            {
+                Crafting::CreateWoodWallEW(coordClickedTile);
+                break;
+            }
+
+            if (stateShownMenuOptions[i] == MENU_ID_CREATE_WOODWALL_CORNER)
+                Crafting::CreateWoodWallCorner(coordClickedTile);
+
         }
     }
 
@@ -103,7 +127,14 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
     int objectSaw = DataLoading::GetDescriptionIndexByName("ObjectSaw");
     int objectWoodplank = DataLoading::GetDescriptionIndexByName("ObjectWoodPlank");
     int objectUnloadedMeltingFurnace = DataLoading::GetDescriptionIndexByName("ObjectUnloadedMeltingFurnace");
+    int objectLoadedMeltingFurnace = DataLoading::GetDescriptionIndexByName("ObjectLoadedMeltingFurnace");
+    int objectHotMeltingFurnace = DataLoading::GetDescriptionIndexByName("ObjectHotMeltingFurnace");
     int objectCoal = DataLoading::GetDescriptionIndexByName("ObjectCoal");
+    int objectIronOre = DataLoading::GetDescriptionIndexByName("ObjectIronOre");
+    int objectSmallAnvil = DataLoading::GetDescriptionIndexByName("ObjectSmallAnvil");
+    int objectHotIronLump = DataLoading::GetDescriptionIndexByName("ObjectHotIronLump");
+    int objectStoneHammer = DataLoading::GetDescriptionIndexByName("ObjectStoneHammer");
+    int objectIronNail = DataLoading::GetDescriptionIndexByName("ObjectIronNail");
 
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
@@ -169,6 +200,32 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
         if (floor.HoldsObjectOfType(objectUnloadedMeltingFurnace)
             && Global::statePlayer->m_inventory.HasItemInInventory(objectCoal))
             stateShownMenuOptions.push_back(MENU_ID_LOAD_MELTING_FURNACE);
+
+        if (floor.HoldsObjectOfType(objectLoadedMeltingFurnace)
+            && Global::statePlayer->m_inventory.HasItemInInventory(objectMatches))
+            stateShownMenuOptions.push_back(MENU_ID_LIGHT_MELTING_FURNACE);
+
+        if (floor.HoldsObjectOfType(objectHotMeltingFurnace)
+            && Global::statePlayer->m_inventory.HasItemInInventory(objectIronOre))
+            stateShownMenuOptions.push_back(MENU_ID_HEAT_IRON);
+
+        if (floor.HoldsObjectOfType(objectSmallAnvil)
+            && Global::statePlayer->m_inventory.HasItemInInventory(objectHotIronLump))
+            stateShownMenuOptions.push_back(MENU_ID_CREATE_IRON_NAIL);
+
+        if (!floor.HoldsObjects()
+            && Global::statePlayer->m_inventory.HasItemInInventory(objectShovel))
+            stateShownMenuOptions.push_back(MENU_ID_DIG_GROUND);
+
+        if (floor.HoldsObjectOfType(objectWoodplank))
+            if (Global::statePlayer->m_inventory.HasItemInInventory(objectStoneHammer))
+                if (Global::statePlayer->m_inventory.HasItemInInventory(objectIronNail))
+                {
+                    stateShownMenuOptions.push_back(MENU_ID_CREATE_WOODWALL_NS);
+                    stateShownMenuOptions.push_back(MENU_ID_CREATE_WOODWALL_EW);
+                    stateShownMenuOptions.push_back(MENU_ID_CREATE_WOODWALL_CORNER);
+                }
+
 
     }
 

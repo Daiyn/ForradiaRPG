@@ -239,3 +239,134 @@ void Crafting::LoadMeltingFurnace(CPoint p)
             floor.ReplaceObject(objectUnloadedMeltingFurnace, 1, objectLoadedMeltingFurnace, 1);
 
 }
+
+
+void Crafting::LightMeltingFurnace(CPoint p)
+{
+    int objectMatches = DataLoading::GetDescriptionIndexByName("ObjectMatches");
+    int objectLoadedMeltingFurnace = DataLoading::GetDescriptionIndexByName("ObjectLoadedMeltingFurnace");
+    int objectHotMeltingFurnace = DataLoading::GetDescriptionIndexByName("ObjectHotMeltingFurnace");
+
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
+
+    if (seenFloorIndex == -1)
+        return;
+
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+
+    if (floor.HoldsObjectOfType(objectLoadedMeltingFurnace))
+        if (Global::statePlayer->m_inventory.HasItemInInventory(objectMatches))
+            if (Global::statePlayer->ConsumeNRGY(5))
+                floor.ReplaceObject(objectLoadedMeltingFurnace, 1, objectHotMeltingFurnace, 1);
+
+}
+
+void Crafting::HeatIron(CPoint p)
+{
+    int objectIronOre = DataLoading::GetDescriptionIndexByName("ObjectIronOre");
+    int objectHotIronLump = DataLoading::GetDescriptionIndexByName("ObjectHotIronLump");
+    int objectHotMeltingFurnace = DataLoading::GetDescriptionIndexByName("ObjectHotMeltingFurnace");
+
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
+
+    if (seenFloorIndex == -1)
+        return;
+
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+
+    if (floor.HoldsObjectOfType(objectHotMeltingFurnace))
+        if (Global::statePlayer->ConsumeNRGY(5))
+            if (Global::statePlayer->m_inventory.UseItemInInventory(objectIronOre, 1))
+                Global::statePlayer->m_inventory.AddItemToInventory(objectHotIronLump);
+}
+
+void Crafting::CreateIronNail(CPoint p)
+{
+
+    int objectHotIronLump = DataLoading::GetDescriptionIndexByName("ObjectHotIronLump");
+    int objectSmallAnvil = DataLoading::GetDescriptionIndexByName("ObjectSmallAnvil");
+    int objectIronNail = DataLoading::GetDescriptionIndexByName("ObjectIronNail");
+
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
+
+    if (seenFloorIndex == -1)
+        return;
+
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+
+    if (floor.HoldsObjectOfType(objectSmallAnvil))
+        if (Global::statePlayer->ConsumeNRGY(5))
+            if (Global::statePlayer->m_inventory.UseItemInInventory(objectHotIronLump, 1))
+                Global::statePlayer->m_inventory.AddItemToInventory(objectIronNail);
+
+}
+
+
+void Crafting::DigGround(CPoint p)
+{
+    Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_elevationHeight--;
+}
+
+
+void Crafting::CreateWoodWallNS(CPoint p)
+{
+    int objectWoodplank = DataLoading::GetDescriptionIndexByName("ObjectWoodPlank");
+    int objectIronNail = DataLoading::GetDescriptionIndexByName("ObjectIronNail");
+    int objectStoneHammer = DataLoading::GetDescriptionIndexByName("ObjectStoneHammer");
+    int objectWoodWallNS = DataLoading::GetDescriptionIndexByName("ObjectWoodWallNS");
+
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
+
+    if (seenFloorIndex == -1)
+        return;
+
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+
+    if (floor.HoldsObjectOfType(objectWoodplank))
+        if (Global::statePlayer->ConsumeNRGY(5))
+            if (Global::statePlayer->m_inventory.HasItemInInventory(objectStoneHammer))
+                if (Global::statePlayer->m_inventory.UseItemInInventory(objectIronNail, 1))
+                    Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex]->ReplaceObject(objectWoodplank, 1, objectWoodWallNS, 1);
+}
+
+void Crafting::CreateWoodWallEW(CPoint p)
+{
+    int objectWoodplank = DataLoading::GetDescriptionIndexByName("ObjectWoodPlank");
+    int objectIronNail = DataLoading::GetDescriptionIndexByName("ObjectIronNail");
+    int objectStoneHammer = DataLoading::GetDescriptionIndexByName("ObjectStoneHammer");
+    int objectWoodWallEW = DataLoading::GetDescriptionIndexByName("ObjectWoodWallEW");
+
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
+
+    if (seenFloorIndex == -1)
+        return;
+
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+
+    if (floor.HoldsObjectOfType(objectWoodplank))
+        if (Global::statePlayer->ConsumeNRGY(5))
+            if (Global::statePlayer->m_inventory.HasItemInInventory(objectStoneHammer))
+                if (Global::statePlayer->m_inventory.UseItemInInventory(objectIronNail, 1))
+                    Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex]->ReplaceObject(objectWoodplank, 1, objectWoodWallEW, 1);
+}
+
+void Crafting::CreateWoodWallCorner(CPoint p)
+{
+    int objectWoodplank = DataLoading::GetDescriptionIndexByName("ObjectWoodPlank");
+    int objectIronNail = DataLoading::GetDescriptionIndexByName("ObjectIronNail");
+    int objectStoneHammer = DataLoading::GetDescriptionIndexByName("ObjectStoneHammer");
+    int objectWoodWallCorner = DataLoading::GetDescriptionIndexByName("ObjectWoodWallCorner");
+
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
+
+    if (seenFloorIndex == -1)
+        return;
+
+    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+
+    if (floor.HoldsObjectOfType(objectWoodplank))
+        if (Global::statePlayer->ConsumeNRGY(5))
+            if (Global::statePlayer->m_inventory.HasItemInInventory(objectStoneHammer))
+                if (Global::statePlayer->m_inventory.UseItemInInventory(objectIronNail, 1))
+                    Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex]->ReplaceObject(objectWoodplank, 1, objectWoodWallCorner, 1);
+}
