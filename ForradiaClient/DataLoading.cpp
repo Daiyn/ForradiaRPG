@@ -22,7 +22,7 @@ void DataLoading::LoadDescriptions()
     AddDescription(descriptionIndex++, "TileWater1");
     AddDescription(descriptionIndex++, "TileWater2");
     AddDescription(ID_TILE_ROCK, "TileRock");
-    AddDescription(ID_TILE_WOODFLOOR, "TileWoodFloor");
+    AddDescription(ID_TILE_WOODFLOOR, "TileWoodfloor");
     AddDescription(ID_TILE_STONESLAB, "TileStoneSlab");
     AddDescription(ID_TILE_CAVEFLOOR, "TileCaveFloor");
     AddDescription(ID_TILE_SAND, "TileSand");
@@ -54,6 +54,7 @@ void DataLoading::LoadDescriptions()
     AddDescriptionEx(descriptionIndex++, "ObjectPoolOfBlood", 1, 1, "", false, false, "Pool of Blood", false, true, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectStone", 1, 1, "", false, true, "Stone", false, false, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectIronOre", 1, 1, "", false, true, "Iron Ore", false, false, -1, 0, 0, false, 0, 0);
+    AddDescriptionEx(descriptionIndex++, "ObjectCoal", 1, 1, "", false, true, "Coal", false, false, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectApple", 1, 1, "", false, true, "Apple", false, false, -1, 0, 0, false, 10, 1);
     AddDescriptionEx(descriptionIndex++, "ObjectWoodPlank", 1, 1, "", false, true, "Woodplank", false, false, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectUnloadedCampfire", 2, 2, "", false, false, "Unloaded Campfire", false, false, -1, 0, 0, false, 0, 0);
@@ -61,33 +62,15 @@ void DataLoading::LoadDescriptions()
     AddDescriptionEx(descriptionIndex++, "ObjectBurningCampfire", 2, 2, "", false, false, "Burning Campfire", false, false, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectReed", 1, 2, "", true, false, "Reed", false, true, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectShovel", 1, 1, "", false, true, "Shovel", false, false, -1, 0, 0, false, 0, 0);
+    AddDescriptionEx(descriptionIndex++, "ObjectSaw", 1, 1, "", false, true, "Saw", false, false, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectMatches", 1, 1, "", false, true, "Matches", false, false, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectClayLump", 1, 1, "", false, true, "Clay Lump", false, false, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectBrick", 1, 1, "", false, true, "Brick", false, false, -1, 0, 0, false, 0, 0);
-    AddDescriptionEx(descriptionIndex++, "ObjectUnloadedMeltingFurnace", 1.5, 3, "", true, false, "Unloaded Melting Furnace", false, false, -1, 0, 0, true, 0, 0);
+    AddDescriptionEx(descriptionIndex++, "ObjectUnloadedMeltingFurnace", 1.5, 3, "", true, false, "Unloaded Melting Furnace", false, false, -1, 0, 0, false, 0, 0);
+    AddDescriptionEx(descriptionIndex++, "ObjectLoadedMeltingFurnace", 1.5, 3, "", true, false, "Loaded Melting Furnace", false, false, -1, 0, 0, true, 0, 0);
     AddDescription(descriptionIndex++, "ObjectBurningCampfire0");
     AddDescription(descriptionIndex++, "ObjectBurningCampfire1");
     AddDescription(descriptionIndex++, "ObjectBurningCampfire2");
-
-
-
-
-//==========================
-//      CRAFTING ECIPES
-//==========================
-
-
-
-    auto descRecipeWoodPlank = make_unique<CDataDescription>(CDataDescription());
-    descRecipeWoodPlank->m_propAttributes.insert(std::pair<string, string>("Name", "RecipeWoodPlankRecipe"));
-    descRecipeWoodPlank->m_propAttributes.insert(std::pair<string, string>("FocusObject", "WoodLog"));
-    descRecipeWoodPlank->m_propAttributes.insert(std::pair<string, string>("ResultObject", "WoodPlank"));
-    contentIndicesByName->insert(pair<string, int>("RecipeWoodPlankRecipe", descriptionIndex));
-    libDescriptions[descriptionIndex++] = move(descRecipeWoodPlank);
-    
-
-
-
 
 //==========================
 //      ADDITIONAL

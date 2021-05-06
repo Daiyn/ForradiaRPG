@@ -68,6 +68,15 @@ bool GUIWorldMenu::HandleLeftMouseClickInWorld() {
             if (stateShownMenuOptions[i] == MENU_ID_EAT_APPLE)
                 FoodEating::EatAppleFromGround(coordClickedTile);
 
+            if (stateShownMenuOptions[i] == MENU_ID_CREATE_WOODPLANK)
+                Crafting::CreateWoodplank(coordClickedTile);
+
+            if (stateShownMenuOptions[i] == MENU_ID_CREATE_WOODFLOOR)
+                Crafting::CreateWoodfloor(coordClickedTile);
+
+            if (stateShownMenuOptions[i] == MENU_ID_LOAD_MELTING_FURNACE)
+                Crafting::LoadMeltingFurnace(coordClickedTile);
+
         }
     }
 
@@ -91,6 +100,10 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
     int objectBurningCampfire = DataLoading::GetDescriptionIndexByName("ObjectBurningCampfire");
     int objectBrick = DataLoading::GetDescriptionIndexByName("ObjectBrick");
     int objectApple = DataLoading::GetDescriptionIndexByName("ObjectApple");
+    int objectSaw = DataLoading::GetDescriptionIndexByName("ObjectSaw");
+    int objectWoodplank = DataLoading::GetDescriptionIndexByName("ObjectWoodPlank");
+    int objectUnloadedMeltingFurnace = DataLoading::GetDescriptionIndexByName("ObjectUnloadedMeltingFurnace");
+    int objectCoal = DataLoading::GetDescriptionIndexByName("ObjectCoal");
 
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
@@ -144,6 +157,18 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
 
         if (floor.HoldsObjectOfTypeAndQuantity(objectApple, 1))
             stateShownMenuOptions.push_back(MENU_ID_EAT_APPLE);
+
+        if (floor.HoldsObjectOfTypeAndQuantity(objectWoodLog, 1)
+            && Global::statePlayer->m_inventory.HasItemInInventory(objectSaw))
+            stateShownMenuOptions.push_back(MENU_ID_CREATE_WOODPLANK);
+
+        if (floor.m_idxGroundType != ID_TILE_WATER
+            && Global::statePlayer->m_inventory.HasItemInInventory(objectWoodplank))
+            stateShownMenuOptions.push_back(MENU_ID_CREATE_WOODFLOOR);
+
+        if (floor.HoldsObjectOfType(objectUnloadedMeltingFurnace)
+            && Global::statePlayer->m_inventory.HasItemInInventory(objectCoal))
+            stateShownMenuOptions.push_back(MENU_ID_LOAD_MELTING_FURNACE);
 
     }
 

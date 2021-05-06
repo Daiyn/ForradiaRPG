@@ -35,7 +35,10 @@
 #define MENU_ID_DIG_CLAY                    7
 #define MENU_ID_CREATE_BRICK                8
 #define MENU_ID_CREATE_MELTING_FURNACE      9
-#define MENU_ID_EAT_APPLE               10
+#define MENU_ID_EAT_APPLE                   10
+#define MENU_ID_CREATE_WOODPLANK            11
+#define MENU_ID_CREATE_WOODFLOOR            12
+#define MENU_ID_LOAD_MELTING_FURNACE        13
 
 using std::string;
 
@@ -53,7 +56,10 @@ namespace GUIWorldMenu
         {MENU_ID_DIG_CLAY,                  "Dig Clay" },
         {MENU_ID_CREATE_BRICK,              "Create Brick" },
         {MENU_ID_CREATE_MELTING_FURNACE,    "Create Melting Furnace" },
-        {MENU_ID_EAT_APPLE,                 "Eat Apple" }
+        {MENU_ID_EAT_APPLE,                 "Eat Apple" },
+        {MENU_ID_CREATE_WOODPLANK,          "Create Woodplank" },
+        {MENU_ID_CREATE_WOODFLOOR,          "Create Woodfloor" },
+        {MENU_ID_LOAD_MELTING_FURNACE,      "Load Melting Furnace" }
     };
     inline std::vector<int> stateShownMenuOptions;
     inline CPoint coordClickedTile = { -1, -1 };

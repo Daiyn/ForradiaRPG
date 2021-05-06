@@ -24,11 +24,14 @@ namespace Crafting
 
 	void ChopDownTree(CPoint p);
 	void ChopUpWoodLog(CPoint p);
+	void CreateWoodplank(CPoint p);
+	void CreateWoodfloor(CPoint p);
 	void CreateUnloadedCampfire(CPoint p);
 	void LoadCampfire(CPoint p);
 	void LightCampfire(CPoint p);
 	void DigClay(CPoint p);
 	void CreateBrick(CPoint p);
 	void CreateMeltingFurnace(CPoint p);
+	void LoadMeltingFurnace(CPoint p);
 };
 

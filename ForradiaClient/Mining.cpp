@@ -14,6 +14,7 @@ void Mining::MineTile(CPoint p)
     int tileCaveFloor = DataLoading::GetDescriptionIndexByName("TileCaveFloor");
     int objectIronOre = DataLoading::GetDescriptionIndexByName("ObjectIronOre");
     int objectStone = DataLoading::GetDescriptionIndexByName("ObjectStone");
+    int objectCoal = DataLoading::GetDescriptionIndexByName("ObjectCoal");
 
     if (Global::statePlayer->m_locCurrentElevation != SURFACE_FLOOR)
     {
@@ -28,9 +29,14 @@ void Mining::MineTile(CPoint p)
             srand(SDL_GetTicks());
 
             const double mineIronOreSuccessRate = 0.4;
+            const double mineCoalSuccessRate = 0.4;
 
-            if (((double)rand()) / RAND_MAX <= mineIronOreSuccessRate)
+            double dice = ((double)rand()) / RAND_MAX;
+
+            if (dice <= mineIronOreSuccessRate)
                 tfMinedCave->AddObject(objectIronOre);
+            else if (dice <= mineIronOreSuccessRate + mineCoalSuccessRate)
+                tfMinedCave->AddObject(objectCoal);
             else
                 tfMinedCave->AddObject(objectStone);
 

@@ -9,8 +9,12 @@
 #include <SDL2/SDL_timer.h>
 #include "Global_Mouse.h"
 #include "CMap.h"
+#include <memory>
 
+using std::unique_ptr;
+using std::make_unique;
 using std::min;
+using std::pair;
 
 CPlayer::CPlayer(int mapSize) : CFightableCharacter(100, CHARACTER_TYPE_PLAYER)
 {
@@ -23,16 +27,15 @@ CPlayer::CPlayer(int mapSize) : CFightableCharacter(100, CHARACTER_TYPE_PLAYER)
     int indexWoodLog = DataLoading::GetDescriptionIndexByName("ObjectWoodLog");
     int indexShovel = DataLoading::GetDescriptionIndexByName("ObjectShovel");
     int indexMatches = DataLoading::GetDescriptionIndexByName("ObjectMatches");
+    int indexSaw = DataLoading::GetDescriptionIndexByName("ObjectSaw");
 
-    m_inventory.m_containedItems.insert(std::pair<int, CObject*>(0, new CObject(indexApple, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY })));
-    m_inventory.m_containedItems.insert(std::pair<int, CObject*>(2, new CObject(indexApple, {OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY })));
-
-    m_inventory.m_containedItems.insert(std::pair<int, CObject*>(5, new CObject(indexStone, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }, 5)));
-
-    m_inventory.m_containedItems.insert(std::pair<int, CObject*>(15, new CObject(indexWoodLog, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY })));
-
-    m_inventory.m_containedItems.insert(std::pair<int, CObject*>(17, new CObject(indexShovel, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY })));
-    m_inventory.m_containedItems.insert(std::pair<int, CObject*>(18, new CObject(indexMatches, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY })));
+    m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(0, make_unique<CObject>(CObject(indexApple, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(2, make_unique<CObject>(CObject(indexApple, {OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(5, make_unique<CObject>(CObject(indexStone, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }, 5))));
+    m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(15, make_unique<CObject>(CObject(indexWoodLog, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(17, make_unique<CObject>(CObject(indexShovel, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(18, make_unique<CObject>(CObject(indexMatches, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(19, make_unique<CObject>(CObject(indexSaw, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
 
 }
 
