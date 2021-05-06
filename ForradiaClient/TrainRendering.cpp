@@ -29,13 +29,13 @@ void TrainRendering::RenderTrainLocomotive(int x, int y, CPoint pTile)
         {
 
         case 0:
-            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TRAIN_LOCOMOTIVE_0], NULL, &rTileMod);
+            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDTrainLocomotive0], NULL, &rTileMod);
             break;
         case 1:
-            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TRAIN_LOCOMOTIVE_1], NULL, &rTileMod);
+            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDTrainLocomotive1], NULL, &rTileMod);
             break;
         case 2:
-            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TRAIN_LOCOMOTIVE_2], NULL, &rTileMod);
+            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDTrainLocomotive2], NULL, &rTileMod);
             break;
 
         }
@@ -51,7 +51,7 @@ void TrainRendering::RenderTrainLocomotive(int x, int y, CPoint pTile)
                                     imgWidth,
                                     imgHeight };
 
-            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_NPC], NULL, &rTileMod);
+            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDNPCSprite], NULL, &rTileMod);
 
         }
     }
@@ -76,7 +76,7 @@ void TrainRendering::RenderTrainCarriages(int x, int y, CPoint pTile)
                     imgWidth,
                     imgHeight };
 
-            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TRAIN_CARRIAGE], NULL, &rTileMod);
+            SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDTrainCarriage], NULL, &rTileMod);
 
         }
     }

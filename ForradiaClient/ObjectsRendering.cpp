@@ -72,7 +72,7 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
                                        TILESIZE / 2 - szShadow.m_h + pOffset.m_y),
                                        szShadow.m_w, szShadow .m_h};
 
-                Drawing::Image(ID_SHADOW, rectShadow);
+                Drawing::Image(kIDShadow, rectShadow);
 
             }
 
@@ -92,13 +92,13 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
                     switch (animIndex)
                     {
                     case 0:
-                        Drawing::Image(ID_TREE1_FALLING_0, rTile);
+                        Drawing::Image(kIDTree1Falling0, rTile);
                         break;
                     case 1:
-                        Drawing::Image(ID_TREE1_FALLING_1, rTile);
+                        Drawing::Image(kIDTree1Falling1, rTile);
                         break;
                     case 2:
-                        Drawing::Image(ID_TREE1_FALLING_2, rTile);
+                        Drawing::Image(kIDTree1Falling2, rTile);
                         break;
                     }
                 }
@@ -108,13 +108,13 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
                     switch (animIndex)
                     {
                     case 0:
-                        Drawing::Image(ID_TREE2_FALLING_0, rTile);
+                        Drawing::Image(kIDTree2Falling0, rTile);
                         break;
                     case 1:
-                        Drawing::Image(ID_TREE2_FALLING_1, rTile);
+                        Drawing::Image(kIDTree2Falling1, rTile);
                         break;
                     case 2:
-                        Drawing::Image(ID_TREE2_FALLING_2, rTile);
+                        Drawing::Image(kIDTree2Falling2, rTile);
                         break;
                     }
                 }
@@ -141,22 +141,22 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
             {
 
             case 0:
-                Drawing::Image(ID_EFFECT_VANISH_0, rTile);
+                Drawing::Image(kIDEffectVanish0, rTile);
                 break;
             case 1:
-                Drawing::Image(ID_EFFECT_VANISH_1, rTile);
+                Drawing::Image(kIDEffectVanish1, rTile);
                 break;
             case 2:
-                Drawing::Image(ID_EFFECT_VANISH_2, rTile);
+                Drawing::Image(kIDEffectVanish2, rTile);
                 break;
             case 3:
-                Drawing::Image(ID_EFFECT_VANISH_3, rTile);
+                Drawing::Image(kIDEffectVanish3, rTile);
                 break;
             case 4:
-                Drawing::Image(ID_EFFECT_VANISH_4, rTile);
+                Drawing::Image(kIDEffectVanish4, rTile);
                 break;
             case 5:
-                Drawing::Image(ID_EFFECT_VANISH_5, rTile);
+                Drawing::Image(kIDEffectVanish5, rTile);
                 break;
             }
 

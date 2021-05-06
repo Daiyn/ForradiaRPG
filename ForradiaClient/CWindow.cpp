@@ -214,7 +214,7 @@ void CWindow::RenderBase()
 
     CRectangle rect = { m_x, m_y, m_w, m_h };
 
-    Drawing::Image(ID_WINDOW_BACK, rect);
+    Drawing::Image(kIDWindowBackground, rect);
 
     SDL_SetRenderDrawColor(Global::sdlRendererDefault, 0, 0, 0, 255);
 
@@ -238,7 +238,7 @@ void CWindow::RenderBase()
 
     rect = {m_x + m_w - iconCloseWindowSize - m_pxTitleBarMargin, m_y + m_pxTitleBarMargin, iconCloseWindowSize, iconCloseWindowSize};
 
-    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_ICON_CLOSE_WINDOW], NULL, &rect);
+    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDIconCloseWindow], NULL, &rect);
 
 }
 

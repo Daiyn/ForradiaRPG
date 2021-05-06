@@ -49,7 +49,7 @@ void GUITerminal::Render() {
 
     CRectangle rect = {left, top, w, h};
 
-    Drawing::Image(ID_TERMINAL_BACK, rect);
+    Drawing::Image(kIDTerminalBackground, rect);
 
     top = topText;
 

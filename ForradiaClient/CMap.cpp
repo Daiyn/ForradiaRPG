@@ -156,7 +156,7 @@ bool CMap::SeenFloorHasBlockingFoes(int mapx, int mapy)
 
     FOR(i, 0, CTileFloor::MAX_FOES_ON_FLOOR)
         if (m_tilesGrid[mapx][mapy]->m_floorsArray[seenFlorIndex]->m_containedFoes[i] != nullptr)
-            if (m_tilesGrid[mapx][mapy]->m_floorsArray[seenFlorIndex]->m_containedFoes[i]->m_idxFoeType != ID_BUTTERFLY)
+            if (m_tilesGrid[mapx][mapy]->m_floorsArray[seenFlorIndex]->m_containedFoes[i]->m_idxFoeType != kIDButterfly)
                 return true;
 
     return false;

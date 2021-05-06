@@ -108,31 +108,31 @@ void CSceneMainMenu::Render()
     {
 
     case 0:
-        Drawing::Image(ID_FORRADIA_START_TEXT_0, titleX, titleY, titleW, titleH);
+        Drawing::Image(kIDForradiaStartText0, titleX, titleY, titleW, titleH);
         break;
     case 1:
-        Drawing::Image(ID_FORRADIA_START_TEXT_1, titleX, titleY, titleW, titleH);
+        Drawing::Image(kIDForradiaStartText1, titleX, titleY, titleW, titleH);
         break;
     case 2:
-        Drawing::Image(ID_FORRADIA_START_TEXT_2, titleX, titleY, titleW, titleH);
+        Drawing::Image(kIDForradiaStartText2, titleX, titleY, titleW, titleH);
         break;
     case 3:
-        Drawing::Image(ID_FORRADIA_START_TEXT_3, titleX, titleY, titleW, titleH);
+        Drawing::Image(kIDForradiaStartText3, titleX, titleY, titleW, titleH);
         break;
     case 4:
-        Drawing::Image(ID_FORRADIA_START_TEXT_4, titleX, titleY, titleW, titleH);
+        Drawing::Image(kIDForradiaStartText4, titleX, titleY, titleW, titleH);
         break;
     case 5:
-        Drawing::Image(ID_FORRADIA_START_TEXT_5, titleX, titleY, titleW, titleH);
+        Drawing::Image(kIDForradiaStartText5, titleX, titleY, titleW, titleH);
         break;
     case 6:
-        Drawing::Image(ID_FORRADIA_START_TEXT_6, titleX, titleY, titleW, titleH);
+        Drawing::Image(kIDForradiaStartText6, titleX, titleY, titleW, titleH);
         break;
     case 7:
-        Drawing::Image(ID_FORRADIA_START_TEXT_7, titleX, titleY, titleW, titleH);
+        Drawing::Image(kIDForradiaStartText7, titleX, titleY, titleW, titleH);
         break;
     case 8:
-        Drawing::Image(ID_FORRADIA_START_TEXT_8, titleX, titleY, titleW, titleH);
+        Drawing::Image(kIDForradiaStartText8, titleX, titleY, titleW, titleH);
         break;
 
     }
@@ -150,9 +150,9 @@ void CSceneMainMenu::Render()
         int imgIndex = 0;
 
         if (mx >= xMenuButton && my >= yMenuButton && mx < xMenuButton + wMenuButton && my < yMenuButton + hMenuButton)
-            imgIndex = ID_MENU_BUTTON_BACK_HOVERED;
+            imgIndex = kIDMenuButtonBackHovered;
         else
-            imgIndex = ID_MENU_BUTTON_BACK;
+            imgIndex = kIDMenuButtonBackground;
 
         Drawing::Image(imgIndex, xMenuButton, yMenuButton, wMenuButton, hMenuButton);
 

@@ -35,7 +35,7 @@ namespace GUI
 {
     inline vector<unique_ptr<CWindow>> activeWindows;
     const int numberOfGUIButtons = 3;
-    const int idxsButtonImages[numberOfGUIButtons] = { ID_ICON_INVENTORY, ID_ICON_CRAFTING, ID_ICON_SYSTEM };
+    const int idxsButtonImages[numberOfGUIButtons] = { kIDIconInventory, kIDIconCrafting, kIDIconSystem };
     inline int pxWidthOriginal = 120;
 
     bool CheckMouseClickInGUI();

@@ -40,31 +40,31 @@ void CSceneStartScreen::Render()
     {
 
     case 0:
-        Drawing::Image( ID_FORRADIA_START_TEXT_0, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
+        Drawing::Image( kIDForradiaStartText0, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
         break;
     case 1:
-        Drawing::Image(ID_FORRADIA_START_TEXT_1, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
+        Drawing::Image(kIDForradiaStartText1, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
         break;
     case 2:
-        Drawing::Image(ID_FORRADIA_START_TEXT_2, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
+        Drawing::Image(kIDForradiaStartText2, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
         break;
     case 3:
-        Drawing::Image(ID_FORRADIA_START_TEXT_3, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
+        Drawing::Image(kIDForradiaStartText3, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
         break;
     case 4:
-        Drawing::Image(ID_FORRADIA_START_TEXT_4, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
+        Drawing::Image(kIDForradiaStartText4, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
         break;
     case 5:
-        Drawing::Image(ID_FORRADIA_START_TEXT_5, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
+        Drawing::Image(kIDForradiaStartText5, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
         break;
     case 6:
-        Drawing::Image(ID_FORRADIA_START_TEXT_6, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
+        Drawing::Image(kIDForradiaStartText6, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
         break;
     case 7:
-        Drawing::Image(ID_FORRADIA_START_TEXT_7, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
+        Drawing::Image(kIDForradiaStartText7, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
         break;
     case 8:
-        Drawing::Image(ID_FORRADIA_START_TEXT_8, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
+        Drawing::Image(kIDForradiaStartText8, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
         break;
     }
 

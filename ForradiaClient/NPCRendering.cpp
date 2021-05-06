@@ -43,8 +43,8 @@ void NPCRendering::RenderNpcs(int x, int y, CPoint pTile)
             int textw = TextRendering::GetTextWidth(npc.m_readableCharacterName);
             CPoint pNameText = { x * TILESIZE + TILESIZE / 2 - textw / 2 , rectNPC.y - 30 };
             
-            Drawing::Image(ID_SHADOW, rectShadow);
-            Drawing::Image(ID_NPC, rectNPC);
+            Drawing::Image(kIDShadow, rectShadow);
+            Drawing::Image(kIDNPCSprite, rectNPC);
             TextRendering::DrawString(npc.m_readableCharacterName, {255, 255, 255, 255}, pNameText);
 
             if (npc.m_stateCurrentActivity == CNPC::NPCActivites::StandingInPlazaTalkable)
@@ -56,7 +56,7 @@ void NPCRendering::RenderNpcs(int x, int y, CPoint pTile)
                                            y * TILESIZE + TILESIZE - npcSize -
                                            chatBubbleSize, chatBubbleSize, chatBubbleSize};
 
-                Drawing::Image(ID_CHAT_BUBBLE, rectChatBubble);
+                Drawing::Image(kIDChatBubble, rectChatBubble);
 
             }
         }

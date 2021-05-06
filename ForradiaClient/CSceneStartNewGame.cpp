@@ -260,47 +260,47 @@ void CSceneStartNewGame::Render()
     {
 
     case 0:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_0], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText0], NULL, &rectText);
         break;
     case 1:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_1], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText1], NULL, &rectText);
         break;
     case 2:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_2], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText2], NULL, &rectText);
         break;
     case 3:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_3], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText3], NULL, &rectText);
         break;
     case 4:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_4], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText4], NULL, &rectText);
         break;
     case 5:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_5], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText5], NULL, &rectText);
         break;
     case 6:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_6], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText6], NULL, &rectText);
         break;
     case 7:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_7], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText7], NULL, &rectText);
         break;
     case 8:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_FORRADIA_START_TEXT_8], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText8], NULL, &rectText);
         break;
 
     }
 
     SDL_Rect rectTitle = {0, 0, 300 / 1600.0 * Global::GetCanvasWidth(), 60 / 900.0 * Global::GetCanvasHeight() };
 
-    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TITLE_START_NEW_GAME], NULL, &rectTitle);
+    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDTitleStartNewGame], NULL, &rectTitle);
 
     string textBack = "Back";
 
     int imgIndex = 0;
 
     if (mx >= rectBackButton.x && my >= rectBackButton.y && mx < rectBackButton.x + rectBackButton.w && my < rectBackButton.y + rectBackButton.h)
-        imgIndex = ID_MENU_BUTTON_BACK_HOVERED;
+        imgIndex = kIDMenuButtonBackHovered;
     else
-        imgIndex = ID_MENU_BUTTON_BACK;
+        imgIndex = kIDMenuButtonBackground;
 
     SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[imgIndex], NULL, &rectBackButton);
 
@@ -315,9 +315,9 @@ void CSceneStartNewGame::Render()
     string textGenerate = "Generate new map";
 
     if (mx >= rectGenerateButton.x && my >= rectGenerateButton.y && mx < rectGenerateButton.x + rectGenerateButton.w && my < rectGenerateButton.y + rectGenerateButton.h)
-        imgIndex = ID_MENU_BUTTON_BACK_HOVERED;
+        imgIndex = kIDMenuButtonBackHovered;
     else
-        imgIndex = ID_MENU_BUTTON_BACK;
+        imgIndex = kIDMenuButtonBackground;
 
     SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[imgIndex], NULL, &rectGenerateButton);
 
@@ -332,9 +332,9 @@ void CSceneStartNewGame::Render()
     string textPlay = "Play";
 
     if (mx >= rectPlayButton.x && my >= rectPlayButton.y && mx < rectPlayButton.x + rectPlayButton.w && my < rectPlayButton.y + rectPlayButton.h)
-        imgIndex = ID_MENU_BUTTON_BACK_HOVERED;
+        imgIndex = kIDMenuButtonBackHovered;
     else
-        imgIndex = ID_MENU_BUTTON_BACK;
+        imgIndex = kIDMenuButtonBackground;
 
     SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[imgIndex], NULL, &rectPlayButton);
 
@@ -352,9 +352,9 @@ void CSceneStartNewGame::Render()
     TextRendering::DrawString("Game Style", { 0, 0, 0 }, xtextpos, ytextpos);
 
     if (Global::settingGameMode == 0)
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_OPTION_ICON_SELECTED], NULL, &rectOptionIconGameStyleCasual);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDOptionIconSelected], NULL, &rectOptionIconGameStyleCasual);
     else
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_OPTION_ICON_UNSELECTED], NULL, &rectOptionIconGameStyleCasual);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDOptionIconUnselected], NULL, &rectOptionIconGameStyleCasual);
 
     xtextpos = rectOptionIconGameStyleCasual.x + Global::attrOptionIconSize + Global::attrMargin;
     ytextpos = rectOptionIconGameStyleCasual.y + Global::attrOptionIconSize/2 - TextRendering::GetTextHeight()/2;
@@ -362,9 +362,9 @@ void CSceneStartNewGame::Render()
     TextRendering::DrawString("Casual", { 0, 0, 0 }, xtextpos, ytextpos);
 
     if (Global::settingGameMode == 1)
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_OPTION_ICON_SELECTED], NULL, &rectOptionIconGameStyleChallenging);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDOptionIconSelected], NULL, &rectOptionIconGameStyleChallenging);
     else
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_OPTION_ICON_UNSELECTED], NULL, &rectOptionIconGameStyleChallenging);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDOptionIconUnselected], NULL, &rectOptionIconGameStyleChallenging);
 
     xtextpos = rectOptionIconGameStyleCasual.x + Global::attrOptionIconSize + Global::attrMargin;
     ytextpos = rectOptionIconGameStyleChallenging.y + Global::attrOptionIconSize / 2 - TextRendering::GetTextHeight() / 2;
@@ -392,7 +392,7 @@ void CSceneStartNewGame::RenderMapPreview()
                           mapPreviewSizeScaled + 2 * m_attrBoxBorderThickness,
                           mapPreviewSizeScaled + 2 * m_attrBoxBorderThickness };
 
-    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_MAP_PREVIEW_BACK], NULL, &rectFrame);
+    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDFullMapFrameBackground], NULL, &rectFrame);
 
     rectFrame.x = xLeft - 5;
     rectFrame.y = yTop - 5;

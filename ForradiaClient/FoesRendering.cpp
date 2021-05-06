@@ -43,7 +43,7 @@ void FoesRendering::RenderTileFoes(int x, int y, CPoint pTile)
             CFoe& targetedFoe = Global::contentCurrentMap->m_mirrorAllFoes[Combat::idxTargetedFoe];
 
             if (foe.m_uniqueID == targetedFoe.m_uniqueID)
-                Drawing::Image(ID_TILE_TARGET_EFFECT, rTile);
+                Drawing::Image(kIDTileTargetEffect, rTile);
 
         }
 
@@ -57,7 +57,7 @@ void FoesRendering::RenderTileFoes(int x, int y, CPoint pTile)
                               y * Global::GetTileSize() + Global::GetTileSize() - shadowHeight, shadowWidth,
                               shadowHeight };
 
-        Drawing::Image(ID_SHADOW, rectShadow);
+        Drawing::Image(kIDShadow, rectShadow);
 
         int foeTypeIndex;
 
@@ -69,25 +69,25 @@ void FoesRendering::RenderTileFoes(int x, int y, CPoint pTile)
             imgWidth = 1.5 * Global::GetTileSize();
             imgHeight = 1.5 * Global::GetTileSize();
 
-            foeTypeIndex = ID_FOE;
+            foeTypeIndex = kIDFoe;
 
             break;
 
-        case ID_BUTTERFLY:
+        case kIDButterfly:
 
             imgWidth = 1.5 * Global::GetTileSize();
             imgHeight = 1.5 * Global::GetTileSize();
 
-            foeTypeIndex = ID_BUTTERFLY;
+            foeTypeIndex = kIDButterfly;
 
             break;
 
-        case ID_PINKSLIME:
+        case kIDPinkSlime:
 
             imgWidth = 1.5 * Global::GetTileSize();
             imgHeight = 1.5 * Global::GetTileSize();
 
-            foeTypeIndex = ID_PINKSLIME;
+            foeTypeIndex = kIDPinkSlime;
 
             break;
 
@@ -118,7 +118,7 @@ void FoesRendering::RenderTileFoes(int x, int y, CPoint pTile)
                 if (SDL_GetTicks() - Combat::tickCombatInitiated < Combat::duraShowHitEffect)
                 {
 
-                    Drawing::Image(ID_HIT_EFFECT, rTileHitEffect);
+                    Drawing::Image(kIDHitEffect, rTileHitEffect);
 
                 }
 
@@ -142,13 +142,13 @@ void FoesRendering::RenderTileFoes(int x, int y, CPoint pTile)
             switch (animIndex3)
             {
             case 0:
-                Drawing::Image(ID_SPAWN_EFFECT_0, rTile);
+                Drawing::Image(kIDSpawnEffect0, rTile);
                 break;
             case 1:
-                Drawing::Image(ID_SPAWN_EFFECT_1, rTile);
+                Drawing::Image(kIDSpawnEffect1, rTile);
                 break;
             case 2:
-                Drawing::Image(ID_SPAWN_EFFECT_2, rTile);
+                Drawing::Image(kIDSpawnEffect2, rTile);
                 break;
             }
 

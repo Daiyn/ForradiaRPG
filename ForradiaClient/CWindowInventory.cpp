@@ -161,7 +161,7 @@ void CWindowInventory::Render()
             int posx = m_x + xoffset + col*(m_pxSlotSize + m_pxMargin);
             int posy = m_y + m_pxTitleBarHeight + yoffset + row*(m_pxSlotSize + m_pxMargin);
 
-            Drawing::Image(ID_INVENTORY_SLOT_BACK, posx, posy, m_pxSlotSize, m_pxSlotSize);
+            Drawing::Image(kIDInventorySlotBackground, posx, posy, m_pxSlotSize, m_pxSlotSize);
 
             for (auto it = Global::statePlayer->m_inventory.m_containedItems.begin(); it != Global::statePlayer->m_inventory.m_containedItems.end(); it++)
             {

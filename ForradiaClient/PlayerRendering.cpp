@@ -36,8 +36,8 @@ void PlayerRendering::RenderPlayer(int x, int y, CPoint pTile)
 
         rectPlayer.y -= Global::statePlayer->GetJumpHeight();
 
-        Drawing::Image(ID_SHADOW, rectShadow);
-        Drawing::Image(ID_PLAYER, rectPlayer);
+        Drawing::Image(kIDShadow, rectShadow);
+        Drawing::Image(kIDPlayerSprite, rectPlayer);
 
         if (SDL_GetTicks() - Combat::tickCombatInitiated < Combat::duraShowHitEffect)
         {
@@ -49,7 +49,7 @@ void PlayerRendering::RenderPlayer(int x, int y, CPoint pTile)
                     Global::GetTileSize()
             };
 
-            Drawing::Image(ID_HIT_EFFECT, rTileHitEffect);
+            Drawing::Image(kIDHitEffect, rTileHitEffect);
 
         }
 

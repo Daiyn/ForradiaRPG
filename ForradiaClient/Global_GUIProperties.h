@@ -23,6 +23,6 @@ namespace Global
     const int attrOptionIconSize = 40;
     const int attrMargin = 5;
     const int attrBackColorR = 0;
-    const int attrBackColorG = 150;
-    const int attrBackColorB = 200;
+    const int attrBackColorG = 0;
+    const int attrBackColorB = 88;
 }

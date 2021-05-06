@@ -29,7 +29,7 @@ void GUIMinimap::Render()
     rectPlayerPos.Translate(Global::GetCanvasWidth() - miniMapSize - pxBorderWidth - 2, pxBorderWidth - 2);
     rectPlayerPos.SetSize(pxPlayerSymbolSize, pxPlayerSymbolSize);
 
-    Drawing::Image(ID_MAP_PREVIEW_BACK, rectFrame);
+    Drawing::Image(kIDFullMapFrameBackground, rectFrame);
     Drawing::Image(Global::contentCurrentMap->m_texFullMapRender, rectMapOverview);
 
     Drawing::FilledRect(WHITE, rectPlayerPos);

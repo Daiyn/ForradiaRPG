@@ -9,7 +9,7 @@
 void ImageLoading::LoadImages()
 {
 
-    for (int i = 0; i < CONTENT_DB_SIZE; i++)
+    for (int i = 0; i < kContentDBSize; i++)
     {
         libTextures[i] = NULL;
         libTexturesFullMapRender[i] = NULL;
@@ -57,7 +57,7 @@ void ImageLoading::LoadSingleImage(string texName, SDL_Renderer *renderer)
 void ImageLoading::ClearMapPreviewTextures()
 {
 
-    for (int i = 0; i < CONTENT_DB_SIZE; i++)
+    for (int i = 0; i < kContentDBSize; i++)
     {
         if (libTexturesFullMapRender[i] != NULL)
         {

@@ -21,8 +21,8 @@ void GUIStatusPanel::Render()
 
     CRectangle rect = {0, 0, w, h};
 
-    auto tex = ImageLoading::libTextures[ID_MAP_PREVIEW_BACK];
-    Drawing::Image(ID_MAP_PREVIEW_BACK, rect);
+    auto tex = ImageLoading::libTextures[kIDFullMapFrameBackground];
+    Drawing::Image(kIDFullMapFrameBackground, rect);
 
     int barLeft = pxMargin;
     int barTop = pxMargin * 3;

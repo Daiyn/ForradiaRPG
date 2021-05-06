@@ -177,7 +177,7 @@ void GUI::Render()
     int xBackground = Global::GetCanvasWidth() - wBackground;
     int yBackground = Global::GetCanvasHeight() - hBackground;
 
-    Drawing::Image(ID_ICONS_BACKGROUND, xBackground, yBackground, wBackground, hBackground);
+    Drawing::Image(kIDIconsBackground, xBackground, yBackground, wBackground, hBackground);
 
     for (int i = 0; i < numberOfGUIButtons; i++)
         Drawing::Image(buttons[i].m_idxImage, buttons[i].m_bounds.x, buttons[i].m_bounds.y, buttons[i].m_bounds.w, buttons[i].m_bounds.h);

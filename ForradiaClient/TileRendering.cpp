@@ -79,7 +79,7 @@ void TileRendering::CoverUnseenTiles(int x, int y, CPoint pTile)
 
         int increasedSize = TILESIZE*1.7;
 
-        D::Image(ID_UNSEEN_TILE,
+        D::Image(kIDUnseenTile,
             x * TILESIZE + TILESIZE / 2 - increasedSize / 2,
             y * TILESIZE + TILESIZE / 2 - increasedSize / 2,
             increasedSize,
@@ -148,30 +148,30 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
 
     bool isDeepWater = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight < 0;
 
-    tileCurrentIsWater = tfSeenFloor->m_idxGroundType == ID_TILE_WATER;
+    tileCurrentIsWater = tfSeenFloor->m_idxGroundType == kIDTileWater;
 
     if (contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->GetIndexForSeenFloor() != -1)
-        tileEastIsWater = tfSeenFloor->m_idxGroundType == ID_TILE_WATER;
+        tileEastIsWater = tfSeenFloor->m_idxGroundType == kIDTileWater;
 
     if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->GetIndexForSeenFloor() != -1)
-        tileNorthIsWater = tfSeenFloor->m_idxGroundType == ID_TILE_WATER;
+        tileNorthIsWater = tfSeenFloor->m_idxGroundType == kIDTileWater;
 
     if (!tileCurrentIsWater && tileEastIsWater && !isDeepWater)
-        D::ImageCurrentRect(ID_EDGE_RIGHT);
+        D::ImageCurrentRect(kIDEdgeRight);
 
     if (tileCurrentIsWater && !tileEastIsWater && !isDeepWater)
-        D::ImageCurrentRect(ID_EDGE_RIGHT);
+        D::ImageCurrentRect(kIDEdgeRight);
 
     if (!tileCurrentIsWater && tileNorthIsWater && !isDeepWater)
-        D::ImageCurrentRect(ID_EDGE_TOP);
+        D::ImageCurrentRect(kIDEdgeTop);
 
     if (tileCurrentIsWater && !tileNorthIsWater && !isDeepWater)
-        D::ImageCurrentRect(ID_EDGE_TOP);
+        D::ImageCurrentRect(kIDEdgeTop);
 
     bool doDrawGrassStraws = true;
 
-    bool tileIsRock = tfSeenFloor->m_idxGroundType == ID_TILE_ROCK;
-    bool tileIsStoneSlab = tfSeenFloor->m_idxGroundType == ID_TILE_STONESLAB;
+    bool tileIsRock = tfSeenFloor->m_idxGroundType == kIDTileRock;
+    bool tileIsStoneSlab = tfSeenFloor->m_idxGroundType == kIDTileStoneslab;
 
     int elevCurrent = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight;
     int elevNorth = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->m_elevationHeight;
@@ -264,49 +264,49 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
         {
 
         if ((drawElevFlags & drawElevLeft) != 0 && !tileCurrentIsWater)
-            D::ImageCurrentRect(ID_ELEV_LEFT);
+            D::ImageCurrentRect(kIDElevLeft);
 
         if ((drawElevFlags & drawElevBottom) != 0 && !tileCurrentIsWater)
-            D::ImageCurrentRect(ID_ELEV_BOTTOM);
+            D::ImageCurrentRect(kIDElevBottom);
 
         if ((drawElevFlags & drawElevLeftDark) != 0 && !tileCurrentIsWater)
-            D::ImageCurrentRect(ID_ELEV_LEFT_DARK);
+            D::ImageCurrentRect(kIDElevLeftDark);
 
         if ((drawElevFlags & drawElevBottomDark) != 0 && !tileCurrentIsWater)
-            D::ImageCurrentRect(ID_ELEV_BOTTOM_DARK);
+            D::ImageCurrentRect(kIDElevBottomDark);
 
         if ((drawElevFlags & drawEdgeRight) != 0 && !isDeepWater)
-            D::ImageCurrentRect(ID_EDGE_RIGHT);
+            D::ImageCurrentRect(kIDEdgeRight);
 
         if ((drawElevFlags & drawEdgeTop) != 0 && !isDeepWater)
-            D::ImageCurrentRect(ID_EDGE_TOP);
+            D::ImageCurrentRect(kIDEdgeTop);
 
         }
         else
         {
 
             if ((drawElevFlags & drawElevLeft) != 0 && !tileCurrentIsWater)
-                D::ImageCurrentRect(ID_ELEV_LEFT_ROCK);
+                D::ImageCurrentRect(kIDElevLeftRock);
 
             if ((drawElevFlags & drawElevBottom) != 0 && !tileCurrentIsWater)
-                D::ImageCurrentRect(ID_ELEV_BOTTOM_ROCK);
+                D::ImageCurrentRect(kIDElevBottomRock);
 
             if ((drawElevFlags & drawElevLeftDark) != 0 && !tileCurrentIsWater)
-                D::ImageCurrentRect(ID_ELEV_LEFT_DARK_ROCK);
+                D::ImageCurrentRect(kIDElevLeftDarkRock);
 
             if ((drawElevFlags & drawElevBottomDark) != 0 && !tileCurrentIsWater)
-                D::ImageCurrentRect(ID_ELEV_BOTTOM_DARK_ROCK);
+                D::ImageCurrentRect(kIDElevBottomDarkRock);
 
             if ((drawElevFlags & drawEdgeRight) != 0)
-                D::ImageCurrentRect(ID_EDGE_RIGHT_ROCK);
+                D::ImageCurrentRect(kIDEdgeRightRock);
 
             if ((drawElevFlags & drawEdgeTop) != 0)
-                D::ImageCurrentRect(ID_EDGE_TOP_ROCK);
+                D::ImageCurrentRect(kIDEdgeTopRock);
 
         }
 
         if ((drawElevFlags & drawElevCorner) != 0 && !tileCurrentIsWater)
-            D::ImageCurrentRect(ID_ELEV_CORNER);
+            D::ImageCurrentRect(kIDElevCorner);
 
     }
 
@@ -314,25 +314,25 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
     if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight, pTile.m_x, pTile.m_y)
         && contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight)
     {
-        D::ImageCurrentRect(ID_CAVE_ENTRANCE_WEST);
+        D::ImageCurrentRect(kIDCaveEntranceWest);
     }
 
     if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight, pTile.m_x, pTile.m_y)
         && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight)
     {
-        D::ImageCurrentRect(ID_CAVE_ENTRANCE_SOUTH);
+        D::ImageCurrentRect(kIDCaveEntranceSouth);
     }
 
     if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight, pTile.m_x, pTile.m_y)
         && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x + 1][pTile.m_y]->m_elevationHeight)
     {
-        D::ImageCurrentRect(ID_CAVE_ENTRANCE_EAST);
+        D::ImageCurrentRect(kIDCaveEntranceEast);
     }
 
     if (contentCurrentMap->TileIsMinedAtElev(contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->m_elevationHeight, pTile.m_x, pTile.m_y)
         && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y - 1]->m_elevationHeight)
     {
-        D::ImageCurrentRect(ID_CAVE_ENTRANCE_NORTH);
+        D::ImageCurrentRect(kIDCaveEntranceNorth);
     }
 
     int tileFloorGroundType = tfSeenFloor->m_idxGroundType;
@@ -347,13 +347,13 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
 
     Drawing::RectPrepare(destXScaled, destYScaled, destWScaled, destHScaled);
 
-    if (doDrawGrassStraws && tileFloorGroundType == ID_TILE_GRASS)
+    if (doDrawGrassStraws && tileFloorGroundType == kIDTileGrass)
     {
 
         int grassStrawsAmount = (pTile.m_x + pTile.m_y + pTile.m_x * pTile.m_y) % 6;
 
         for (int i = 0; i < grassStrawsAmount; i++)
-            D::ImageCurrentRect(ID_GRASS_STRAWS);
+            D::ImageCurrentRect(kIDGrassStraws);
 
     }
 
@@ -367,7 +367,7 @@ void TileRendering::RenderTileHoveringEffect(int x, int y, CPoint pTile)
     if (pTile.m_x == PlayerActions::coordHoveredTile.m_x && pTile.m_y == PlayerActions::coordHoveredTile.m_y)
     {
 
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ID_TILE_HOVER_EFFECT], NULL, &rTile);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDTileHoverEffect], NULL, &rTile);
 
     }
 

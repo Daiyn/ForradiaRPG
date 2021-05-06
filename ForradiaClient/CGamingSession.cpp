@@ -24,6 +24,7 @@
 #include "CMap.h"
 #include "CPlayer.h"
 #include "FoodEating.h"
+#include "GameConfiguration.h"
 
 using std::unique_ptr;
 using std::move;
@@ -33,10 +34,8 @@ CGamingSession::CGamingSession()
 {
 
     Global::statePlayer = make_unique<CPlayer>(CPlayer(Global::tilesMapSize));
+    GameConfiguration::AddPlayerStartingItems();
     Global::defaultTrain = make_unique<CTrain>(CTrain());
-
-    //SDL_DestroyTexture(Global::texFullMapOverview);
-    //Global::texFullMapOverview = NULL;
 
     GUITerminal::Print("Welcome to Forradia");
 

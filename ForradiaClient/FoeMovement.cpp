@@ -63,7 +63,7 @@ void FoeMovement::Update() {
 
                 distanceFromSpawn = sqrt(dx * dx + dy * dy);
 
-                if (foe.m_idxFoeType == ID_BUTTERFLY || foe.m_idxFoeType == ID_PINKSLIME)
+                if (foe.m_idxFoeType == kIDButterfly || foe.m_idxFoeType == kIDPinkSlime)
                     break;
 
             } while (distanceFromSpawn > 5);

@@ -186,13 +186,13 @@ void MapGeneration::GenerateAll(CMap& map)
                         if (butterfly == 1
                             && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"]
                                 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["woodFloor"]))
-                            map.AddFoe(make_unique<CFoe>(CFoe(ID_BUTTERFLY, x, y)), SURFACE_FLOOR);
+                            map.AddFoe(make_unique<CFoe>(CFoe(kIDButterfly, x, y)), SURFACE_FLOOR);
 
                         double pinkSlime = (40 + x + 1 * y + 2 * x * y + 3 * xx * y + 4 * x * yy) % 390;
                         if (pinkSlime == 1
                             && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"]
                                 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["woodFloor"]))
-                            map.AddFoe(make_unique<CFoe>(CFoe(ID_PINKSLIME, x, y)), SURFACE_FLOOR);
+                            map.AddFoe(make_unique<CFoe>(CFoe(kIDPinkSlime, x, y)), SURFACE_FLOOR);
 
 
                         if (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["water"])

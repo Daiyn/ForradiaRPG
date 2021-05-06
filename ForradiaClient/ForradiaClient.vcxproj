@@ -35,6 +35,7 @@
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="Forradia.cpp" />
     <ClCompile Include="CGamingSession.cpp" />
+    <ClCompile Include="GameConfiguration.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="CGUIButton.cpp" />
     <ClCompile Include="GUICoordPanel.cpp" />
@@ -107,6 +108,7 @@
     <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="Forradia.h" />
     <ClInclude Include="CGamingSession.h" />
+    <ClInclude Include="GameConfiguration.h" />
     <ClInclude Include="Global_Canvas.h" />
     <ClInclude Include="Global_CurrentScene.h" />
     <ClInclude Include="Global_Gameloop.h" />
