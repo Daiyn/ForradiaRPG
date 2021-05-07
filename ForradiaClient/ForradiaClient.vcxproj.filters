@@ -36,9 +36,6 @@
     <ClCompile Include="GUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GUICoordPanel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GUIMinimap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -85,12 +82,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CNPCDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CNPCDialogPhrase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CNPCDialogPhraseAnswerOption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NPCRendering.cpp">
@@ -162,9 +153,6 @@
     <ClCompile Include="CRectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CGUIButton.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CInventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -178,9 +166,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FoodEating.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CActiveFoodItem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Animations.cpp">
@@ -213,9 +198,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GUI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GUICoordPanel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GUIMinimap.h">
@@ -261,12 +243,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CNPCDialog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CNPCDialogPhrase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CNPCDialogPhraseAnswerOption.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NPCRendering.h">
@@ -402,9 +378,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FoodEating.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CActiveFoodItem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Animations.h">

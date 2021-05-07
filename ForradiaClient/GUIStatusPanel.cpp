@@ -39,7 +39,7 @@ void GUIStatusPanel::Render()
 
     string strNRGY = "NRGY: " + strNRGYCurrent + "/" + strNRGYMax;
 
-    TextRendering::DrawString(strNRGY, WHITE, pxMargin, pxMargin + 2*barHeight);
+    TextRendering::DrawString(strNRGY, WHITE, pxMargin, pxMargin);
 
     CRectangle rectNRGYBar = { barLeft, barTop, barWidth, barHeight };
 

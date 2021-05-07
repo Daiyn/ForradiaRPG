@@ -111,3 +111,9 @@ void FoodEating::Update()
         }
     }
 }
+
+CActiveFoodItem::CActiveFoodItem(unique_ptr<CObject> foodItem)
+{
+    m_foodItem = move(foodItem);
+    m_tickCreated = SDL_GetTicks();
+}

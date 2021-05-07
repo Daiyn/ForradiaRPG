@@ -17,7 +17,6 @@
 #include "GUIMinimap.h"
 #include "GUI.h"
 #include "GUIWorldMenu.h"
-#include "GUICoordPanel.h"
 #include "GUIStatusPanel.h"
 #include "GUISystemMenu.h"
 #include "FoodEating.h"
@@ -95,7 +94,6 @@ void CoreGameRendering::RenderGUI()
     GUIMinimap::Render();
     GUI::Render();
     GUIWorldMenu::Render();
-    GUICoordPanel::Render();
     GUIStatusPanel::Render();
     GUISystemMenu::RenderIfShown();
 

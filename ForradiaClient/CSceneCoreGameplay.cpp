@@ -8,7 +8,6 @@
 #include "PlayerActions.h"
 #include "GUIWorldMenu.h"
 #include "GUISystemMenu.h"
-#include "GUICoordPanel.h"
 #include "GUIMinimap.h"
 #include "Global_Player.h"
 #include "Global_SDL.h"

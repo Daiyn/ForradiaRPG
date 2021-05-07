@@ -3,8 +3,6 @@
 #include "CMap.h"
 #include <SDL2/SDL_timer.h>
 #include "CNPCDialog.h"
-#include "CNPCDialogPhrase.h"
-#include "CNPCDialogPhraseAnswerOption.h"
 #include "CPoint.h"
 #include "CTile.h"
 #include <memory>

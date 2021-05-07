@@ -9,6 +9,7 @@
 #include "Colors.h"
 #include "CMap.h"
 #include "CPlayer.h"
+#include "TextRendering.h"
 
 void GUIMinimap::Render()
 {
@@ -33,6 +34,21 @@ void GUIMinimap::Render()
     Drawing::Image(Global::contentCurrentMap->m_texFullMapRender, rectMapOverview);
 
     Drawing::FilledRect(WHITE, rectPlayerPos);
+
+
+    // Draw coords
+
+    int y = GetBottomY();
+    int w = 100;
+    int x = Global::GetCanvasWidth() - w;
+    int h = 25;
+    int margin = 3;
+
+    Drawing::FilledRect(MEDIUM_BLUE_TRANSPARENT, x, y, w, h);
+
+    string strCoord = "(" + std::to_string(Global::statePlayer->m_coordPosition.m_x) + ", " + std::to_string(Global::statePlayer->m_coordPosition.m_y) + ")";
+
+    TextRendering::DrawString(strCoord, BLACK, x + margin, y + margin);
 
 }
 

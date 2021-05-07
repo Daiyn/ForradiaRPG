@@ -78,13 +78,3 @@ bool CPoint::Equals(CPoint p)
 {
 	return m_x == p.m_x && m_y == p.m_y;
 }
-
-//CPoint CPoint::GetAbsDistanceToPlayer()
-//{
-//	CAnimal& targetedFoe = Global::contentCurrentMap->m_mirrorAllFoes[Combat::idxTargetedFoe];
-//
-//	CPoint tc;
-//	tc.m_x = abs(Global::statePlayer->m_coordPosition.m_x - targetedFoe.m_coordPosition.m_x);
-//	tc.m_y = abs(Global::statePlayer->m_coordPosition.m_y - targetedFoe.m_coordPosition.m_y);
-//	return tc;
-//}

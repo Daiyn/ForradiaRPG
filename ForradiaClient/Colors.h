@@ -14,14 +14,16 @@
 
 #pragma once
 
-#define WHITE {255, 255, 255, 255}
-#define MEDIUM_BLUE_TRANSPARENT {100, 170, 255, 200}
-#define BLACK {0, 0, 0, 255}
-#define BLACK_ALPHA_40 {0, 0, 0, 40}
-#define WHITE_ALPHA_20 {255, 255, 255, 20}
-#define GREEN {0, 255, 0, 255}
-#define MEDIUM_RED {190, 0, 0, 255}
-#define MEDIUM_GREEN {0, 150, 0, 255}
-#define WORLDMENU_BACKGROUND {150, 190, 255, 170}
-#define WORLDMENU_HOVERED {200, 200, 255, 200}
-#define ORANGE {255, 175, 0, 255}
+#include <SDL2/SDL_render.h>
+
+const SDL_Color WHITE = { 255, 255, 255, 255 };
+const SDL_Color MEDIUM_BLUE_TRANSPARENT = { 100, 170, 255, 200 };
+const SDL_Color BLACK = { 0, 0, 0, 255 };
+const SDL_Color BLACK_ALPHA_40 = { 0, 0, 0, 40 };
+const SDL_Color WHITE_ALPHA_20 = { 255, 255, 255, 20 };
+const SDL_Color GREEN = { 0, 255, 0, 255 };
+const SDL_Color MEDIUM_RED = { 190, 0, 0, 255 };
+const SDL_Color MEDIUM_GREEN = { 0, 150, 0, 255 };
+const SDL_Color WORLDMENU_BACKGROUND = { 150, 190, 255, 170 };
+const SDL_Color WORLDMENU_HOVERED = { 200, 200, 255, 200 };
+const SDL_Color ORANGE = {255, 175, 0, 255};
