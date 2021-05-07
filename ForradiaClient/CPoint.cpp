@@ -1,6 +1,5 @@
 #include "CPoint.h"
 #include "Global_Player.h"
-#include "Combat.h"
 #include "Global_Canvas.h"
 #include "Utilities.h"
 #include "Global_MapSize.h"
@@ -80,12 +79,12 @@ bool CPoint::Equals(CPoint p)
 	return m_x == p.m_x && m_y == p.m_y;
 }
 
-CPoint CPoint::GetAbsDistanceToPlayer()
-{
-	CFoe& targetedFoe = Global::contentCurrentMap->m_mirrorAllFoes[Combat::idxTargetedFoe];
-
-	CPoint tc;
-	tc.m_x = abs(Global::statePlayer->m_coordPosition.m_x - targetedFoe.m_coordPosition.m_x);
-	tc.m_y = abs(Global::statePlayer->m_coordPosition.m_y - targetedFoe.m_coordPosition.m_y);
-	return tc;
-}
+//CPoint CPoint::GetAbsDistanceToPlayer()
+//{
+//	CAnimal& targetedFoe = Global::contentCurrentMap->m_mirrorAllFoes[Combat::idxTargetedFoe];
+//
+//	CPoint tc;
+//	tc.m_x = abs(Global::statePlayer->m_coordPosition.m_x - targetedFoe.m_coordPosition.m_x);
+//	tc.m_y = abs(Global::statePlayer->m_coordPosition.m_y - targetedFoe.m_coordPosition.m_y);
+//	return tc;
+//}

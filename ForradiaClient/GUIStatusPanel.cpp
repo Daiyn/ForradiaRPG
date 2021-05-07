@@ -29,28 +29,6 @@ void GUIStatusPanel::Render()
     int barWidth = w - 2 * pxMargin;
     int barHeight = 25;
 
-    string strHP = "HP: " + std::to_string(Global::statePlayer->m_statCurrentHP) + "/" + std::to_string(Global::statePlayer->m_statMaxHP);
-
-    TextRendering::DrawString(strHP, WHITE, pxMargin, pxMargin);
-
-    CRectangle rectHPBar = {barLeft, barTop, barWidth, barHeight};
-
-    Drawing::FilledRect(BLACK, rectHPBar);
-
-    int hpBarFilledWidth = barWidth * (double) Global::statePlayer->m_statCurrentHP / Global::statePlayer->m_statMaxHP;
-
-    if (hpBarFilledWidth > 0)
-    {
-
-        CRectangle rectHPBarFilled = {barLeft, barTop, hpBarFilledWidth, barHeight};
-
-        Drawing::FilledRect(GREEN, rectHPBarFilled);
-        Drawing::RectContour(BLACK, rectHPBarFilled);
-
-    }
-
-    barTop += 2 * barHeight;
-
     stringstream streamNRGYCurrent;
     streamNRGYCurrent << std::fixed << setprecision(0) << Global::statePlayer->m_statCurrentNRGY;
     string strNRGYCurrent = streamNRGYCurrent.str();

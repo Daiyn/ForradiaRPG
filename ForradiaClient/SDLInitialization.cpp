@@ -20,7 +20,6 @@ void SDLInitialization::Initialize()
                                         SDL_WINDOW_RESIZABLE);
     Global::sdlRendererDefault = SDL_CreateRenderer(Global::sdlWindow, -1, SDL_RENDERER_ACCELERATED);
     SDL_SetRenderDrawBlendMode(Global::sdlRendererDefault, SDL_BLENDMODE_BLEND);
-    SDL_ShowCursor(SDL_DISABLE);
     TTF_Init();
 
 }

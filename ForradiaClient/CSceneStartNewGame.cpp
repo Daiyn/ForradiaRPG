@@ -12,7 +12,6 @@
 #include "Global_SDL.h"
 #include "Global_CurrentScene.h"
 #include "Global_Mouse.h"
-#include "Cursor.h"
 #include "Global_GameSettings.h"
 #include "Global_CurrentMap.h"
 #include <memory>
@@ -65,15 +64,6 @@ void CSceneStartNewGame::DoMouseDown(Uint8 button)
                       Global::attrMenuButtonHeight };
 
 
-    SDL_Rect rectOptionIconGameStyleCasual = { rectPlayButton.x,
-                                                Global::GetCanvasHeight() / 2,
-                                                Global::attrOptionIconSize,
-                                                Global::attrOptionIconSize };
-
-    SDL_Rect rectOptionIconGameStyleChallenging = { rectPlayButton.x,
-                                                    Global::GetCanvasHeight() / 2 + Global::attrOptionIconSize + Global::attrMargin,
-                                                    Global::attrOptionIconSize,
-                                                    Global::attrOptionIconSize };
 
 
 
@@ -107,21 +97,6 @@ void CSceneStartNewGame::DoMouseDown(Uint8 button)
 
     }
 
-    if (mx >= rectOptionIconGameStyleCasual.x && my >= rectOptionIconGameStyleCasual.y && mx < rectOptionIconGameStyleCasual.x + rectOptionIconGameStyleCasual.w &&
-        my < rectOptionIconGameStyleCasual.y + rectOptionIconGameStyleCasual.h)
-    {
-
-        Global::settingGameMode = 0;
-
-    }
-
-    if (mx >= rectOptionIconGameStyleChallenging.x && my >= rectOptionIconGameStyleChallenging.y && mx < rectOptionIconGameStyleChallenging.x + rectOptionIconGameStyleChallenging.w &&
-        my < rectOptionIconGameStyleChallenging.y + rectOptionIconGameStyleChallenging.h)
-    {
-
-        Global::settingGameMode = 1;
-
-    }
 
 }
 
@@ -149,22 +124,6 @@ void CSceneStartNewGame::Update()
                                   Global::attrMenuButtonWidth,
                                   Global::attrMenuButtonHeight };
 
-    Cursor::isHoveringButton = false;
-
-    if (mx >= rectBackButton.x && my >= rectBackButton.y && mx < rectBackButton.x + rectBackButton.w && my < rectBackButton.y + rectBackButton.h)
-    {
-        Cursor::isHoveringButton = true;
-    }
-
-    if (mx >= rectGenerateButton.x && my >= rectGenerateButton.y && mx < rectGenerateButton.x + rectGenerateButton.w && my < rectGenerateButton.y + rectGenerateButton.h)
-    {
-        Cursor::isHoveringButton = true;
-    }
-
-    if (mx >= rectPlayButton.x && my >= rectPlayButton.y && mx < rectPlayButton.x + rectPlayButton.w && my < rectPlayButton.y + rectPlayButton.h)
-    {
-        Cursor::isHoveringButton = true;
-    }
 
 }
 
@@ -263,6 +222,7 @@ void CSceneStartNewGame::Render()
     case 1:
     case 2:
     case 3:
+    case 4:
     case 5:
     case 6:
     case 7:
@@ -271,10 +231,6 @@ void CSceneStartNewGame::Render()
         break;
 
     }
-
-    SDL_Rect rectTitle = {0, 0, 300 / 1600.0 * Global::GetCanvasWidth(), 60 / 900.0 * Global::GetCanvasHeight() };
-
-    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDTitleStartNewGame], NULL, &rectTitle);
 
     string textBack = "Back";
 
@@ -329,30 +285,6 @@ void CSceneStartNewGame::Render()
 
     TextRendering::DrawString(textPlay.c_str(), {0, 0, 0}, xtextpos, ytextpos);
 
-    xtextpos = rectOptionIconGameStyleCasual.x;
-    ytextpos = rectOptionIconGameStyleCasual.y - Global::attrOptionIconSize;
-
-    TextRendering::DrawString("Game Style", { 0, 0, 0 }, xtextpos, ytextpos);
-
-    if (Global::settingGameMode == 0)
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDOptionIconSelected], NULL, &rectOptionIconGameStyleCasual);
-    else
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDOptionIconUnselected], NULL, &rectOptionIconGameStyleCasual);
-
-    xtextpos = rectOptionIconGameStyleCasual.x + Global::attrOptionIconSize + Global::attrMargin;
-    ytextpos = rectOptionIconGameStyleCasual.y + Global::attrOptionIconSize/2 - TextRendering::GetTextHeight()/2;
-
-    TextRendering::DrawString("Casual", { 0, 0, 0 }, xtextpos, ytextpos);
-
-    if (Global::settingGameMode == 1)
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDOptionIconSelected], NULL, &rectOptionIconGameStyleChallenging);
-    else
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDOptionIconUnselected], NULL, &rectOptionIconGameStyleChallenging);
-
-    xtextpos = rectOptionIconGameStyleCasual.x + Global::attrOptionIconSize + Global::attrMargin;
-    ytextpos = rectOptionIconGameStyleChallenging.y + Global::attrOptionIconSize / 2 - TextRendering::GetTextHeight() / 2;
-
-    TextRendering::DrawString("Challenging", { 0, 0, 0 }, xtextpos, ytextpos);
 
     RenderMapPreview();
 

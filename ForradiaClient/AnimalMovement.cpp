@@ -1,4 +1,4 @@
-#include "FoeMovement.h"
+#include "AnimalMovement.h"
 #include "Global_CurrentMap.h"
 #include "Global_MapSize.h"
 #include "DataLoading.h"
@@ -6,7 +6,6 @@
 #include <chrono>
 #include "CMap.h"
 #include "Constants.h"
-#include "CFoe.h"
 #include "CTile.h"
 
 #define FOR(x,y,z) for (int x = y; x < z; x++)
@@ -15,17 +14,14 @@ using namespace std::chrono;
 
 typedef high_resolution_clock Clock;
 
-void FoeMovement::Update() {
+void AnimalMovement::Update() {
 
     srand(SDL_GetTicks());
 
     FOR(i, 0, Global::contentCurrentMap->m_mirrorAllFoes.size())
     {
 
-        CFoe& foe = Global::contentCurrentMap->m_mirrorAllFoes[i];
-
-        if (!foe.IsAlive())
-            continue;
+        CAnimal& foe = Global::contentCurrentMap->m_mirrorAllFoes[i];
 
         CPoint p = foe.m_coordPosition;
         int uniqueID = foe.m_uniqueID;

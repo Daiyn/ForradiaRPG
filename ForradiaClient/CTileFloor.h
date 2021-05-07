@@ -5,7 +5,7 @@
 
   Classes:   CTileFloor
              CObject
-             CFoe
+             CAnimal
              CNPC
 
   Functions: 
@@ -19,7 +19,7 @@
 #define FORRADIACLIENT_TILEFLOOR_H
 
 #include "CObject.h"
-#include "CFoe.h"
+#include "CAnimal.h"
 #include "CNPC.h"
 #include <vector>
 #include <memory>
@@ -55,7 +55,7 @@ public:
     int m_coordMapX;
     int m_coordMapY;
     unique_ptr<CObject> m_containedObjects[MAX_OBJECTS_ON_FLOOR];
-    unique_ptr<CFoe> m_containedFoes[MAX_FOES_ON_FLOOR];
+    unique_ptr<CAnimal> m_containedFoes[MAX_FOES_ON_FLOOR];
     std::vector<unique_ptr<CNPC>> m_containedNPCs;
 
     CTileFloor(int _mapx, int _mapy);

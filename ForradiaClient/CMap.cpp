@@ -47,11 +47,6 @@ CMap::CMap(int mapSize)
 
 }
 
-void CMap::GenerateMapPreview()
-{
-
-}
-
 bool CMap::TileIsMinedAtElev(int elev, int mapx, int mapy)
 {
 
@@ -215,7 +210,7 @@ int CMap::GetTopObjectType(int mapx, int mapy)
         return INVALID_INDEX;
 }
 
-void CMap::ClearReferencesToFoe(CFoe& foe, int allFoesListIndex, CTileFloor& floor)
+void CMap::ClearReferencesToFoe(CAnimal& foe, int allFoesListIndex, CTileFloor& floor)
 {
     
     for (auto it = m_mirrorAllFoes.begin(); it != m_mirrorAllFoes.end(); it++)
@@ -279,7 +274,7 @@ void CMap::AddObjectIfDoesntAlreadyExist(int objectType, int mapx, int mapy, int
 
 }
 
-void CMap::AddFoe(unique_ptr<CFoe> foe, int floor)
+void CMap::AddFoe(unique_ptr<CAnimal> foe, int floor)
 {
     
     FOR(j, 0, CTileFloor::MAX_FOES_ON_FLOOR)
@@ -310,7 +305,7 @@ void CMap::TranslateFoe(int uniqueID, CPoint pFrom, CPoint pTo, int floor)
                 if (m_tilesGrid[pFrom.m_x][pFrom.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedFoes[ii] == nullptr)
                     continue;
 
-                CFoe& jt = *m_tilesGrid[pFrom.m_x][pFrom.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedFoes[ii];
+                CAnimal& jt = *m_tilesGrid[pFrom.m_x][pFrom.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedFoes[ii];
 
                 
 

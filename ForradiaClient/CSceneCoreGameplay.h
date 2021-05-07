@@ -20,7 +20,6 @@
 #define FORRADIAFORMATION_SCENE_ACTUALPLAY_H
 
 #include "CScene.h"
-#include "CGamingSession.h"
 #include <SDL2/SDL_keycode.h>
 #include <memory>
 
@@ -46,7 +45,6 @@ class CSceneCoreGameplay : public CScene
 {
 public:
 
-    unique_ptr<CGamingSession> m_activeGamingSession;
 
     CSceneCoreGameplay();
 

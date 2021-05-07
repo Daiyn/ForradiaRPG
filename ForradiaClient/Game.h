@@ -69,7 +69,7 @@
 
 #include <SDL2/SDL_events.h>
 
-namespace Forradia
+namespace Game
 {
     inline SDL_Event inputUnhandledEvent;
     inline bool stateAltKeyPressed = false;

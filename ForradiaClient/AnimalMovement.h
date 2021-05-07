@@ -16,7 +16,7 @@
 #ifndef FORRADIAFORMATION_FOES_AI_H
 #define FORRADIAFORMATION_FOES_AI_H
 
-namespace FoeMovement
+namespace AnimalMovement
 {
     void Update();
 };

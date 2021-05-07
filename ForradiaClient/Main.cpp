@@ -1,10 +1,10 @@
-#include "Forradia.h"
+#include "Game.h"
 
 int main()
 {
 
-    Forradia::Initialize();
-    Forradia::Run();
+    Game::Initialize();
+    Game::Run();
 
     return 0;
 }

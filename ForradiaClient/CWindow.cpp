@@ -6,7 +6,6 @@
 #include "Global_SDL.h"
 #include "Global_GUIProperties.h"
 #include "Global_Mouse.h"
-#include "Cursor.h"
 #include "Drawing.h"
 #include "CNPCDialogPhrase.h"
 #include "CNPCDialog.h"
@@ -53,8 +52,6 @@ void CWindow::Update()
 
     CRectangle rect = { m_x + m_w - iconCloseWindowSize - m_pxTitleBarMargin, m_y + m_pxTitleBarMargin, iconCloseWindowSize, iconCloseWindowSize };
 
-    if (rect.ContainsPoint(pMouse))
-        Cursor::isHoveringButton = true;
 
 }
 

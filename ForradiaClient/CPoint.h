@@ -47,7 +47,7 @@ public:
 	CPoint(int _x, int _y);
 
 	bool Equals(CPoint p);
-	CPoint GetAbsDistanceToPlayer();
+	//CPoint GetAbsDistanceToPlayer();
 	void JumpToHoveredTile();
 	void JumpToScreenStart();
 	void JumpRight();
@@ -59,5 +59,13 @@ protected:
 
 private:
 
+};
+
+class CPoint3D
+{
+public:
+	int m_x;
+	int m_y;
+	int m_z;
 };
 

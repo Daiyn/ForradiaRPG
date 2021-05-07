@@ -1,12 +1,11 @@
 /*+===================================================================
-  File:      CGAMINGSESSION.H
+  File:      CFOE.H
 
-  Summary:   Describes class for a game session being created when 
-             a generated map has been selected and the player advances
-             from the StartNewGame-Scene.
+  Summary:   Describes class for which represent all enemy characters
+             that the player can fight.
 
-  Classes:   CGamingSession
-             CMap
+  Classes:   CAnimal
+             CFightableCharacter
 
   Functions: 
 
@@ -15,13 +14,19 @@
   This software is open source and licensed under the MIT License.
 ===================================================================+*/
 
-#ifndef FORRADIAFORMATION_GAMELOOPITERATION_H
-#define FORRADIAFORMATION_GAMELOOPITERATION_H
+#ifndef FORRADIAFORMATION_FOE_H
+#define FORRADIAFORMATION_FOE_H
 
+#include <SDL2/SDL_rect.h>
+#include "CPoint.h"
+#include <chrono>
 
+using namespace std::chrono;
+
+typedef high_resolution_clock Clock;
 
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
-  Class:    CGamingSession
+  Class:    CFightableCharacter
 
   Summary:  Short summary of purpose and content of CMyClass.
             Short summary of purpose and content of CMyClass.
@@ -36,14 +41,23 @@
               Destructor.
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
 
-class CGamingSession
+class CAnimal
 {
 public:
 
-    CGamingSession();
+    CPoint m_coordPosition = { -1, -1 };
+    CPoint m_coordSpawn = { -1, -1 };
+    int m_idxFoeType = -1;
+    int m_spdMovement = 500;
+    int m_statMaxHP = 10;
+    int m_uniqueID;
+    int m_tickTimeToRespawn = 0;
+    int m_spdRespawn = 16000;
+    Clock::time_point m_tickLastMove = Clock::now();
 
-    void Render();
-    void Update();
+    static int s_idCountFoes;
+
+    CAnimal(int _foeType, int _mapx, int _mapy);
 
 protected:
 

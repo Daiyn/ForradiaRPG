@@ -8,7 +8,7 @@
   Classes:   CMap
              CTile
              CObject
-             CFoe
+             CAnimal
              CNPC
              CTileFloor
              CPoint
@@ -38,7 +38,7 @@ using std::vector;
 using std::reference_wrapper;
 
 class CNPC;
-class CFoe;
+class CAnimal;
 class CTileFloor;
 struct SDL_Surface;
 struct SDL_Texture;
@@ -67,23 +67,22 @@ public:
     vector<reference_wrapper<CNPC>> m_mirrorAllNPCs;
     CPoint m_coordPlazaPosition;
     int m_tilesNumPlazaSize;
-    vector<reference_wrapper<CFoe>> m_mirrorAllFoes;
+    vector<reference_wrapper<CAnimal>> m_mirrorAllFoes;
     vector<vector < unique_ptr<CTile>>> m_tilesGrid;
     SDL_Surface* m_imgFullMapRender = NULL;
     SDL_Texture* m_texFullMapRender = NULL;
 
     CMap(int mapSize);
 
-    void AddFoe(unique_ptr<CFoe>, int floor);
+    void AddFoe(unique_ptr<CAnimal>, int floor);
     void AddChangingObject(int _objectType, CPoint p, int floor);
     void AddObject(int objectType, int mapx, int mapy, int floor);
     void AddObject(unique_ptr<CObject> _object, CPoint p, int floor);
     void AddObjectIfDoesntAlreadyExist(int objectType, int mapx, int mapy, int floor);
-    void ClearReferencesToFoe(CFoe& foe, int allFoesListIndex, CTileFloor& floor);
+    void ClearReferencesToFoe(CAnimal& foe, int allFoesListIndex, CTileFloor& floor);
     unique_ptr<CObject> GetTopObject(int mapx, int mapy);
     int GetTopObjectType(int mapx, int mapy);
     int GetTopFoeInMapAllFoeArrayIndex(int mapx, int mapy);
-    void GenerateMapPreview();
     bool SeenFloorHasBlockingFoes(int mapx, int mapy);
     bool SeenFloorHasFoes(int mapx, int mapy);
     bool TileHoldsObjectOfType(int _objectType, int mapx, int mapy, int floor);

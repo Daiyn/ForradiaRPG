@@ -40,13 +40,11 @@ bool CInventory::UseItemInInventory(int objectType, int _quantity)
 
 bool CInventory::HasItemInInventory(int objectType)
 {
-
     for (auto it = m_containedItems.begin(); it != m_containedItems.end(); it++)
         if (it->second->m_idxObjectType == objectType)
             return true;
 
     return false;
-
 }
 
 bool CInventory::SlotIsOccupied(int index)
@@ -56,8 +54,6 @@ bool CInventory::SlotIsOccupied(int index)
 
 void CInventory::AddItemToInventory(int objectType)
 {
-
-
     for (int i = 0; i < m_containedItems.size() + 1; i++)
     {
         if (m_containedItems.count(i) == 0)
@@ -65,7 +61,5 @@ void CInventory::AddItemToInventory(int objectType)
             m_containedItems.insert(pair<int, unique_ptr<CObject>>(i, make_unique<CObject>(CObject(objectType, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
             break;
         }
-
     }
-
 }

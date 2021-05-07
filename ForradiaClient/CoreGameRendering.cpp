@@ -12,14 +12,12 @@
 #include "ObjectsRendering.h"
 #include "TrainRendering.h"
 #include "NPCRendering.h"
-#include "TileEffectsRendering.h"
-#include "FoesRendering.h"
+#include "AnimalsRendering.h"
 #include "PlayerRendering.h"
 #include "GUIMinimap.h"
 #include "GUI.h"
 #include "GUIWorldMenu.h"
 #include "GUICoordPanel.h"
-#include "GUITerminal.h"
 #include "GUIStatusPanel.h"
 #include "GUISystemMenu.h"
 #include "FoodEating.h"
@@ -69,7 +67,6 @@ void CoreGameRendering::RenderGroundWithObjects()
             {
                 TileRendering::RenderTileGround(Global::GetTileSize(), x, y, pTile);
                 TileRendering::RenderTileHoveringEffect(x, y, pTile);
-                TileEffectsRendering::RenderTileEffects(x, y, pTile);
             }
             else if (i == 1)
             {
@@ -78,7 +75,7 @@ void CoreGameRendering::RenderGroundWithObjects()
                 TrainRendering::RenderTrainLocomotive(x, y, pTile);
                 TrainRendering::RenderTrainCarriages(x, y, pTile);
                 NPCRendering::RenderNpcs(x, y, pTile);
-                FoesRendering::RenderTileFoes(x, y, pTile);
+                AnimalsRendering::RenderTileFoes(x, y, pTile);
                 PlayerRendering::RenderPlayer(x, y, pTile);
 
                if ((Global::settingGameMode == 1 && TileRendering::CheckUnseenTiles(x, y, pTile)))
@@ -99,7 +96,6 @@ void CoreGameRendering::RenderGUI()
     GUI::Render();
     GUIWorldMenu::Render();
     GUICoordPanel::Render();
-    GUITerminal::Render();
     GUIStatusPanel::Render();
     GUISystemMenu::RenderIfShown();
 

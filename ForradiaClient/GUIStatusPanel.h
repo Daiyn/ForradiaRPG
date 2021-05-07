@@ -20,7 +20,7 @@
 namespace GUIStatusPanel
 {
     inline int pxWidthOriginal = 350;
-    inline int pxHeightOriginal = 150;
+    inline int pxHeightOriginal = 150/2;
     inline int pxMargin = 10;
 
     void Render();

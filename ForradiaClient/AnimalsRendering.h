@@ -18,7 +18,7 @@
 
 class CPoint;
 
-namespace FoesRendering
+namespace AnimalsRendering
 {
     void RenderTileFoes(int x, int y, CPoint pTile);
 };

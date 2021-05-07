@@ -1,6 +1,5 @@
 #include "PlayerRendering.h"
 #include "ImageLoading.h"
-#include "Combat.h"
 #include <chrono>
 #include "Global_Canvas.h"
 #include "Global_Player.h"
@@ -39,19 +38,19 @@ void PlayerRendering::RenderPlayer(int x, int y, CPoint pTile)
         Drawing::Image(kIDShadow, rectShadow);
         Drawing::Image(kIDPlayerSprite, rectPlayer);
 
-        if (SDL_GetTicks() - Combat::tickCombatInitiated < Combat::duraShowHitEffect)
-        {
+        //if (SDL_GetTicks() - Combat::tickCombatInitiated < Combat::duraShowHitEffect)
+        //{
 
-            CRectangle rTileHitEffect = {
-                    x * Global::GetTileSize(),
-                    y * Global::GetTileSize(),
-                    Global::GetTileSize(),
-                    Global::GetTileSize()
-            };
+        //    CRectangle rTileHitEffect = {
+        //            x * Global::GetTileSize(),
+        //            y * Global::GetTileSize(),
+        //            Global::GetTileSize(),
+        //            Global::GetTileSize()
+        //    };
 
-            Drawing::Image(kIDHitEffect, rTileHitEffect);
+        //    Drawing::Image(kIDHitEffect, rTileHitEffect);
 
-        }
+        //}
 
     }
 }

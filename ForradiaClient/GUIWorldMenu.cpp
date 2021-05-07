@@ -11,7 +11,6 @@
 #include "Drawing.h"
 #include "Colors.h"
 #include "Mining.h"
-#include "Cursor.h"
 #include "Crafting.h"
 #include "CMap.h"
 #include "CPlayer.h"
@@ -265,8 +264,6 @@ void GUIWorldMenu::Update()
 
         CRectangle rect = { pxMenuX, yRow, pxMenuWidth, pxRowHeight };
 
-        if (rect.ContainsPoint(pMouse))
-            Cursor::isHoveringButton = true;
 
     }
 }

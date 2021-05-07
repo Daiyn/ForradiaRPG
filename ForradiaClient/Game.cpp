@@ -1,7 +1,6 @@
-#include "Forradia.h"
+#include "Game.h"
 #include "FPSCounter.h"
 #include "ImageLoading.h"
-#include "Cursor.h"
 #include "Global_Gameloop.h"
 #include "CSceneStartScreen.h"
 #include "SDLInitialization.h"
@@ -19,7 +18,7 @@
 
 using std::make_unique;
 
-void Forradia::Initialize()
+void Game::Initialize()
 {
 
     SDLInitialization::Initialize();
@@ -31,7 +30,7 @@ void Forradia::Initialize()
 
 }
 
-void Forradia::Run()
+void Game::Run()
 {
 
     while (!Global::eventQuit)
@@ -54,7 +53,7 @@ void Forradia::Run()
 
 }
 
-void Forradia::HandleEvents()
+void Game::HandleEvents()
 {
 
     while (SDL_PollEvent(&inputUnhandledEvent))
@@ -101,21 +100,19 @@ void Forradia::HandleEvents()
 
 }
 
-void Forradia::Update() 
+void Game::Update() 
 {
 
     Global::stateCurrentScene->Update();
     FPSCounter::Update();
-    Cursor::Update();
 
 }
 
-void Forradia::Render()
+void Game::Render()
 {
 
     Global::stateCurrentScene->Render();
     FPSCounter::Render();
-    Cursor::Render();
 
     Drawing::PresentToScreen();
 

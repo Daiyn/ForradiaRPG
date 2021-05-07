@@ -6,7 +6,6 @@
 #include "Global_GUIProperties.h"
 #include "Global_CurrentScene.h"
 #include "Global_SDL.h"
-#include "Cursor.h"
 #include "Global_Mouse.h"
 #include "Drawing.h"
 #include <memory>
@@ -60,7 +59,6 @@ void GUISystemMenu::Update()
 
     CPoint pMouse = Global::GetMousePoint();
 
-    Cursor::isHoveringButton = false;
 
     int i = 0;
 
@@ -73,8 +71,6 @@ void GUISystemMenu::Update()
                 Global::attrMenuButtonWidth,
                 Global::attrMenuButtonHeight };
 
-        if (rect.ContainsPoint(pMouse))
-            Cursor::isHoveringButton = true;
 
         i++;
     }

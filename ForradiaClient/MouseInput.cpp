@@ -4,7 +4,6 @@
 #include "GUISystemMenu.h"
 #include "GUIWorldMenu.h"
 #include "KeyboardInput.h"
-#include "Combat.h"
 #include "Utilities.h"
 #include <SDL2/SDL_mouse.h>
 #include "Global_Player.h"
@@ -73,7 +72,8 @@ void MouseInput::DoMouseUp(Uint8 button)
         if (!stateMouseDownInGUI && !GUI::CheckMouseClickInGUI())
         {
 
-            if (!KeyboardInput::statesPressedKeys[SDLK_LSHIFT] && !Combat::HandleMouseClickOnFoe()
+            if (!KeyboardInput::statesPressedKeys[SDLK_LSHIFT]
+                //&& !Combat::HandleMouseClickOnFoe()
             && coordMouseDown.Equals(CPoint(HOVERED_TILE)))
                 Global::statePlayer->MouseClickToMove();
 
@@ -121,7 +121,9 @@ void MouseInput::Update()
     stateMouseDownInGUI = GUI::CheckMouseClickInGUI();
 
     if (stateMouseButtonLeftPressed && !stateMouseDownInGUI && !GUI::CheckMouseClickInGUI())
-        if (!KeyboardInput::statesPressedKeys[SDLK_LSHIFT] && !Combat::HandleMouseClickOnFoe() && ItemMoving::nodupMovedObject == NULL)
+        if (!KeyboardInput::statesPressedKeys[SDLK_LSHIFT]
+            //&& !Combat::HandleMouseClickOnFoe() && ItemMoving::nodupMovedObject == NULL
+            )
             Global::statePlayer->MouseClickToMove();
 
     if (KeyboardInput::statesPressedKeys[SDLK_LSHIFT] && stateMouseButtonLeftDown && !stateMouseDownInGUI &&

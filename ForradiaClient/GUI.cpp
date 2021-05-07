@@ -6,7 +6,6 @@
 #include "Global_Mouse.h"
 #include "Global_SDL.h"
 #include "Drawing.h"
-#include "Cursor.h"
 #include "CGUIButton.h"
 
 bool GUI::CheckMouseClickInGUI()
@@ -122,17 +121,6 @@ void GUI::Update()
         x += w;
     }
 
-    for (int i = 0; i < numberOfGUIButtons; i++)
-    {
-
-        if (buttons[i].m_bounds.ContainsPoint(pMouse))
-        {
-            Cursor::isHoveringButton = true;
-            break;
-
-        }
-
-    }
 
     for (auto it = activeWindows.begin(); it != activeWindows.end(); it++)
     {

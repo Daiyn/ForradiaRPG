@@ -18,12 +18,6 @@
     <ClCompile Include="CoreGameRendering.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Combat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cursor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CDataDescription.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,10 +30,7 @@
     <ClCompile Include="FPSCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Forradia.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CGamingSession.cpp">
+    <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GUI.cpp">
@@ -52,9 +43,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GUIStatusPanel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GUITerminal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GUIWorldMenu.cpp">
@@ -78,13 +66,13 @@
     <ClCompile Include="MapGeneration.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CFoe.cpp">
+    <ClCompile Include="CAnimal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FoeMovement.cpp">
+    <ClCompile Include="AnimalMovement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FoesRendering.cpp">
+    <ClCompile Include="AnimalsRendering.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MouseInput.cpp">
@@ -112,9 +100,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ObjectsRendering.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectsDecay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
@@ -150,9 +135,6 @@
     <ClCompile Include="CTile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TileEffectsRendering.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CTileFloor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -174,16 +156,7 @@
     <ClCompile Include="CWindowInventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BattleExecution.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CPoint.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CFightableCharacter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FoeDeathAndRespawnHandling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CRectangle.cpp">
@@ -224,12 +197,6 @@
     <ClInclude Include="CoreGameRendering.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Combat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cursor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CDataDescription.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -242,10 +209,7 @@
     <ClInclude Include="FPSCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Forradia.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CGamingSession.h">
+    <ClInclude Include="Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GUI.h">
@@ -258,9 +222,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GUIStatusPanel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GUITerminal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GUIWorldMenu.h">
@@ -281,13 +242,13 @@
     <ClInclude Include="MapGeneration.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CFoe.h">
+    <ClInclude Include="CAnimal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FoeMovement.h">
+    <ClInclude Include="AnimalMovement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FoesRendering.h">
+    <ClInclude Include="AnimalsRendering.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MouseInput.h">
@@ -315,9 +276,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ObjectsRendering.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectsDecay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer.h">
@@ -354,9 +312,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CTile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TileEffectsRendering.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CTileFloor.h">
@@ -413,19 +368,10 @@
     <ClInclude Include="Global_Worldmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BattleExecution.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Global_GameSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CPoint.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CFightableCharacter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FoeDeathAndRespawnHandling.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Global_Mouse.h">
@@ -438,9 +384,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CGUIButton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CColoredString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CInventory.h">
@@ -456,9 +399,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CPoint3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FoodEating.h">

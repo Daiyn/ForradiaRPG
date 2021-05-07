@@ -9,7 +9,6 @@
 #include "Global_GUIProperties.h"
 #include "Global_CurrentScene.h"
 #include "Global_SDL.h"
-#include "Cursor.h"
 #include "Constants.h"
 #include <memory>
 
@@ -56,7 +55,7 @@ void CSceneMainMenu::DoMouseDown(Uint8 button)
 void CSceneMainMenu::Update()
 {
 
-    Cursor::isHoveringButton = false;
+ 
 
     int mx;
     int my;
@@ -76,8 +75,6 @@ void CSceneMainMenu::Update()
         int hMenuButton = Global::attrMenuButtonHeight;
 
 
-        if (mx >= xMenuButton && my >= yMenuButton && mx < xMenuButton + wMenuButton && my < yMenuButton + hMenuButton)
-            Cursor::isHoveringButton = true;
 
         i++;
 

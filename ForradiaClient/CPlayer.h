@@ -23,7 +23,7 @@
 #include <chrono>
 #include "CTile.h"
 #include "CInventory.h"
-#include "CPoint3D.h"
+#include "CPoint.h"
 
 using namespace std::chrono;
 
@@ -46,7 +46,7 @@ typedef high_resolution_clock Clock;
               Destructor.
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
 
-class CPlayer : public CFightableCharacter
+class CPlayer
 {
 public:
 
@@ -73,7 +73,6 @@ public:
     void Jump();
     void MouseClickToMove();
     void Update();
-    void UpdateCombatMovement();
     void UpdateJumping();
     void UpdateKeyboardMovement();
     void UpdateMouseMovement();

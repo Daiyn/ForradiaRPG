@@ -1,5 +1,4 @@
-#include "FoesRendering.h"
-#include "Combat.h"
+#include "AnimalsRendering.h"
 #include "ImageLoading.h"
 #include "PlayerActions.h"
 #include "Global_Canvas.h"
@@ -8,12 +7,12 @@
 #include <SDL2/SDL_timer.h>
 #include "Drawing.h"
 #include "Colors.h"
-#include "CFoe.h"
+#include "CAnimal.h"
 #include "CMap.h"
 #include "CTileFloor.h"
 #include "CTile.h"
 
-void FoesRendering::RenderTileFoes(int x, int y, CPoint pTile)
+void AnimalsRendering::RenderTileFoes(int x, int y, CPoint pTile)
 {
 
     int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->GetIndexForSeenFloor();
@@ -32,20 +31,8 @@ void FoesRendering::RenderTileFoes(int x, int y, CPoint pTile)
         if (Global::contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->m_containedFoes[i] == nullptr)
             continue;
 
-        CFoe& foe = *Global::contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->m_containedFoes[i];
+        CAnimal& foe = *Global::contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->m_containedFoes[i];
 
-        if (!foe.IsAlive())
-            continue;
-
-        if (Combat::idxTargetedFoe != -1)
-        {
-
-            CFoe& targetedFoe = Global::contentCurrentMap->m_mirrorAllFoes[Combat::idxTargetedFoe];
-
-            if (foe.m_uniqueID == targetedFoe.m_uniqueID)
-                Drawing::Image(kIDTileTargetEffect, rTile);
-
-        }
 
         int imgWidth = 1 * Global::GetTileSize();
         int imgHeight = 1 * Global::GetTileSize();
@@ -102,30 +89,6 @@ void FoesRendering::RenderTileFoes(int x, int y, CPoint pTile)
 
         Drawing::Image(foeTypeIndex, rTile);
 
-        if (Combat::idxTargetedFoe != -1)
-        {
-
-            CFoe& targetedFoe = Global::contentCurrentMap->m_mirrorAllFoes[Combat::idxTargetedFoe];
-
-            if (foe.m_uniqueID == targetedFoe.m_uniqueID)
-            {
-
-                CRectangle rTileHitEffect = {
-                        x * Global::GetTileSize(), y * Global::GetTileSize(), Global::GetTileSize(),
-                        Global::GetTileSize()
-                };
-
-                if (SDL_GetTicks() - Combat::tickCombatInitiated < Combat::duraShowHitEffect)
-                {
-
-                    Drawing::Image(kIDHitEffect, rTileHitEffect);
-
-                }
-
-            }
-
-        }
-
         if (SDL_GetTicks() - foe.m_tickTimeToRespawn < 240)
         {
             int animIndex3 = (SDL_GetTicks() - foe.m_tickTimeToRespawn) / 80;
@@ -154,31 +117,5 @@ void FoesRendering::RenderTileFoes(int x, int y, CPoint pTile)
 
         }
 
-        if (pTile.m_x == PlayerActions::coordHoveredTile.m_x && pTile.m_y == PlayerActions::coordHoveredTile.m_y
-            || (Combat::idxTargetedFoe != -1 && foe.m_uniqueID == Global::contentCurrentMap->m_mirrorAllFoes[Combat::idxTargetedFoe].get().m_uniqueID))
-        {
-            int foeHpBarHeight = 10;
-            int foeHpBarWidth = 1.5 * Global::GetTileSize();
-            int foeHeight = (int)(3.0f * Global::GetTileSize());
-
-            CRectangle rect = { x * Global::GetTileSize() + Global::GetTileSize() / 2 - foeHpBarWidth / 2,
-                             y * Global::GetTileSize() + Global::GetTileSize() + Global::GetTileSize() / 2,
-                             foeHpBarWidth, foeHpBarHeight };
-
-            Drawing::FilledRect(BLACK, rect);
-
-            if (foe.m_statCurrentHP > 0)
-            {
-                int foeHpBarFilledWidth = (int)((float)foe.m_statCurrentHP / foe.m_statMaxHP * foeHpBarWidth);
-
-                rect = {
-                        x * Global::GetTileSize() + Global::GetTileSize() / 2 - foeHpBarWidth / 2,
-                        y * Global::GetTileSize() + Global::GetTileSize() + Global::GetTileSize() / 2,
-                        foeHpBarFilledWidth, foeHpBarHeight
-                };
-
-                Drawing::FilledRect(GREEN, rect);
-            }
-        }
     }
 }
