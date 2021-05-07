@@ -40,32 +40,17 @@ void CSceneStartScreen::Render()
     {
 
     case 0:
-        Drawing::Image( kIDForradiaStartText0, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
-        break;
     case 1:
-        Drawing::Image(kIDForradiaStartText1, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
-        break;
     case 2:
-        Drawing::Image(kIDForradiaStartText2, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
-        break;
     case 3:
-        Drawing::Image(kIDForradiaStartText3, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
-        break;
     case 4:
-        Drawing::Image(kIDForradiaStartText4, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
-        break;
     case 5:
-        Drawing::Image(kIDForradiaStartText5, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
-        break;
     case 6:
-        Drawing::Image(kIDForradiaStartText6, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
-        break;
     case 7:
-        Drawing::Image(kIDForradiaStartText7, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
-        break;
     case 8:
-        Drawing::Image(kIDForradiaStartText8, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
+        Drawing::Image(kIDForradiaStartText0, Global::GetCanvasWidth() / 2 - w / 2, Global::GetCanvasHeight() / 2 - h / 2, w, h);
         break;
+
     }
 
  }

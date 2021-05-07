@@ -108,31 +108,15 @@ void CSceneMainMenu::Render()
     {
 
     case 0:
-        Drawing::Image(kIDForradiaStartText0, titleX, titleY, titleW, titleH);
-        break;
     case 1:
-        Drawing::Image(kIDForradiaStartText1, titleX, titleY, titleW, titleH);
-        break;
     case 2:
-        Drawing::Image(kIDForradiaStartText2, titleX, titleY, titleW, titleH);
-        break;
     case 3:
-        Drawing::Image(kIDForradiaStartText3, titleX, titleY, titleW, titleH);
-        break;
     case 4:
-        Drawing::Image(kIDForradiaStartText4, titleX, titleY, titleW, titleH);
-        break;
     case 5:
-        Drawing::Image(kIDForradiaStartText5, titleX, titleY, titleW, titleH);
-        break;
     case 6:
-        Drawing::Image(kIDForradiaStartText6, titleX, titleY, titleW, titleH);
-        break;
     case 7:
-        Drawing::Image(kIDForradiaStartText7, titleX, titleY, titleW, titleH);
-        break;
     case 8:
-        Drawing::Image(kIDForradiaStartText8, titleX, titleY, titleW, titleH);
+        Drawing::Image(kIDForradiaStartText0, titleX, titleY, titleW, titleH);
         break;
 
     }

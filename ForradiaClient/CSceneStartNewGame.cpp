@@ -260,31 +260,14 @@ void CSceneStartNewGame::Render()
     {
 
     case 0:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText0], NULL, &rectText);
-        break;
     case 1:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText1], NULL, &rectText);
-        break;
     case 2:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText2], NULL, &rectText);
-        break;
     case 3:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText3], NULL, &rectText);
-        break;
-    case 4:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText4], NULL, &rectText);
-        break;
     case 5:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText5], NULL, &rectText);
-        break;
     case 6:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText6], NULL, &rectText);
-        break;
     case 7:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText7], NULL, &rectText);
-        break;
     case 8:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText8], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText0], NULL, &rectText);
         break;
 
     }

@@ -24,5 +24,5 @@ namespace Global
     const int attrMargin = 5;
     const int attrBackColorR = 0;
     const int attrBackColorG = 0;
-    const int attrBackColorB = 88;
+    const int attrBackColorB = 0;
 }
