@@ -22,8 +22,8 @@
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="CoreGameRendering.cpp" />
     <ClCompile Include="Crafting.cpp" />
-    <ClCompile Include="CTimer.cpp" />
-    <ClCompile Include="CDataDescription.cpp" />
+    <ClCompile Include="Classes\CTimer.cpp" />
+    <ClCompile Include="Classes\CDataDescription.cpp" />
     <ClCompile Include="DataLoading.cpp" />
     <ClCompile Include="Drawing.cpp" />
     <ClCompile Include="FoodEating.cpp" />
@@ -35,52 +35,41 @@
     <ClCompile Include="GUIStatusPanel.cpp" />
     <ClCompile Include="GUIWorldMenu.cpp" />
     <ClCompile Include="ImageLoading.cpp" />
-    <ClCompile Include="CInventory.cpp" />
+    <ClCompile Include="Classes\CInventory.cpp" />
     <ClCompile Include="ItemMoving.cpp" />
-    <ClCompile Include="KeyboardInput.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="CMap.cpp" />
+    <ClCompile Include="Classes\CMap.cpp" />
     <ClCompile Include="MapGeneration.cpp" />
-    <ClCompile Include="CAnimal.cpp" />
-    <ClCompile Include="AnimalMovement.cpp" />
-    <ClCompile Include="AnimalsRendering.cpp" />
     <ClCompile Include="Mining.cpp" />
     <ClCompile Include="MouseInput.cpp" />
-    <ClCompile Include="NPCNameGeneration.cpp" />
-    <ClCompile Include="CNPC.cpp" />
-    <ClCompile Include="CNPCDialog.cpp" />
-    <ClCompile Include="NPCRendering.cpp" />
-    <ClCompile Include="CObject.cpp" />
+    <ClCompile Include="Classes\CObject.cpp" />
     <ClCompile Include="ObjectsRendering.cpp" />
-    <ClCompile Include="CPlayer.cpp" />
+    <ClCompile Include="Classes\CPlayer.cpp" />
     <ClCompile Include="PlayerActions.cpp" />
     <ClCompile Include="PlayerRendering.cpp" />
-    <ClCompile Include="CRectangle.cpp" />
-    <ClCompile Include="CSceneCoreGameplay.cpp" />
-    <ClCompile Include="CSceneMainMenu.cpp" />
-    <ClCompile Include="CSceneStartNewGame.cpp" />
-    <ClCompile Include="CSceneStartScreen.cpp" />
+    <ClCompile Include="Classes\CRectangle.cpp" />
+    <ClCompile Include="Classes\CSceneCoreGameplay.cpp" />
+    <ClCompile Include="Classes\CSceneMainMenu.cpp" />
+    <ClCompile Include="Classes\CSceneStartNewGame.cpp" />
     <ClCompile Include="SDLInitialization.cpp" />
     <ClCompile Include="GUISystemMenu.cpp" />
-    <ClCompile Include="CSize.cpp" />
+    <ClCompile Include="Classes\CSize.cpp" />
     <ClCompile Include="TextRendering.cpp" />
-    <ClCompile Include="CTile.cpp" />
-    <ClCompile Include="CPoint.cpp" />
-    <ClCompile Include="CTileFloor.cpp" />
+    <ClCompile Include="Classes\CTile.cpp" />
+    <ClCompile Include="Classes\CPoint.cpp" />
+    <ClCompile Include="Classes\CTileFloor.cpp" />
     <ClCompile Include="TileRendering.cpp" />
-    <ClCompile Include="CTrain.cpp" />
-    <ClCompile Include="TrainRendering.cpp" />
     <ClCompile Include="Utilities.cpp" />
-    <ClCompile Include="CWindow.cpp" />
-    <ClCompile Include="CWindowInventory.cpp" />
+    <ClCompile Include="Classes\CWindow.cpp" />
+    <ClCompile Include="Classes\CWindowInventory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
     <ClInclude Include="CoreGameRendering.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="Crafting.h" />
-    <ClInclude Include="CTimer.h" />
-    <ClInclude Include="CDataDescription.h" />
+    <ClInclude Include="Classes\CTimer.h" />
+    <ClInclude Include="Classes\CDataDescription.h" />
     <ClInclude Include="DataLoading.h" />
     <ClInclude Include="Drawing.h" />
     <ClInclude Include="FoodEating.h" />
@@ -91,7 +80,6 @@
     <ClInclude Include="Global_CurrentScene.h" />
     <ClInclude Include="Global_Gameloop.h" />
     <ClInclude Include="Global_Mouse.h" />
-    <ClInclude Include="Global_Train.h" />
     <ClInclude Include="Global_CurrentMap.h" />
     <ClInclude Include="Global_GameSettings.h" />
     <ClInclude Include="Global_GUIProperties.h" />
@@ -101,50 +89,40 @@
     <ClInclude Include="Global_SDL.h" />
     <ClInclude Include="Global_Worldmap.h" />
     <ClInclude Include="GUI.h" />
-    <ClInclude Include="CGUIButton.h" />
+    <ClInclude Include="Classes\CGUIButton.h" />
     <ClInclude Include="GUIMinimap.h" />
     <ClInclude Include="GUIStatusPanel.h" />
     <ClInclude Include="GUIWorldMenu.h" />
     <ClInclude Include="ImageLoading.h" />
-    <ClInclude Include="CInventory.h" />
+    <ClInclude Include="Classes\CInventory.h" />
     <ClInclude Include="ItemMoving.h" />
     <ClInclude Include="KeyboardInput.h" />
-    <ClInclude Include="CMap.h" />
+    <ClInclude Include="Classes\CMap.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="MapGeneration.h" />
-    <ClInclude Include="CAnimal.h" />
-    <ClInclude Include="AnimalMovement.h" />
-    <ClInclude Include="AnimalsRendering.h" />
     <ClInclude Include="Mining.h" />
     <ClInclude Include="MouseInput.h" />
-    <ClInclude Include="NPCNameGeneration.h" />
-    <ClInclude Include="CNPC.h" />
-    <ClInclude Include="CNPCDialog.h" />
-    <ClInclude Include="NPCRendering.h" />
-    <ClInclude Include="CObject.h" />
+    <ClInclude Include="Classes\CObject.h" />
     <ClInclude Include="ObjectsRendering.h" />
-    <ClInclude Include="CPlayer.h" />
+    <ClInclude Include="Classes\CPlayer.h" />
     <ClInclude Include="PlayerActions.h" />
     <ClInclude Include="PlayerRendering.h" />
-    <ClInclude Include="CRectangle.h" />
-    <ClInclude Include="CScene.h" />
-    <ClInclude Include="CSceneCoreGameplay.h" />
-    <ClInclude Include="CSceneMainMenu.h" />
-    <ClInclude Include="CSceneStartNewGame.h" />
-    <ClInclude Include="CSceneStartScreen.h" />
+    <ClInclude Include="Classes\CRectangle.h" />
+    <ClInclude Include="Classes\CScene.h" />
+    <ClInclude Include="Classes\CSceneCoreGameplay.h" />
+    <ClInclude Include="Classes\CSceneMainMenu.h" />
+    <ClInclude Include="Classes\CSceneStartNewGame.h" />
     <ClInclude Include="SDLInitialization.h" />
     <ClInclude Include="GUISystemMenu.h" />
-    <ClInclude Include="CSize.h" />
+    <ClInclude Include="Classes\CSize.h" />
     <ClInclude Include="TextRendering.h" />
-    <ClInclude Include="CTile.h" />
-    <ClInclude Include="CPoint.h" />
-    <ClInclude Include="CTileFloor.h" />
+    <ClInclude Include="Classes\CTile.h" />
+    <ClInclude Include="Classes\CPoint.h" />
+    <ClInclude Include="Classes\CTileFloor.h" />
     <ClInclude Include="TileRendering.h" />
-    <ClInclude Include="CTrain.h" />
-    <ClInclude Include="TrainRendering.h" />
     <ClInclude Include="Utilities.h" />
-    <ClInclude Include="CWindow.h" />
-    <ClInclude Include="CWindowInventory.h" />
+    <ClInclude Include="Classes\CWindow.h" />
+    <ClInclude Include="Classes\CWindowInventory.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -200,7 +178,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:/SDL2/include/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>C:/SDL2/include/;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir);$(ProjectDir)Classes</IncludePath>
     <LibraryPath>C:/SDL2/lib/x86/;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

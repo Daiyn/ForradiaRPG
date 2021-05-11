@@ -55,7 +55,7 @@ public:
     CInventory m_inventory;
     CPoint m_coordPosition = { -1, -1 };
     CPoint m_coordMoveDestination = {-1, -1};
-    int m_spdMovement = 70;
+    int m_spdMovement = 90;
     int m_tickStartJump = 0;
     int m_duraJumping = 1000;
     int m_statMaxHP = 100;

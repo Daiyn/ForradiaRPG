@@ -34,8 +34,8 @@ class CMap;
 namespace GUI
 {
     inline vector<unique_ptr<CWindow>> activeWindows;
-    const int numberOfGUIButtons = 3;
-    const int idxsButtonImages[numberOfGUIButtons] = { kIDIconInventory, kIDIconCrafting, kIDIconSystem };
+    const int numberOfGUIButtons = 2;
+    const int idxsButtonImages[numberOfGUIButtons] = { ImagesIDs::IconInventory, ImagesIDs::IconSystem };
     inline int pxWidthOriginal = 120;
 
     bool CheckMouseClickInGUI();

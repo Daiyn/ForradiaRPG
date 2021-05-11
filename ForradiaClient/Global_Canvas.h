@@ -25,7 +25,10 @@
 
 namespace Global
 {
-	const int tilesNumberOfRows = 27;
+	const int tilesNumberOfRows = 27; // Use high number of tiles to get a
+                                      // zoomed out feeling further away from the planet ground.
+
+    //const int tilesNumberOfRows = 11;
 
     int GetCanvasHeight();
 	int GetCanvasWidth();

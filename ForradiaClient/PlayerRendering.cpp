@@ -24,7 +24,7 @@ void PlayerRendering::RenderPlayer(int x, int y, CPoint pTile)
         CSize szShadow(1.5 * Global::GetTileSize());
 
         CRectangle rectShadow = {x * Global::GetTileSize() + Global::GetTileSize() / 2 - szShadow.m_w / 2,
-                               y * Global::GetTileSize() + Global::GetTileSize() + Global::GetTileSize() / 2 - szShadow.m_h,
+                               y * Global::GetTileSize() + Global::GetTileSize() - szShadow.m_h,
                                 szShadow.m_w,
                                 szShadow .m_h};
 
@@ -35,8 +35,8 @@ void PlayerRendering::RenderPlayer(int x, int y, CPoint pTile)
 
         rectPlayer.y -= Global::statePlayer->GetJumpHeight();
 
-        Drawing::Image(kIDShadow, rectShadow);
-        Drawing::Image(kIDPlayerSprite, rectPlayer);
+        Drawing::Image(ImagesIDs::Shadow, rectShadow);
+        Drawing::Image(ImagesIDs::PlayerSprite, rectPlayer);
 
         //if (SDL_GetTicks() - Combat::tickCombatInitiated < Combat::duraShowHitEffect)
         //{

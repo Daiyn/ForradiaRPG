@@ -31,8 +31,8 @@ namespace ImageLoading
 {
     inline std::unordered_map <string, SDL_Surface*> libSurfaces;
     const string imagesPath = "Resources/Images/";
-    inline SDL_Texture** libTextures = new SDL_Texture* [kContentDBSize];
-    inline SDL_Texture** libTexturesFullMapRender = new SDL_Texture * [kContentDBSize];
+    inline SDL_Texture** libTextures = new SDL_Texture* [ImagesIDs::ContentDBSize];
+    inline SDL_Texture** libTexturesFullMapRender = new SDL_Texture * [ImagesIDs::ContentDBSize];
 
     void ClearMapPreviewTextures();
     void CreateMapPreviewTextures();

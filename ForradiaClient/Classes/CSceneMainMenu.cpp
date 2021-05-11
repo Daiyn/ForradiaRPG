@@ -113,7 +113,7 @@ void CSceneMainMenu::Render()
     case 6:
     case 7:
     case 8:
-        Drawing::Image(kIDForradiaStartText0, titleX, titleY, titleW, titleH);
+        Drawing::Image(ImagesIDs::ForradiaStartText0, titleX, titleY, titleW, titleH);
         break;
 
     }
@@ -131,9 +131,9 @@ void CSceneMainMenu::Render()
         int imgIndex = 0;
 
         if (mx >= xMenuButton && my >= yMenuButton && mx < xMenuButton + wMenuButton && my < yMenuButton + hMenuButton)
-            imgIndex = kIDMenuButtonBackHovered;
+            imgIndex = ImagesIDs::MenuButtonBackHovered;
         else
-            imgIndex = kIDMenuButtonBackground;
+            imgIndex = ImagesIDs::MenuButtonBackground;
 
         Drawing::Image(imgIndex, xMenuButton, yMenuButton, wMenuButton, hMenuButton);
 

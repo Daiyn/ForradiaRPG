@@ -26,7 +26,20 @@ namespace KeyboardInput
 
     void DoKeyDown(SDL_Keycode key);
     void DoKeyUp(SDL_Keycode key);
+
 };
+
+
+inline void KeyboardInput::DoKeyDown(SDL_Keycode key)
+{
+    statesPressedKeys[key] = true;
+}
+
+inline void KeyboardInput::DoKeyUp(SDL_Keycode key)
+{
+    statesPressedKeys[key] = false;
+}
+
 
 
 #endif //FORRADIACLIENT_KEYBOARDINPUT_H

@@ -1,10 +1,13 @@
 /*+===================================================================
-  File:      CTILE.H
+  File:     CSCENEMAINMENU.H
 
-  Summary:   Describes essential data holder class used in the map.
+  Summary:   Describes the class representing the second scene in the
+             game execution process showing the main menu which in 
+             turn leads the player to one of several other scenes, or 
+             the exiting of the game.
 
-  Classes:   CTile
-             CTileFloor
+  Classes:   CSceneMainMenu
+             CScene
 
   Functions: 
 
@@ -13,16 +16,18 @@
   This software is open source and licensed under the MIT License.
 ===================================================================+*/
 
-#ifndef FORRADIACLIENT_TILE_H
-#define FORRADIACLIENT_TILE_H
+#ifndef FORRADIAFORMATION_SCENE_MAINMENU_H
+#define FORRADIAFORMATION_SCENE_MAINMENU_H
 
-#define SURFACE_FLOOR CTile::MAX_NUM_FLOORS
+#include <string>
+#include <vector>
+#include "CScene.h"
+#include <SDL2/SDL_stdinc.h>
 
-#include <unordered_map>
-#include "CTileFloor.h"
+using std::string;
 
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
-  Class:    CTile
+  Class:    CSceneMainMenu
 
   Summary:  Short summary of purpose and content of CMyClass.
             Short summary of purpose and content of CMyClass.
@@ -37,19 +42,15 @@
               Destructor.
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
 
-class CTile
+class CSceneMainMenu : public CScene
 {
 public:
 
-    static const int MAX_NUM_FLOORS = 50;
+    std::vector<string> m_labelsMenuButtons = { "Start", "Quit" };
 
-    unique_ptr<CTileFloor> m_floorsArray[MAX_NUM_FLOORS + 1];
-
-    int m_elevationHeight = 0;
-    vector<int> m_checkMinedTiles;
-    bool m_isNPCOwnedLand = false;
-
-    int GetIndexForSeenFloor();
+    void DoMouseDown(Uint8 button);
+    void Render();
+    void Update();
 
 protected:
 
@@ -57,5 +58,4 @@ private:
 
 };
 
-
-#endif //FORRADIACLIENT_TILE_H
+#endif

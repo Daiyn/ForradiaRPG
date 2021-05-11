@@ -27,3 +27,4 @@ const SDL_Color MEDIUM_GREEN = { 0, 150, 0, 255 };
 const SDL_Color WORLDMENU_BACKGROUND = { 150, 190, 255, 170 };
 const SDL_Color WORLDMENU_HOVERED = { 200, 200, 255, 200 };
 const SDL_Color ORANGE = {255, 175, 0, 255};
+const SDL_Color GRAY = { 175, 175, 175, 255 };

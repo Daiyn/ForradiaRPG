@@ -10,9 +10,6 @@
 #include "PlayerActions.h"
 #include "TileRendering.h"
 #include "ObjectsRendering.h"
-#include "TrainRendering.h"
-#include "NPCRendering.h"
-#include "AnimalsRendering.h"
 #include "PlayerRendering.h"
 #include "GUIMinimap.h"
 #include "GUI.h"
@@ -71,10 +68,6 @@ void CoreGameRendering::RenderGroundWithObjects()
             {
 
                 ObjectsRendering::RenderTileObjects(Global::GetTileSize(), x, y, pTile);
-                TrainRendering::RenderTrainLocomotive(x, y, pTile);
-                TrainRendering::RenderTrainCarriages(x, y, pTile);
-                NPCRendering::RenderNpcs(x, y, pTile);
-                AnimalsRendering::RenderTileFoes(x, y, pTile);
                 PlayerRendering::RenderPlayer(x, y, pTile);
 
                if ((Global::settingGameMode == 1 && TileRendering::CheckUnseenTiles(x, y, pTile)))

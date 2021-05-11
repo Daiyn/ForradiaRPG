@@ -34,7 +34,6 @@ namespace MouseInput
     inline bool stateMouseButtonRightReleased = false;
     inline bool stateMouseDownInGUI = false;
 
-    void CheckMouseClickOnNPCs();
     void DoMouseDown(Uint8 button);
     void DoMouseUp(Uint8 button);
     void ResetEventVariables();

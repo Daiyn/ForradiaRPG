@@ -1,5 +1,6 @@
 #include "CTileFloor.h"
 #include <memory>
+#include "CPoint.h"
 
 using std::unique_ptr;
 using std::move;
@@ -26,11 +27,6 @@ CTileFloor::CTileFloor(int _mapx, int _mapy, int _groundType)
     m_coordMapX = _mapx;
     m_coordMapY = _mapy;
     m_idxGroundType = _groundType;
-
-    for (int i = 0; i < MAX_FOES_ON_FLOOR; i++)
-    {
-        m_containedFoes[i] = NULL;
-    }
 
     for (int i = 0; i < MAX_OBJECTS_ON_FLOOR; i++)
     {
@@ -151,11 +147,6 @@ void CTileFloor::ClearObjects()
             m_containedObjects[jjj].reset();
         }
     }
-}
-
-bool CTileFloor::HasNpcs()
-{
-    return m_containedNPCs.size() > 0;
 }
 
 void CTileFloor::DeleteObjectWithId(int id)

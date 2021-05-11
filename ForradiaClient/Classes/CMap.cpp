@@ -111,75 +111,6 @@ bool CMap::TileIsNotAnyOfTypes(int mapx, int mapy, int val1, int val2, int val3)
 
 }
 
-void CMap::UpdateNPCs()
-{
-
-    for (auto it : m_mirrorAllNPCs)
-        it.get().Update(this);
-
-}
-
-bool CMap::SeenFloorHasFoes(int mapx, int mapy)
-{
-
-    if (!Utilities::InMapIncludingEdges(mapx, mapy))
-        return false;
-
-    int seenFlorIndex = m_tilesGrid[mapx][mapy]->GetIndexForSeenFloor();
-
-    if (seenFlorIndex == -1)
-        return false;
-
-    FOR(i, 0, CTileFloor::MAX_FOES_ON_FLOOR)
-        if (m_tilesGrid[mapx][mapy]->m_floorsArray[seenFlorIndex]->m_containedFoes[i] != nullptr)
-            return true;
-
-    return false;
-
-}
-
-bool CMap::SeenFloorHasBlockingFoes(int mapx, int mapy)
-{
-
-    if (!Utilities::InMapIncludingEdges(mapx, mapy))
-        return false;
-
-    int seenFlorIndex = m_tilesGrid[mapx][mapy]->GetIndexForSeenFloor();
-
-    if (seenFlorIndex == -1)
-        return false;
-
-    FOR(i, 0, CTileFloor::MAX_FOES_ON_FLOOR)
-        if (m_tilesGrid[mapx][mapy]->m_floorsArray[seenFlorIndex]->m_containedFoes[i] != nullptr)
-            if (m_tilesGrid[mapx][mapy]->m_floorsArray[seenFlorIndex]->m_containedFoes[i]->m_idxFoeType != kIDButterfly)
-                return true;
-
-    return false;
-
-}
-
-int CMap::GetTopFoeInMapAllFoeArrayIndex(int mapx, int mapy)
-{
-
-    int seenFlorIndex = m_tilesGrid[mapx][mapy]->GetIndexForSeenFloor();
-
-    if (seenFlorIndex == -1)
-        return -1;
-
-    for (int i = CTileFloor::MAX_FOES_ON_FLOOR - 1; i >= 0; i--)
-        if (m_tilesGrid[mapx][mapy]->m_floorsArray[seenFlorIndex]->m_containedFoes[i] != nullptr)
-        {
-            for (int j = 0; j < m_mirrorAllFoes.size(); j++)
-            {
-                if (m_tilesGrid[mapx][mapy]->m_floorsArray[seenFlorIndex]->m_containedFoes[i]->m_uniqueID == m_mirrorAllFoes[j].get().m_uniqueID)
-                    return j;
-            }
-        }
-
-    return -1;
-
-}
-
 unique_ptr<CObject> CMap::GetTopObject(int mapx, int mapy)
 {
 
@@ -210,28 +141,6 @@ int CMap::GetTopObjectType(int mapx, int mapy)
         return INVALID_INDEX;
 }
 
-void CMap::ClearReferencesToFoe(CAnimal& foe, int allFoesListIndex, CTileFloor& floor)
-{
-    
-    for (auto it = m_mirrorAllFoes.begin(); it != m_mirrorAllFoes.end(); it++)
-    {
-        if (it->get().m_uniqueID == foe.m_uniqueID)
-        {
-            m_mirrorAllFoes.erase(it);
-            break;
-        }
-    }
-
-    FOR(ii, 0, CTileFloor::MAX_FOES_ON_FLOOR)
-    {
-        if (foe.m_uniqueID == floor.m_containedFoes[ii].get()->m_uniqueID)
-        {
-            floor.m_containedFoes[ii].reset();
-            break;
-        }
-    }
-
-}
 
 void CMap::AddObject(int objectType, int mapx, int mapy, int floor)
 {
@@ -274,51 +183,3 @@ void CMap::AddObjectIfDoesntAlreadyExist(int objectType, int mapx, int mapy, int
 
 }
 
-void CMap::AddFoe(unique_ptr<CAnimal> foe, int floor)
-{
-    
-    FOR(j, 0, CTileFloor::MAX_FOES_ON_FLOOR)
-    {
-        if (m_tilesGrid[foe->m_coordSpawn.m_x][foe->m_coordSpawn.m_y]->m_floorsArray[floor]->m_containedFoes[j] == nullptr)
-        {
-
-            m_mirrorAllFoes.push_back(*foe);
-
-            m_tilesGrid[foe->m_coordSpawn.m_x][foe->m_coordSpawn.m_y]->m_floorsArray[floor]->m_containedFoes[j] = move(foe);
-            break;
-        }
-    }
-
-}
-
-void CMap::TranslateFoe(int uniqueID, CPoint pFrom, CPoint pTo, int floor)
-{
-
-    FOR(k, 0, CTileFloor::MAX_FOES_ON_FLOOR)
-    {
-        if (m_tilesGrid[pTo.m_x][pTo.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedFoes[k] == nullptr)
-        {
-
-            FOR(ii, 0, CTileFloor::MAX_FOES_ON_FLOOR)
-            {
-
-                if (m_tilesGrid[pFrom.m_x][pFrom.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedFoes[ii] == nullptr)
-                    continue;
-
-                CAnimal& jt = *m_tilesGrid[pFrom.m_x][pFrom.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedFoes[ii];
-
-                
-
-                if (jt.m_uniqueID == uniqueID)
-                {
-
-                    m_tilesGrid[pTo.m_x][pTo.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedFoes[k] = move(m_tilesGrid[pFrom.m_x][pFrom.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedFoes[ii]);
-                    m_tilesGrid[pTo.m_x][pTo.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedFoes[k].get()->m_coordPosition = pTo;
-
-                    return;
-
-                }
-            }
-        }
-    }
-}

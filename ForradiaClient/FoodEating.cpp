@@ -32,7 +32,7 @@ void FoodEating::Render()
         CRectangle rect = { left + i * (iconSize + margin), top, iconSize, iconSize };
 
         Drawing::Image(it->m_foodItem->m_idxObjectType, rect);
-        Drawing::Image(kIDIconActiveFoodItemFrame, rect);
+        Drawing::Image(ImagesIDs::IconActiveFoodItemFrame, rect);
 
         auto& desc = DataLoading::libDescriptions[it->m_foodItem->m_idxObjectType];
 

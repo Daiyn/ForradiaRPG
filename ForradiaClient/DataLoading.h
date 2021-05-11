@@ -29,8 +29,8 @@ using std::unordered_map;
 
 namespace DataLoading
 {
-    inline unique_ptr<CDataDescription> libDescriptions[kContentDBSize];
-    inline unordered_map<string, int> contentIndicesByName[kContentDBSize];
+    inline unique_ptr<CDataDescription> libDescriptions[ImagesIDs::ContentDBSize];
+    inline unordered_map<string, int> contentIndicesByName[ImagesIDs::ContentDBSize];
 
     int GetDescriptionIndexByName(string name);
     void LoadDescriptions();

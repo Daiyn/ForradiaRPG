@@ -111,8 +111,8 @@ void CPlayer::UpdateMouseMovement()
                     m_tickLastActualMove = Clock::now();
                     m_tickLastMove = Clock::now();
 
-                    if (!Global::contentCurrentMap->SeenFloorHasBlockingFoes(m_positionNew.m_x, m_positionNew.m_y))
-                    {
+                    //if (!Global::contentCurrentMap->SeenFloorHasBlockingFoes(m_positionNew.m_x, m_positionNew.m_y))
+                    //{
 
                         int mineElevOld = m_locCurrentElevation;
 
@@ -201,7 +201,7 @@ void CPlayer::UpdateMouseMovement()
 
                         }
 
-                    }
+                    //}
 
                 }
 
@@ -301,8 +301,8 @@ void CPlayer::UpdateKeyboardMovement()
                 m_tickLastActualMove = Clock::now();
                 m_tickLastMove = Clock::now();
 
-                if (!Global::contentCurrentMap->SeenFloorHasBlockingFoes(m_positionNew.m_x, m_positionNew.m_y))
-                {
+                //if (!Global::contentCurrentMap->SeenFloorHasBlockingFoes(m_positionNew.m_x, m_positionNew.m_y))
+                //{
 
 
                     int mineElevOld = m_locCurrentElevation;
@@ -391,7 +391,7 @@ void CPlayer::UpdateKeyboardMovement()
                         m_coordPosition.m_y = m_positionNew.m_y;
 
                     }
-                }
+                //}
 
             }
 

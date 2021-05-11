@@ -192,7 +192,7 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
             && Global::statePlayer->m_inventory.HasItemInInventory(objectSaw))
             stateShownMenuOptions.push_back(MENU_ID_CREATE_WOODPLANK);
 
-        if (floor.m_idxGroundType != kIDTileWater
+        if (floor.m_idxGroundType != ImagesIDs::TileWater
             && Global::statePlayer->m_inventory.HasItemInInventory(objectWoodplank))
             stateShownMenuOptions.push_back(MENU_ID_CREATE_WOODFLOOR);
 

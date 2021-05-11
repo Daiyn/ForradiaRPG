@@ -100,9 +100,9 @@ void GUISystemMenu::RenderIfShown() {
         int imgIndex = 0;
 
         if (rect.ContainsPoint(pMouse))
-            imgIndex = kIDMenuButtonBackHovered;
+            imgIndex = ImagesIDs::MenuButtonBackHovered;
         else
-            imgIndex = kIDMenuButtonBackground;
+            imgIndex = ImagesIDs::MenuButtonBackground;
 
 
         Drawing::Image(imgIndex, rect);

@@ -227,7 +227,7 @@ void CSceneStartNewGame::Render()
     case 6:
     case 7:
     case 8:
-        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDForradiaStartText0], NULL, &rectText);
+        SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ImagesIDs::ForradiaStartText0], NULL, &rectText);
         break;
 
     }
@@ -237,9 +237,9 @@ void CSceneStartNewGame::Render()
     int imgIndex = 0;
 
     if (mx >= rectBackButton.x && my >= rectBackButton.y && mx < rectBackButton.x + rectBackButton.w && my < rectBackButton.y + rectBackButton.h)
-        imgIndex = kIDMenuButtonBackHovered;
+        imgIndex = ImagesIDs::MenuButtonBackHovered;
     else
-        imgIndex = kIDMenuButtonBackground;
+        imgIndex = ImagesIDs::MenuButtonBackground;
 
     SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[imgIndex], NULL, &rectBackButton);
 
@@ -254,9 +254,9 @@ void CSceneStartNewGame::Render()
     string textGenerate = "Generate new map";
 
     if (mx >= rectGenerateButton.x && my >= rectGenerateButton.y && mx < rectGenerateButton.x + rectGenerateButton.w && my < rectGenerateButton.y + rectGenerateButton.h)
-        imgIndex = kIDMenuButtonBackHovered;
+        imgIndex = ImagesIDs::MenuButtonBackHovered;
     else
-        imgIndex = kIDMenuButtonBackground;
+        imgIndex = ImagesIDs::MenuButtonBackground;
 
     SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[imgIndex], NULL, &rectGenerateButton);
 
@@ -271,9 +271,9 @@ void CSceneStartNewGame::Render()
     string textPlay = "Play";
 
     if (mx >= rectPlayButton.x && my >= rectPlayButton.y && mx < rectPlayButton.x + rectPlayButton.w && my < rectPlayButton.y + rectPlayButton.h)
-        imgIndex = kIDMenuButtonBackHovered;
+        imgIndex = ImagesIDs::MenuButtonBackHovered;
     else
-        imgIndex = kIDMenuButtonBackground;
+        imgIndex = ImagesIDs::MenuButtonBackground;
 
     SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[imgIndex], NULL, &rectPlayButton);
 
@@ -307,7 +307,7 @@ void CSceneStartNewGame::RenderMapPreview()
                           mapPreviewSizeScaled + 2 * m_attrBoxBorderThickness,
                           mapPreviewSizeScaled + 2 * m_attrBoxBorderThickness };
 
-    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[kIDFullMapFrameBackground], NULL, &rectFrame);
+    SDL_RenderCopy(Global::sdlRendererDefault, ImageLoading::libTextures[ImagesIDs::FullMapFrameBackground], NULL, &rectFrame);
 
     rectFrame.x = xLeft - 5;
     rectFrame.y = yTop - 5;

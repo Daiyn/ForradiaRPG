@@ -1,11 +1,10 @@
 /*+===================================================================
-  File:      CSCENESTARTSCREEN.H
+  File:      CTILE.H
 
-  Summary:   Describes the class for the first scene shown when 
-             starting the game.
+  Summary:   Describes essential data holder class used in the map.
 
-  Classes:   CSceneStartScreen
-             CScene
+  Classes:   CTile
+             CTileFloor
 
   Functions: 
 
@@ -14,14 +13,19 @@
   This software is open source and licensed under the MIT License.
 ===================================================================+*/
 
-#ifndef FORRADIAFORMATION_SCENE_STARTSCREEN_H
-#define FORRADIAFORMATION_SCENE_STARTSCREEN_H
+#ifndef FORRADIACLIENT_TILE_H
+#define FORRADIACLIENT_TILE_H
 
-#include "CScene.h"
-#include <SDL2/SDL_stdinc.h>
+#define SURFACE_FLOOR CTile::MAX_NUM_FLOORS
+
+#include <unordered_map>
+#include "CTileFloor.h"
+#include <vector>
+
+using std::vector;
 
 /*C+C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C+++C
-  Class:    CSceneStartScreen
+  Class:    CTile
 
   Summary:  Short summary of purpose and content of CMyClass.
             Short summary of purpose and content of CMyClass.
@@ -36,12 +40,19 @@
               Destructor.
 C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C---C-C*/
 
-class CSceneStartScreen : public CScene
+class CTile
 {
 public:
 
-    void DoMouseDown(Uint8 button);
-    void Render();
+    static const int MAX_NUM_FLOORS = 50;
+
+    unique_ptr<CTileFloor> m_floorsArray[MAX_NUM_FLOORS + 1];
+
+    int m_elevationHeight = 0;
+    vector<int> m_checkMinedTiles;
+    bool m_isNPCOwnedLand = false;
+
+    int GetIndexForSeenFloor();
 
 protected:
 
@@ -49,4 +60,5 @@ private:
 
 };
 
-#endif
+
+#endif //FORRADIACLIENT_TILE_H

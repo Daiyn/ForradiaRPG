@@ -2,7 +2,7 @@
 #include "FPSCounter.h"
 #include "ImageLoading.h"
 #include "Global_Gameloop.h"
-#include "CSceneStartScreen.h"
+#include "CSceneMainMenu.h"
 #include "SDLInitialization.h"
 #include "Drawing.h"
 #include "KeyboardInput.h"
@@ -26,7 +26,7 @@ void Game::Initialize()
     ImageLoading::LoadImages();
     TextRendering::Initialize();
     Drawing::UseDefaultRenderer();
-    Global::stateCurrentScene = make_unique<CSceneStartScreen>(CSceneStartScreen());
+    Global::stateCurrentScene = make_unique<CSceneMainMenu>(CSceneMainMenu());
 
 }
 

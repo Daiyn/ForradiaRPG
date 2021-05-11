@@ -45,7 +45,7 @@ void Crafting::CreateWoodfloor(CPoint p)
     CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (Global::statePlayer->m_inventory.HasItemInInventory(objectWoodplank)
-        && floor.m_idxGroundType != kIDTileWater)
+        && floor.m_idxGroundType != ImagesIDs::TileWater)
     {
         if (Global::statePlayer->m_inventory.UseItemInInventory(objectWoodplank, 1))
         {

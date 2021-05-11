@@ -49,7 +49,7 @@ bool GUI::HandleMouseClickInGUI()
 
     int w = (pxWidthOriginal / 1600.0 * Global::GetCanvasWidth() + pxWidthOriginal / 900.0 * Global::GetCanvasHeight()) / 2;
 
-    int x = Global::GetCanvasWidth() - 3 * w;
+    int x = Global::GetCanvasWidth() - 2 * w;
     int y = Global::GetCanvasHeight() - w;
 
     for (int i = 0; i < numberOfGUIButtons; i++)
@@ -69,7 +69,7 @@ bool GUI::HandleMouseClickInGUI()
             case 0:
                 activeWindows.push_back(std::make_unique<CWindowInventory>(CWindowInventory()));
                 break;
-            case 2: 
+            case 1: 
                 GUISystemMenu::Show();
                 break;
             }
@@ -150,7 +150,7 @@ void GUI::Render()
 
     int w = (pxWidthOriginal / 1600.0 * Global::GetCanvasWidth() + pxWidthOriginal / 900.0 * Global::GetCanvasHeight()) / 2;
 
-    int x = Global::GetCanvasWidth() - 3 * w;
+    int x = Global::GetCanvasWidth() - 2 * w;
     int y = Global::GetCanvasHeight() - w;
 
     for (int i = 0; i < numberOfGUIButtons; i++)
@@ -159,13 +159,13 @@ void GUI::Render()
         x += w;
     }
 
-    int wBackground = 360 * Global::GetScalingHorizontal();
+    int wBackground = 240 * Global::GetScalingHorizontal();
     int hBackground = 120 * Global::GetScalingVertical();
 
     int xBackground = Global::GetCanvasWidth() - wBackground;
     int yBackground = Global::GetCanvasHeight() - hBackground;
 
-    Drawing::Image(kIDIconsBackground, xBackground, yBackground, wBackground, hBackground);
+    Drawing::Image(ImagesIDs::TerminalBackground, xBackground, yBackground, wBackground, hBackground);
 
     for (int i = 0; i < numberOfGUIButtons; i++)
         Drawing::Image(buttons[i].m_idxImage, buttons[i].m_bounds.x, buttons[i].m_bounds.y, buttons[i].m_bounds.w, buttons[i].m_bounds.h);

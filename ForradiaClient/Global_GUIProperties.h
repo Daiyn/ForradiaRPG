@@ -22,7 +22,7 @@ namespace Global
     const int attrMenuButtonMargin = 20;
     const int attrOptionIconSize = 40;
     const int attrMargin = 5;
-    const int attrBackColorR = 0;
-    const int attrBackColorG = 0;
-    const int attrBackColorB = 0;
+    const int attrBackColorR = 255;
+    const int attrBackColorG = 255;
+    const int attrBackColorB = 255;
 }

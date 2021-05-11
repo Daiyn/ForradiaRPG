@@ -150,6 +150,7 @@ void MapGeneration::GenerateAll(CMap& map)
                         if (tree2 > 0.2 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["grass"]
                             && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
                             map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTree2"));
+                            //map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTree1"));
 
 
 
@@ -173,27 +174,6 @@ void MapGeneration::GenerateAll(CMap& map)
                             map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectBoulder"));
 
 
-                        double foe = cos(4 * (3 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
-                        foe *= cos(5 + y / 20.0);
-                        foe *= cos(6 + x / 20.0);
-                        foe *= cos(7 + (x + y + x * y) / 10.0);
-                        if (foe >= 0.8 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"]
-                            && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects()
-                            && !map.SeenFloorHasFoes(x, y))
-                            map.AddFoe(make_unique<CAnimal>(CAnimal(1, x, y)), SURFACE_FLOOR);
-
-                        double butterfly = (40 + x + 1 * y + 2 * x * y + 3 * xx * y + 4 * x * yy) % 390;
-                        if (butterfly == 1
-                            && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"]
-                                && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["woodFloor"]))
-                            map.AddFoe(make_unique<CAnimal>(CAnimal(kIDButterfly, x, y)), SURFACE_FLOOR);
-
-                        double pinkSlime = (40 + x + 1 * y + 2 * x * y + 3 * xx * y + 4 * x * yy) % 390;
-                        if (pinkSlime == 1
-                            && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"]
-                                && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["woodFloor"]))
-                            map.AddFoe(make_unique<CAnimal>(CAnimal(kIDPinkSlime, x, y)), SURFACE_FLOOR);
-
 
                         if (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["water"])
                         {
@@ -213,17 +193,6 @@ void MapGeneration::GenerateAll(CMap& map)
                         }
 
 
-                        if (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["water"])
-                        {
-                            int waterDepth = -map.m_tilesGrid[x][y]->m_elevationHeight;
-                            double reed = cos(std::max(0, waterDepth) / 7.0 * M_PI / 2.0);
-                            reed *= cos(0.5 * (17 + (x + xx * xx + x * y + cos(y / 100.0 + yy * yy / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
-                            reed *= cos(y / 10.0);
-                            reed *= cos(x / 10.0);
-                            reed *= ((11 + x + y + x*y + x*x - y*y) % 9)/8.0;
-                            if (reed > 0.5 && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
-                                map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectReed"));
-                        }
 
                     }
 
@@ -239,47 +208,6 @@ void MapGeneration::GenerateAll(CMap& map)
                         }
                     }
 
-                    if (iteration == 1)
-                    {
-
-                        
-
-                        int yTrainRail = Global::tilesMapSize / 2;
-
-                        map.m_tilesGrid[x][yTrainRail]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
-                        map.m_tilesGrid[x][yTrainRail + 1]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
-
-                        if (x >= Global::tilesMapSize / 2 - stationLength / 2 && x <= Global::tilesMapSize / 2 + stationLength / 2)
-                            map.m_tilesGrid[x][yTrainRail]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEWStationS"));
-                        else
-                            map.m_tilesGrid[x][yTrainRail]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTrainRailEW"));
-
-
-                        if (y >= Global::tilesMapSize / 2 + 2 && y < Global::tilesMapSize / 2 + 2 + plazaSize)
-                        {
-                            if (x >= Global::tilesMapSize / 2 - stationLength / 2 && x < Global::tilesMapSize / 2 - stationLength / 2 + plazaSize)
-                            {
-
-                                map.m_tilesGrid[x][y]->m_elevationHeight = map.m_tilesGrid[Global::tilesMapSize / 2 - stationLength / 2][Global::tilesMapSize / 2 + 3]->m_elevationHeight;
-                                map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["stoneSlab"];
-
-                                map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->ClearObjects();
-
-                                if (x == Global::tilesMapSize / 2 - stationLength / 2 + plazaSize / 2 && y == Global::tilesMapSize / 2 + 3 + plazaSize / 2)
-                                    map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectFountain"));
-
-                                map.m_tilesGrid[x][y]->m_isNPCOwnedLand = true;
-
-                            }
-
-                            map.m_tilesGrid[Global::tilesMapSize / 2 - stationLength / 2 + plazaSize][y]->m_elevationHeight = map.m_tilesGrid[Global::tilesMapSize / 2 - stationLength / 2][Global::tilesMapSize / 2 + 3]->m_elevationHeight;
-
-                        }
-
-
-
-
-                    }
 
 
             }

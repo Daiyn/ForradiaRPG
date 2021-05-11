@@ -21,8 +21,8 @@ void GUIStatusPanel::Render()
 
     CRectangle rect = {0, 0, w, h};
 
-    auto tex = ImageLoading::libTextures[kIDFullMapFrameBackground];
-    Drawing::Image(kIDFullMapFrameBackground, rect);
+    auto tex = ImageLoading::libTextures[ImagesIDs::FullMapFrameBackground];
+    Drawing::Image(ImagesIDs::FullMapFrameBackground, rect);
 
     int barLeft = pxMargin;
     int barTop = pxMargin * 3;
@@ -52,7 +52,7 @@ void GUIStatusPanel::Render()
 
         CRectangle rectNRGYBarFilled = { barLeft, barTop, nrgyBarFilledWidth, barHeight };
 
-        Drawing::FilledRect(ORANGE, rectNRGYBarFilled);
+        Drawing::FilledRect(GRAY, rectNRGYBarFilled);
         Drawing::RectContour(BLACK, rectNRGYBarFilled);
 
     }

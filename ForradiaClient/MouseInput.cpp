@@ -13,7 +13,6 @@
 #include "ItemMoving.h"
 #include "CMap.h"
 #include "CPlayer.h"
-#include "CNPCDialog.h"
 
 void MouseInput::DoMouseDown(Uint8 button)
 {
@@ -90,30 +89,6 @@ void MouseInput::DoMouseUp(Uint8 button)
 
 }
 
-void MouseInput::CheckMouseClickOnNPCs()
-{
-
-    CPoint pHoveredTile(HOVERED_TILE);
-
-    if (pHoveredTile.WithinMap())
-    {
-        if (stateMouseButtonLeftDown)
-        {
-            if (Global::contentCurrentMap->m_tilesGrid[pHoveredTile.m_x][pHoveredTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs.size() > 0)
-            {
-                CNPC& npc = *Global::contentCurrentMap->m_tilesGrid[pHoveredTile.m_x][pHoveredTile.m_y]->m_floorsArray[SURFACE_FLOOR]->m_containedNPCs[0].get();
-
-                if (npc.m_stateCurrentActivity == CNPC::NPCActivites::StandingInPlazaTalkable)
-                {
-
-                    std::unique_ptr<CWindow> win(new CWindow(100, 100, 400, 300, npc.m_uniqueID, "Dialog"));
-                    GUI::activeWindows.push_back(move(win));
-
-                }
-            }
-        }
-    }
-}
 
 void MouseInput::Update()
 {
@@ -130,7 +105,6 @@ void MouseInput::Update()
         !GUI::CheckMouseClickInGUI())
         Global::statePlayer->MouseClickToMove();
 
-    CheckMouseClickOnNPCs();
     ResetEventVariables();
 
 }
