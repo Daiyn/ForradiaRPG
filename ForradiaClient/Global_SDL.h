@@ -15,9 +15,12 @@
   This software is open source and licensed under the MIT License.
 ===================================================================+*/
 
+
+
 #pragma once
 
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_render.h>
 
 namespace Global
 {

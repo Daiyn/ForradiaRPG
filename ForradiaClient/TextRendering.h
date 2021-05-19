@@ -3,7 +3,7 @@
 
   Summary:   Describes namespace members related to rendering text.
 
-  Classes:   CPoint
+  Classes:   Point
 
   Functions: Initialize
              DrawString
@@ -20,7 +20,7 @@
 
 #include <string>
 #include <SDL2/SDL_pixels.h>
-#include "CPoint.h"
+#include "Point.h"
 
 #define BOTTOM_CENTER 0
 
@@ -31,7 +31,7 @@ namespace TextRendering
     int GetTextHeight();
     int GetTextWidth(string str);
     void Initialize();
-    void DrawString(string str, SDL_Color color, CPoint p);
+    void DrawString(string str, SDL_Color color, Point p);
     void DrawString(string str, SDL_Color color, int x, int y);
     void DrawString(string str, SDL_Color color, int position);
 };

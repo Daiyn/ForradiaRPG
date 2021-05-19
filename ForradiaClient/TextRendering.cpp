@@ -21,7 +21,7 @@ void TextRendering::Initialize()
 
 }
 
-void TextRendering::DrawString(string str, SDL_Color color, CPoint p)
+void TextRendering::DrawString(string str, SDL_Color color, Point p)
 {
 
     DrawString(str, color, p.m_x, p.m_y);

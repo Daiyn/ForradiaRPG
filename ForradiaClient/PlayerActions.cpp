@@ -7,15 +7,15 @@
 #include <SDL2/SDL_render.h>
 #include "Global_CurrentMap.h"
 #include "DataLoading.h"
-#include "CMap.h"
-#include "CPlayer.h"
+#include "Map.h"
+#include "Player.h"
 
 void RenderPlayerActions()
 {
     PlayerActions::Render();
 }
 
-void PlayerActions::FocusOnObject(CPoint p)
+void PlayerActions::FocusOnObject(Point p)
 {
 
     coordFocusedObjectMapx = p.m_x;
@@ -37,7 +37,7 @@ void PlayerActions::UpdateHoveredTile()
 {
     if (Global::statePlayer != nullptr)
     {
-        CPoint p;
+        Point p;
 
         SDL_GetMouseState(&p.m_x, &p.m_y);
         p = { p.m_x / Global::GetTileSize(), p.m_y / Global::GetTileSize() };

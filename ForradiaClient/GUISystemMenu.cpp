@@ -1,5 +1,5 @@
 #include "GUISystemMenu.h"
-#include "CSceneMainMenu.h"
+#include "SceneMainMenu.h"
 #include "TextRendering.h"
 #include "ImageLoading.h"
 #include "Global_Canvas.h"
@@ -21,13 +21,13 @@ void GUISystemMenu::Show()
 void GUISystemMenu::HandleMouseClickInSystemMenu(bool leftMouseButtonDown)
 {
 
-    CPoint pMouse = Global::GetMousePoint();
+    Point pMouse = Global::GetMousePoint();
 
     int i = 0;
 
     for (auto option : labelsMenuOptions) {
 
-        CRectangle rect = {
+        Rectangle rect = {
                 Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,
                 Global::GetCanvasHeight() / 4 + i * (Global::attrMenuButtonHeight + Global::attrMenuButtonMargin),
                 Global::attrMenuButtonWidth,
@@ -36,7 +36,7 @@ void GUISystemMenu::HandleMouseClickInSystemMenu(bool leftMouseButtonDown)
         if (rect.ContainsPoint(pMouse)) {
             switch (i) {
                 case 0:
-                    Global::ChangeScene(make_unique<CSceneMainMenu>(CSceneMainMenu()));
+                    Global::ChangeScene(make_unique<SceneMainMenu>(SceneMainMenu()));
                     stateIsShown = false;
                     break;
 
@@ -57,7 +57,7 @@ void GUISystemMenu::Update()
     if (!stateIsShown)
         return;
 
-    CPoint pMouse = Global::GetMousePoint();
+    Point pMouse = Global::GetMousePoint();
 
 
     int i = 0;
@@ -65,7 +65,7 @@ void GUISystemMenu::Update()
     for (auto option : labelsMenuOptions)
     {
 
-        CRectangle rect = {
+        Rectangle rect = {
                 Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,
                 Global::GetCanvasHeight() / 4 + i * (Global::attrMenuButtonHeight + Global::attrMenuButtonMargin),
                 Global::attrMenuButtonWidth,
@@ -83,14 +83,14 @@ void GUISystemMenu::RenderIfShown() {
     if (!stateIsShown)
         return;
 
-    CPoint pMouse = Global::GetMousePoint();
+    Point pMouse = Global::GetMousePoint();
 
 
     int i = 0;
 
     for (auto option : labelsMenuOptions) {
 
-        CRectangle rect = {
+        Rectangle rect = {
                 Global::GetCanvasWidth() / 2 - Global::attrMenuButtonWidth / 2,
                 Global::GetCanvasHeight() / 4 + i * (Global::attrMenuButtonHeight + Global::attrMenuButtonMargin),
                 Global::attrMenuButtonWidth,

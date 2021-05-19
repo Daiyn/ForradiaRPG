@@ -18,7 +18,7 @@
     <ClCompile Include="CoreGameRendering.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CDataDescription.cpp">
+    <ClCompile Include="DataDescription.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DataLoading.cpp">
@@ -30,7 +30,7 @@
     <ClCompile Include="FPSCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="Forradia.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GUI.cpp">
@@ -54,7 +54,7 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CMap.cpp">
+    <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MapGeneration.cpp">
@@ -63,13 +63,13 @@
     <ClCompile Include="MouseInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CObject.cpp">
+    <ClCompile Include="Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ObjectsRendering.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CPlayer.cpp">
+    <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayerActions.cpp">
@@ -78,13 +78,13 @@
     <ClCompile Include="PlayerRendering.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CSceneCoreGameplay.cpp">
+    <ClCompile Include="SceneCoreGameplay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CSceneMainMenu.cpp">
+    <ClCompile Include="SceneMainMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CSceneStartNewGame.cpp">
+    <ClCompile Include="SceneStartNewGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SDLInitialization.cpp">
@@ -96,10 +96,10 @@
     <ClCompile Include="TextRendering.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CTile.cpp">
+    <ClCompile Include="Tile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CTileFloor.cpp">
+    <ClCompile Include="TileFloor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TileRendering.cpp">
@@ -108,19 +108,19 @@
     <ClCompile Include="Utilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CWindow.cpp">
+    <ClCompile Include="Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CWindowInventory.cpp">
+    <ClCompile Include="WindowInventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CPoint.cpp">
+    <ClCompile Include="Point.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CRectangle.cpp">
+    <ClCompile Include="Rectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CInventory.cpp">
+    <ClCompile Include="Inventory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Mining.cpp">
@@ -129,7 +129,7 @@
     <ClCompile Include="Crafting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CSize.cpp">
+    <ClCompile Include="Size.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FoodEating.cpp">
@@ -138,7 +138,7 @@
     <ClCompile Include="Animations.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\CTimer.cpp">
+    <ClCompile Include="Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameConfiguration.cpp">
@@ -149,7 +149,7 @@
     <ClInclude Include="CoreGameRendering.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CDataDescription.h">
+    <ClInclude Include="DataDescription.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DataLoading.h">
@@ -161,7 +161,7 @@
     <ClInclude Include="FPSCounter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="Forradia.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GUI.h">
@@ -185,7 +185,7 @@
     <ClInclude Include="KeyboardInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CMap.h">
+    <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MapGeneration.h">
@@ -194,13 +194,13 @@
     <ClInclude Include="MouseInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CObject.h">
+    <ClInclude Include="Object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ObjectsRendering.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CPlayer.h">
+    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerActions.h">
@@ -209,16 +209,16 @@
     <ClInclude Include="PlayerRendering.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CScene.h">
+    <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CSceneCoreGameplay.h">
+    <ClInclude Include="SceneCoreGameplay.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CSceneMainMenu.h">
+    <ClInclude Include="SceneMainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CSceneStartNewGame.h">
+    <ClInclude Include="SceneStartNewGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDLInitialization.h">
@@ -230,10 +230,10 @@
     <ClInclude Include="TextRendering.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CTile.h">
+    <ClInclude Include="Tile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CTileFloor.h">
+    <ClInclude Include="TileFloor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TileRendering.h">
@@ -242,10 +242,10 @@
     <ClInclude Include="Utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CWindow.h">
+    <ClInclude Include="Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CWindowInventory.h">
+    <ClInclude Include="WindowInventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Global_MapPreviewSize.h">
@@ -281,7 +281,7 @@
     <ClInclude Include="Global_GameSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CPoint.h">
+    <ClInclude Include="Point.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Global_Mouse.h">
@@ -290,13 +290,13 @@
     <ClInclude Include="Colors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CRectangle.h">
+    <ClInclude Include="Rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CGUIButton.h">
+    <ClInclude Include="GUIButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CInventory.h">
+    <ClInclude Include="Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Mining.h">
@@ -305,7 +305,7 @@
     <ClInclude Include="Crafting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CSize.h">
+    <ClInclude Include="Size.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Constants.h">
@@ -317,7 +317,7 @@
     <ClInclude Include="Animations.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Classes\CTimer.h">
+    <ClInclude Include="Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameConfiguration.h">

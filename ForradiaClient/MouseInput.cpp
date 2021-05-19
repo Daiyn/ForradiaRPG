@@ -1,5 +1,5 @@
 #include "MouseInput.h"
-#include "CWindow.h"
+#include "Window.h"
 #include "GUI.h"
 #include "GUISystemMenu.h"
 #include "GUIWorldMenu.h"
@@ -11,13 +11,13 @@
 #include "Global_MapSize.h"
 #include "Global_CurrentMap.h"
 #include "ItemMoving.h"
-#include "CMap.h"
-#include "CPlayer.h"
+#include "Map.h"
+#include "Player.h"
 
 void MouseInput::DoMouseDown(Uint8 button)
 {
 
-    coordMouseDown = CPoint(HOVERED_TILE);
+    coordMouseDown = Point(HOVERED_TILE);
 
     if (button == SDL_BUTTON_LEFT)
     {
@@ -73,7 +73,7 @@ void MouseInput::DoMouseUp(Uint8 button)
 
             if (!KeyboardInput::statesPressedKeys[SDLK_LSHIFT]
                 //&& !Combat::HandleMouseClickOnFoe()
-            && coordMouseDown.Equals(CPoint(HOVERED_TILE)))
+            && coordMouseDown.Equals(Point(HOVERED_TILE)))
                 Global::statePlayer->MouseClickToMove();
 
         }
@@ -97,7 +97,8 @@ void MouseInput::Update()
 
     if (stateMouseButtonLeftPressed && !stateMouseDownInGUI && !GUI::CheckMouseClickInGUI())
         if (!KeyboardInput::statesPressedKeys[SDLK_LSHIFT]
-            //&& !Combat::HandleMouseClickOnFoe() && ItemMoving::nodupMovedObject == NULL
+            //&& !Combat::HandleMouseClickOnFoe()
+            && ItemMoving::nodupMovedObject == nullptr
             )
             Global::statePlayer->MouseClickToMove();
 

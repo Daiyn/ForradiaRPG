@@ -3,7 +3,7 @@
 #include <SDL2/SDL_timer.h>
 #include "Global_MapSize.h"
 #include "Constants.h"
-#include "CTile.h"
+#include "Tile.h"
 #include <memory>
 
 using std::make_unique;
@@ -14,7 +14,7 @@ using std::make_unique;
 #define LOOP_OVER_CIRCLE(xcenter, ycenter, r, content) FOR_EXT(y, ycenter - r, ycenter + r + 1) { FOR_EXT(x, xcenter - r, xcenter + r + 1) { int dx = x - xcenter; int dy = y - ycenter; if (dx * dx + dy * dy <= r * r) { content } } }
 #define IN_MAP(z) z >= 0 && z < Global::tilesMapSize
 
-void MapGeneration::GenerateMap(CMap& map)
+void MapGeneration::GenerateMap(Map& map)
 {
 
     idxsUsedTiles["grass"] = DataLoading::GetDescriptionIndexByName("TileGrass");
@@ -37,7 +37,7 @@ void MapGeneration::GenerateMap(CMap& map)
 
 }
 
-void MapGeneration::GenerateAll(CMap& map)
+void MapGeneration::GenerateAll(Map& map)
 {
 
 
@@ -50,20 +50,20 @@ void MapGeneration::GenerateAll(CMap& map)
     map.m_coordPlazaPosition = { Global::tilesMapSize / 2 - stationLength / 2, Global::tilesMapSize / 2 + 2 };
     map.m_tilesNumPlazaSize = plazaSize;
 
-    double k0 = 90.0 * (0.5 + (rand() % 40) / 40.0);
-    double k1 = 1.5 * (0.5 + (rand() % 40) / 40.0);
-    double k2 = 2.0 * (0.5 + (rand() % 40) / 40.0);
-    double k3 = 2.0 * (0.5 + (rand() % 40) / 40.0);
-    double k4 = 2.0 * (0.5 + (rand() % 40) / 40.0);
-    double k5 = 0.8 * (0.5 + (rand() % 40) / 40.0);
-    double k6 = 2.0 * (0.5 + (rand() % 40) / 40.0);
-    double k7 = 0.6 * (0.5 + (rand() % 40) / 40.0);
-    double k8 = 2.0 * (0.5 + (rand() % 40) / 40.0);
-    double k9 = 0.8 * (0.5 + (rand() % 40) / 40.0);
-    double k10 = 175.0 * (0.5 + (rand() % 40) / 40.0);
-    double k11 = 275.0 * (0.5 + (rand() % 40) / 40.0);
-    double k12 = 375.0 * (0.5 + (rand() % 40) / 40.0);
-    double k13 = 475.0 * (0.5 + (rand() % 40) / 40.0);
+    k0 = 90.0 * (0.5 + (rand() % 40) / 40.0);
+    k1 = 1.5 * (0.5 + (rand() % 40) / 40.0);
+    k2 = 2.0 * (0.5 + (rand() % 40) / 40.0);
+    k3 = 2.0 * (0.5 + (rand() % 40) / 40.0);
+    k4 = 2.0 * (0.5 + (rand() % 40) / 40.0);
+    k5 = 0.8 * (0.5 + (rand() % 40) / 40.0);
+    k6 = 2.0 * (0.5 + (rand() % 40) / 40.0);
+    k7 = 0.6 * (0.5 + (rand() % 40) / 40.0);
+    k8 = 2.0 * (0.5 + (rand() % 40) / 40.0);
+    k9 = 0.8 * (0.5 + (rand() % 40) / 40.0);
+    k10 = 175.0 * (0.5 + (rand() % 40) / 40.0);
+    k11 = 275.0 * (0.5 + (rand() % 40) / 40.0);
+    k12 = 375.0 * (0.5 + (rand() % 40) / 40.0);
+    k13 = 475.0 * (0.5 + (rand() % 40) / 40.0);
 
     for (int iteration = 0; iteration <= 1; iteration++)
     {
@@ -73,85 +73,32 @@ void MapGeneration::GenerateAll(CMap& map)
             FOR_EXT(x, 0, Global::tilesMapSize)
             {
 
-                int xx = x + Global::tilesMapSize / 2;
-                int yy = y + Global::tilesMapSize / 2;
-                
                 if (iteration == 0)
                 {
 
-                    map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["grass"];
-
-                    
-
-                    map.m_tilesGrid[x][y]->m_elevationHeight =
-                        k0 * cos(k1 * cos(k2 + (x + xx * xx + x * y) / ((double)Global::tilesMapSize * k10)))
-                        * cos(k3 * cos(k4 + k5 * (y + yy * yy + y * x) / ((double)Global::tilesMapSize * k11)))
-                        * cos(k6 + k7 * (x + xx * xx + x * y) / ((double)Global::tilesMapSize * k12))
-                        * cos(k8 + k9 * (y + y * y) / ((double)Global::tilesMapSize * k13));
-                    
-                    
-                    if (map.m_tilesGrid[x][y]->m_elevationHeight > 0)
-                    {
-
-                        double rock = cos(2 * (1 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
-                        if (rock > 0.1)
-                            map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["rock"];
-
-                    }
+                    SetAllTilesToGrass(map, x, y);
+                    GenerateElevation(map, x, y);
+                    GenerateRockTiles(map, x, y);
+                    GenerateWater(map, x, y);
+                    GenerateSand(map, x, y);
 
                 }
 
-                    if (map.m_tilesGrid[x][y]->m_elevationHeight < 0
-                        && (map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"] || iteration == 1))
-                    {
-
-
-                        if (iteration == 0)
-                            map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["water"];
-
-                    }
-
-                    if (map.m_tilesGrid[x][y]->m_elevationHeight == -1)
-                    {
-
-
-                        if (iteration == 0)
-                        {
-                            double sand = cos(2 * (1 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
-                            if (sand > 0.1)
-                            {
-                                map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["sand"];
-                                map.m_tilesGrid[x][y]->m_elevationHeight = 0;
-                            }
-                        }
-
-                    }
+           
 
                     if (iteration == 1)
                     {
 
-                        double tree1 = cos(0.5 * (1 + (x + xx * xx + x * y + cos(y / 100.0 + yy * yy / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
-                        tree1 *= cos(y / 60.0);
-                        tree1 *= cos(x / 60.0);
-                        tree1 *= cos(2*(x + y + x * y));
-                        tree1 *= (10 + (x * y)/60) % 2;
-                        tree1 *= (11 + (x * y) / 33) % 2;
-                        if (tree1 > 0.2 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["grass"]
+                        GenerateTree1(map, x, y);
+                        GenerateTree2(map, x, y);
+
+                        int xx = x + Global::tilesMapSize / 2;
+                        int yy = y + Global::tilesMapSize / 2;
+
+                        double strawberryPlant = (x + 1 * y + 2 * x * y + 3 * xx * y + 4 * x * yy) % 52;
+                        if (strawberryPlant == 1 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["grass"]
                             && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
-                            map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTree1"));
-
-
-                        double tree2 = cos(0.5 * (2 + (y + yy * yy + y * x + cos(x / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
-                        tree2 *= cos(1 + y / 60.0);
-                        tree2 *= cos(2 + x / 60.0);
-                        tree2 *= cos(2*(3 + x + y + x * y));
-                        tree2 *= (12 + (x * y) / 60 + 1) % 2;
-                        tree2 *= (13 + (x * y) / 23 + 1) % 2;
-                        if (tree2 > 0.2 && map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["grass"]
-                            && !map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
-                            map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTree2"));
-                            //map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTree1"));
-
+                            map.m_tilesGrid[x][y]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectRipeStrawberryPlant"));
 
 
                         double bush = (x + 1 * y + 2 * x * y + 3 * xx * y + 4 * x * yy) % 83;
@@ -216,11 +163,11 @@ void MapGeneration::GenerateAll(CMap& map)
 }
 
 
-void MapGeneration::GenerateRiversFromMountainTop(CMap& map, int mapx, int mapy)
+void MapGeneration::GenerateRiversFromMountainTop(Map& map, int mapx, int mapy)
 {
 
 
-    CPoint p = { mapx, mapy };
+    Point p = { mapx, mapy };
 
     double width = 1;
 
@@ -364,3 +311,102 @@ void MapGeneration::GenerateRiversFromMountainTop(CMap& map, int mapx, int mapy)
 }
 
 
+void MapGeneration::SetAllTilesToGrass(Map& map, int mapx, int mapy)
+{
+    map.m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["grass"];
+}
+
+void MapGeneration::GenerateElevation(Map& map, int mapx, int mapy)
+{
+
+    int xx = mapx + Global::tilesMapSize / 2;
+    int yy = mapy + Global::tilesMapSize / 2;
+
+    map.m_tilesGrid[mapx][mapy]->m_elevationHeight =
+        k0 * cos(k1 * cos(k2 + (mapx + xx * xx + mapx * mapy) / ((double)Global::tilesMapSize * k10)))
+        * cos(k3 * cos(k4 + k5 * (mapy + yy * yy + mapy * mapx) / ((double)Global::tilesMapSize * k11)))
+        * cos(k6 + k7 * (mapx + xx * xx + mapx * mapy) / ((double)Global::tilesMapSize * k12))
+        * cos(k8 + k9 * (mapy + mapy * mapy) / ((double)Global::tilesMapSize * k13));
+}
+
+void MapGeneration::GenerateRockTiles(Map& map, int mapx, int mapy)
+{
+    if (map.m_tilesGrid[mapx][mapy]->m_elevationHeight > 0)
+    {
+
+        int xx = mapx + Global::tilesMapSize / 2;
+        int yy = mapy + Global::tilesMapSize / 2;
+
+        double rock = cos(2 * (1 + (mapy + yy * yy + mapy * mapx + cos(mapx / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
+        if (rock > 0.1)
+            map.m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["rock"];
+
+    }
+}
+
+void MapGeneration::GenerateWater(Map& map, int mapx, int mapy)
+{
+    if (map.m_tilesGrid[mapx][mapy]->m_elevationHeight < 0
+        && (map.m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType != idxsUsedTiles["water"]))
+    {
+
+
+        map.m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["water"];
+
+    }
+}
+
+void MapGeneration::GenerateSand(Map& map, int mapx, int mapy)
+{
+    if (map.m_tilesGrid[mapx][mapy]->m_elevationHeight == -1)
+    {
+
+
+        int xx = mapx + Global::tilesMapSize / 2;
+        int yy = mapy + Global::tilesMapSize / 2;
+
+        double sand = cos(2 * (1 + (mapy + yy * yy + mapy * mapx + cos(mapx / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
+        if (sand > 0.1)
+        {
+            map.m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType = idxsUsedTiles["sand"];
+            map.m_tilesGrid[mapx][mapy]->m_elevationHeight = 0;
+        }
+
+    }
+}
+
+
+void MapGeneration::GenerateTree1(Map& map, int mapx, int mapy)
+{
+    int xx = mapx + Global::tilesMapSize / 2;
+    int yy = mapy + Global::tilesMapSize / 2;
+
+    double tree1 = cos(0.5 * (1 + (mapx + xx * xx + mapx * mapy + cos(mapy / 100.0 + yy * yy / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
+    tree1 *= cos(mapy / 60.0);
+    tree1 *= cos(mapx / 60.0);
+    tree1 *= cos(2 * (mapx + mapy + mapx * mapy));
+    tree1 *= (10 + (mapx * mapy) / 60) % 2;
+    tree1 *= (11 + (mapx * mapy) / 33) % 2;
+    if (tree1 > 0.1 && map.m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["grass"]
+        && !map.m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
+        map.m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTree1"));
+
+}
+
+
+void MapGeneration::GenerateTree2(Map& map, int mapx, int mapy)
+{
+    int xx = mapx + Global::tilesMapSize / 2;
+    int yy = mapy + Global::tilesMapSize / 2;
+
+    double tree2 = cos(0.5 * (2 + (mapy + yy * yy + mapy * mapx + cos(mapx / 100.0 + xx * xx / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
+    tree2 *= cos(1 + mapy / 60.0);
+    tree2 *= cos(2 + mapx / 60.0);
+    tree2 *= cos(2 * (3 + mapx + mapy + mapx * mapy));
+    tree2 *= (12 + (mapx * mapy) / 60 + 1) % 2;
+    tree2 *= (13 + (mapx * mapy) / 23 + 1) % 2;
+    if (tree2 > 0.1 && map.m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->m_idxGroundType == idxsUsedTiles["grass"]
+        && !map.m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->HoldsObjects())
+        map.m_tilesGrid[mapx][mapy]->m_floorsArray[SURFACE_FLOOR]->AddObject(DataLoading::GetDescriptionIndexByName("ObjectTree1"));
+
+}

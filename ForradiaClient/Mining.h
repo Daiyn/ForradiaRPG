@@ -3,7 +3,7 @@
 
   Summary:   Describes function for mining a tile.
 
-  Classes:   CPoint
+  Classes:   Point
 
   Functions: MineTile
 
@@ -14,10 +14,10 @@
 
 #pragma once
 
-#include "CPoint.h"
+#include "Point.h"
 
 namespace Mining
 {
-	void MineTile(CPoint p);
+	void MineTile(Point p);
 };
 

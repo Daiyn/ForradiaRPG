@@ -2,19 +2,19 @@
 #include "PlayerActions.h"
 #include "DataLoading.h"
 #include "Global_CurrentMap.h"
-#include "CMap.h"
+#include "Map.h"
 #include "Global_Player.h"
-#include "CPlayer.h"
+#include "Player.h"
 #include <memory>
 
 using std::make_unique;
 
-void Crafting::ChopDownTree(CPoint p)
+void Crafting::ChopDownTree(Point p)
 {
 	PlayerActions::FocusOnObject(p);
 }
 
-void Crafting::CreateWoodplank(CPoint p)
+void Crafting::CreateWoodplank(Point p)
 {
 
     int objectWoodLog = DataLoading::GetDescriptionIndexByName("ObjectWoodLog");
@@ -31,7 +31,7 @@ void Crafting::CreateWoodplank(CPoint p)
 
 }
 
-void Crafting::CreateWoodfloor(CPoint p)
+void Crafting::CreateWoodfloor(Point p)
 {
 
     int objectWoodplank = DataLoading::GetDescriptionIndexByName("ObjectWoodPlank");
@@ -42,7 +42,7 @@ void Crafting::CreateWoodfloor(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (Global::statePlayer->m_inventory.HasItemInInventory(objectWoodplank)
         && floor.m_idxGroundType != ImagesIDs::TileWater)
@@ -55,7 +55,7 @@ void Crafting::CreateWoodfloor(CPoint p)
 
 }
 
-void Crafting::CreateUnloadedCampfire(CPoint p)
+void Crafting::CreateUnloadedCampfire(Point p)
 {
 
 	int objectStone = DataLoading::GetDescriptionIndexByName("ObjectStone");
@@ -71,7 +71,7 @@ void Crafting::CreateUnloadedCampfire(CPoint p)
 
 }
 
-void Crafting::LoadCampfire(CPoint p)
+void Crafting::LoadCampfire(Point p)
 {
     int objectWoodLog = DataLoading::GetDescriptionIndexByName("ObjectWoodLog");
     int objectUnloadedCampfire = DataLoading::GetDescriptionIndexByName("ObjectUnloadedCampfire");
@@ -82,7 +82,7 @@ void Crafting::LoadCampfire(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectUnloadedCampfire))
         if (Global::statePlayer->m_inventory.UseItemInInventory(objectWoodLog, 1))
@@ -91,7 +91,7 @@ void Crafting::LoadCampfire(CPoint p)
 
 }
 
-void Crafting::LightCampfire(CPoint p)
+void Crafting::LightCampfire(Point p)
 {
     int objectMatches = DataLoading::GetDescriptionIndexByName("ObjectMatches");
     int objectLoadedCampfire = DataLoading::GetDescriptionIndexByName("ObjectLoadedCampfire");
@@ -102,7 +102,7 @@ void Crafting::LightCampfire(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectLoadedCampfire))
         if (Global::statePlayer->m_inventory.HasItemInInventory(objectMatches))
@@ -111,7 +111,7 @@ void Crafting::LightCampfire(CPoint p)
 
 }
 
-void Crafting::ChopUpWoodLog(CPoint p)
+void Crafting::ChopUpWoodLog(Point p)
 {
 
     int objectWoodLog = DataLoading::GetDescriptionIndexByName("ObjectWoodLog");
@@ -122,7 +122,7 @@ void Crafting::ChopUpWoodLog(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     bool breakLoop = false;
 
@@ -136,7 +136,7 @@ void Crafting::ChopUpWoodLog(CPoint p)
             if (seenFloorIndexFreeSpace == -1)
                 continue;
 
-            CTileFloor& floorFreeSpace = *Global::contentCurrentMap->m_tilesGrid[x][y]->m_floorsArray[seenFloorIndexFreeSpace];
+            TileFloor& floorFreeSpace = *Global::contentCurrentMap->m_tilesGrid[x][y]->m_floorsArray[seenFloorIndexFreeSpace];
 
             if (floorFreeSpace.HoldsObjects())
                 continue;
@@ -145,7 +145,7 @@ void Crafting::ChopUpWoodLog(CPoint p)
 
             if (Global::statePlayer->ConsumeNRGY(5))
             {
-                floorFreeSpace.m_containedObjects[freeObjectSpaceIndex] = make_unique<CObject>(CObject(objectWoodLog, { x, y }));
+                floorFreeSpace.m_containedObjects[freeObjectSpaceIndex] = make_unique<Object>(Object(objectWoodLog, { x, y }));
 
                 int index = floor.GetObjectIndexForObjectType(objectFelledTree);
 
@@ -165,7 +165,7 @@ void Crafting::ChopUpWoodLog(CPoint p)
 
 }
 
-void Crafting::DigClay(CPoint p)
+void Crafting::DigClay(Point p)
 {
     int tileClay = DataLoading::GetDescriptionIndexByName("TileClay");
     int objectShovel = DataLoading::GetDescriptionIndexByName("ObjectShovel");
@@ -176,7 +176,7 @@ void Crafting::DigClay(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.m_idxGroundType == tileClay)
         if (Global::statePlayer->m_inventory.HasItemInInventory(objectShovel))
@@ -185,7 +185,7 @@ void Crafting::DigClay(CPoint p)
 
 }
 
-void Crafting::CreateBrick(CPoint p)
+void Crafting::CreateBrick(Point p)
 {
     int objectClayLump = DataLoading::GetDescriptionIndexByName("ObjectClayLump");
     int objectBrick = DataLoading::GetDescriptionIndexByName("ObjectBrick");
@@ -196,7 +196,7 @@ void Crafting::CreateBrick(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectBurningCampfire))
         if (Global::statePlayer->ConsumeNRGY(5))
@@ -204,7 +204,7 @@ void Crafting::CreateBrick(CPoint p)
                     Global::statePlayer->m_inventory.AddItemToInventory(objectBrick);
 }
 
-void Crafting::CreateMeltingFurnace(CPoint p)
+void Crafting::CreateMeltingFurnace(Point p)
 {
     int objectBrick = DataLoading::GetDescriptionIndexByName("ObjectBrick");
     int objectUnloadedMeltingFurnace = DataLoading::GetDescriptionIndexByName("ObjectUnloadedMeltingFurnace");
@@ -214,14 +214,14 @@ void Crafting::CreateMeltingFurnace(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfTypeAndQuantity(objectBrick, MELTING_FURNACE_NUM_REQ_BRICKS))
         if (Global::statePlayer->ConsumeNRGY(5))
             floor.ReplaceObject(objectBrick, MELTING_FURNACE_NUM_REQ_BRICKS, objectUnloadedMeltingFurnace, 1);
 }
 
-void Crafting::LoadMeltingFurnace(CPoint p)
+void Crafting::LoadMeltingFurnace(Point p)
 {
     int objectCoal = DataLoading::GetDescriptionIndexByName("ObjectCoal");
     int objectUnloadedMeltingFurnace = DataLoading::GetDescriptionIndexByName("ObjectUnloadedMeltingFurnace");
@@ -232,7 +232,7 @@ void Crafting::LoadMeltingFurnace(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectUnloadedMeltingFurnace))
         if (Global::statePlayer->m_inventory.UseItemInInventory(objectCoal, 1))
@@ -241,7 +241,7 @@ void Crafting::LoadMeltingFurnace(CPoint p)
 }
 
 
-void Crafting::LightMeltingFurnace(CPoint p)
+void Crafting::LightMeltingFurnace(Point p)
 {
     int objectMatches = DataLoading::GetDescriptionIndexByName("ObjectMatches");
     int objectLoadedMeltingFurnace = DataLoading::GetDescriptionIndexByName("ObjectLoadedMeltingFurnace");
@@ -252,7 +252,7 @@ void Crafting::LightMeltingFurnace(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectLoadedMeltingFurnace))
         if (Global::statePlayer->m_inventory.HasItemInInventory(objectMatches))
@@ -261,7 +261,7 @@ void Crafting::LightMeltingFurnace(CPoint p)
 
 }
 
-void Crafting::HeatIron(CPoint p)
+void Crafting::HeatIron(Point p)
 {
     int objectIronOre = DataLoading::GetDescriptionIndexByName("ObjectIronOre");
     int objectHotIronLump = DataLoading::GetDescriptionIndexByName("ObjectHotIronLump");
@@ -272,7 +272,7 @@ void Crafting::HeatIron(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectHotMeltingFurnace))
         if (Global::statePlayer->ConsumeNRGY(5))
@@ -280,7 +280,7 @@ void Crafting::HeatIron(CPoint p)
                 Global::statePlayer->m_inventory.AddItemToInventory(objectHotIronLump);
 }
 
-void Crafting::CreateIronNail(CPoint p)
+void Crafting::CreateIronNail(Point p)
 {
 
     int objectHotIronLump = DataLoading::GetDescriptionIndexByName("ObjectHotIronLump");
@@ -292,7 +292,7 @@ void Crafting::CreateIronNail(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectSmallAnvil))
         if (Global::statePlayer->ConsumeNRGY(5))
@@ -302,13 +302,13 @@ void Crafting::CreateIronNail(CPoint p)
 }
 
 
-void Crafting::DigGround(CPoint p)
+void Crafting::DigGround(Point p)
 {
     Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_elevationHeight--;
 }
 
 
-void Crafting::CreateWoodWallNS(CPoint p)
+void Crafting::CreateWoodWallNS(Point p)
 {
     int objectWoodplank = DataLoading::GetDescriptionIndexByName("ObjectWoodPlank");
     int objectIronNail = DataLoading::GetDescriptionIndexByName("ObjectIronNail");
@@ -320,7 +320,7 @@ void Crafting::CreateWoodWallNS(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectWoodplank))
         if (Global::statePlayer->ConsumeNRGY(5))
@@ -329,7 +329,7 @@ void Crafting::CreateWoodWallNS(CPoint p)
                     Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex]->ReplaceObject(objectWoodplank, 1, objectWoodWallNS, 1);
 }
 
-void Crafting::CreateWoodWallEW(CPoint p)
+void Crafting::CreateWoodWallEW(Point p)
 {
     int objectWoodplank = DataLoading::GetDescriptionIndexByName("ObjectWoodPlank");
     int objectIronNail = DataLoading::GetDescriptionIndexByName("ObjectIronNail");
@@ -341,7 +341,7 @@ void Crafting::CreateWoodWallEW(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectWoodplank))
         if (Global::statePlayer->ConsumeNRGY(5))
@@ -350,7 +350,7 @@ void Crafting::CreateWoodWallEW(CPoint p)
                     Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex]->ReplaceObject(objectWoodplank, 1, objectWoodWallEW, 1);
 }
 
-void Crafting::CreateWoodWallCorner(CPoint p)
+void Crafting::CreateWoodWallCorner(Point p)
 {
     int objectWoodplank = DataLoading::GetDescriptionIndexByName("ObjectWoodPlank");
     int objectIronNail = DataLoading::GetDescriptionIndexByName("ObjectIronNail");
@@ -362,11 +362,33 @@ void Crafting::CreateWoodWallCorner(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.HoldsObjectOfType(objectWoodplank))
         if (Global::statePlayer->ConsumeNRGY(5))
             if (Global::statePlayer->m_inventory.HasItemInInventory(objectStoneHammer))
                 if (Global::statePlayer->m_inventory.UseItemInInventory(objectIronNail, 1))
                     Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex]->ReplaceObject(objectWoodplank, 1, objectWoodWallCorner, 1);
+}
+
+
+void Crafting::HarvestStrawberry(Point p)
+{
+    int objectRipeStrawberryPlant = DataLoading::GetDescriptionIndexByName("ObjectRipeStrawberryPlant");
+    int objectHarvestedStrawberryPlant = DataLoading::GetDescriptionIndexByName("ObjectHarvestedStrawberryPlant");
+    int objectStrawberry = DataLoading::GetDescriptionIndexByName("ObjectStrawberry");
+
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
+
+    if (seenFloorIndex == -1)
+        return;
+
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+
+    if (floor.HoldsObjectOfType(objectRipeStrawberryPlant))
+        if (Global::statePlayer->ConsumeNRGY(1))
+        {
+            Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex]->ReplaceObject(objectRipeStrawberryPlant, 1, objectHarvestedStrawberryPlant, 1);
+            Global::statePlayer->m_inventory.AddItemToInventory(objectStrawberry);
+        }
 }

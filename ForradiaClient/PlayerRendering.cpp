@@ -4,15 +4,15 @@
 #include "Global_Canvas.h"
 #include "Global_Player.h"
 #include "Global_SDL.h"
-#include "CSize.h"
+#include "Size.h"
 #include "Drawing.h"
-#include "CPlayer.h"
+#include "Player.h"
 
 using namespace std::chrono;
 
 typedef high_resolution_clock Clock;
 
-void PlayerRendering::RenderPlayer(int x, int y, CPoint pTile)
+void PlayerRendering::RenderPlayer(int x, int y, Point pTile)
 {
 
     SDL_Rect rTile = { x * Global::GetTileSize(), y * Global::GetTileSize(), Global::GetTileSize(), Global::GetTileSize() };
@@ -20,15 +20,15 @@ void PlayerRendering::RenderPlayer(int x, int y, CPoint pTile)
     if (pTile.m_x == Global::statePlayer->m_coordPosition.m_x && pTile.m_y == Global::statePlayer->m_coordPosition.m_y)
     {
 
-        CSize szPlayer(1.5 * Global::GetTileSize());
-        CSize szShadow(1.5 * Global::GetTileSize());
+        Size szPlayer(1.5 * Global::GetTileSize());
+        Size szShadow(1.5 * Global::GetTileSize());
 
-        CRectangle rectShadow = {x * Global::GetTileSize() + Global::GetTileSize() / 2 - szShadow.m_w / 2,
+        Rectangle rectShadow = {x * Global::GetTileSize() + Global::GetTileSize() / 2 - szShadow.m_w / 2,
                                y * Global::GetTileSize() + Global::GetTileSize() - szShadow.m_h,
                                 szShadow.m_w,
                                 szShadow .m_h};
 
-        CRectangle rectPlayer = { x * Global::GetTileSize() + Global::GetTileSize() / 2 - szPlayer.m_w / 2,
+        Rectangle rectPlayer = { x * Global::GetTileSize() + Global::GetTileSize() / 2 - szPlayer.m_w / 2,
                                y * Global::GetTileSize() + Global::GetTileSize() - szPlayer.m_h,
                                 szPlayer.m_w,
                                 szPlayer.m_h };

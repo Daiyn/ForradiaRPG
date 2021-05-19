@@ -22,59 +22,59 @@
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="CoreGameRendering.cpp" />
     <ClCompile Include="Crafting.cpp" />
-    <ClCompile Include="Classes\CTimer.cpp" />
-    <ClCompile Include="Classes\CDataDescription.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="DataDescription.cpp" />
     <ClCompile Include="DataLoading.cpp" />
     <ClCompile Include="Drawing.cpp" />
     <ClCompile Include="FoodEating.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Forradia.cpp" />
     <ClCompile Include="GameConfiguration.cpp" />
     <ClCompile Include="GUI.cpp" />
     <ClCompile Include="GUIMinimap.cpp" />
     <ClCompile Include="GUIStatusPanel.cpp" />
     <ClCompile Include="GUIWorldMenu.cpp" />
     <ClCompile Include="ImageLoading.cpp" />
-    <ClCompile Include="Classes\CInventory.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="ItemMoving.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Classes\CMap.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapGeneration.cpp" />
     <ClCompile Include="Mining.cpp" />
     <ClCompile Include="MouseInput.cpp" />
-    <ClCompile Include="Classes\CObject.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="ObjectsRendering.cpp" />
-    <ClCompile Include="Classes\CPlayer.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerActions.cpp" />
     <ClCompile Include="PlayerRendering.cpp" />
-    <ClCompile Include="Classes\CRectangle.cpp" />
-    <ClCompile Include="Classes\CSceneCoreGameplay.cpp" />
-    <ClCompile Include="Classes\CSceneMainMenu.cpp" />
-    <ClCompile Include="Classes\CSceneStartNewGame.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="SceneCoreGameplay.cpp" />
+    <ClCompile Include="SceneMainMenu.cpp" />
+    <ClCompile Include="SceneStartNewGame.cpp" />
     <ClCompile Include="SDLInitialization.cpp" />
     <ClCompile Include="GUISystemMenu.cpp" />
-    <ClCompile Include="Classes\CSize.cpp" />
+    <ClCompile Include="Size.cpp" />
     <ClCompile Include="TextRendering.cpp" />
-    <ClCompile Include="Classes\CTile.cpp" />
-    <ClCompile Include="Classes\CPoint.cpp" />
-    <ClCompile Include="Classes\CTileFloor.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Point.cpp" />
+    <ClCompile Include="TileFloor.cpp" />
     <ClCompile Include="TileRendering.cpp" />
     <ClCompile Include="Utilities.cpp" />
-    <ClCompile Include="Classes\CWindow.cpp" />
-    <ClCompile Include="Classes\CWindowInventory.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="WindowInventory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
     <ClInclude Include="CoreGameRendering.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="Crafting.h" />
-    <ClInclude Include="Classes\CTimer.h" />
-    <ClInclude Include="Classes\CDataDescription.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="DataDescription.h" />
     <ClInclude Include="DataLoading.h" />
     <ClInclude Include="Drawing.h" />
     <ClInclude Include="FoodEating.h" />
     <ClInclude Include="FPSCounter.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="Forradia.h" />
     <ClInclude Include="GameConfiguration.h" />
     <ClInclude Include="Global_Canvas.h" />
     <ClInclude Include="Global_CurrentScene.h" />
@@ -89,40 +89,40 @@
     <ClInclude Include="Global_SDL.h" />
     <ClInclude Include="Global_Worldmap.h" />
     <ClInclude Include="GUI.h" />
-    <ClInclude Include="Classes\CGUIButton.h" />
+    <ClInclude Include="GUIButton.h" />
     <ClInclude Include="GUIMinimap.h" />
     <ClInclude Include="GUIStatusPanel.h" />
     <ClInclude Include="GUIWorldMenu.h" />
     <ClInclude Include="ImageLoading.h" />
-    <ClInclude Include="Classes\CInventory.h" />
+    <ClInclude Include="Inventory.h" />
     <ClInclude Include="ItemMoving.h" />
     <ClInclude Include="KeyboardInput.h" />
-    <ClInclude Include="Classes\CMap.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="MapGeneration.h" />
     <ClInclude Include="Mining.h" />
     <ClInclude Include="MouseInput.h" />
-    <ClInclude Include="Classes\CObject.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectsRendering.h" />
-    <ClInclude Include="Classes\CPlayer.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerActions.h" />
     <ClInclude Include="PlayerRendering.h" />
-    <ClInclude Include="Classes\CRectangle.h" />
-    <ClInclude Include="Classes\CScene.h" />
-    <ClInclude Include="Classes\CSceneCoreGameplay.h" />
-    <ClInclude Include="Classes\CSceneMainMenu.h" />
-    <ClInclude Include="Classes\CSceneStartNewGame.h" />
+    <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneCoreGameplay.h" />
+    <ClInclude Include="SceneMainMenu.h" />
+    <ClInclude Include="SceneStartNewGame.h" />
     <ClInclude Include="SDLInitialization.h" />
     <ClInclude Include="GUISystemMenu.h" />
-    <ClInclude Include="Classes\CSize.h" />
+    <ClInclude Include="Size.h" />
     <ClInclude Include="TextRendering.h" />
-    <ClInclude Include="Classes\CTile.h" />
-    <ClInclude Include="Classes\CPoint.h" />
-    <ClInclude Include="Classes\CTileFloor.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="Point.h" />
+    <ClInclude Include="TileFloor.h" />
     <ClInclude Include="TileRendering.h" />
     <ClInclude Include="Utilities.h" />
-    <ClInclude Include="Classes\CWindow.h" />
-    <ClInclude Include="Classes\CWindowInventory.h" />
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="WindowInventory.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -178,7 +178,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:/SDL2/include/;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir);$(ProjectDir)Classes</IncludePath>
+    <IncludePath>C:/SDL2/include/;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)</IncludePath>
     <LibraryPath>C:/SDL2/lib/x86/;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -204,6 +204,8 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>ws2_32.lib;SDL2_ttf.lib;SDL2_image.lib;SDL2.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <EntryPointSymbol>
+      </EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

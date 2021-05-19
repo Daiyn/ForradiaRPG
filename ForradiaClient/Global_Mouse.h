@@ -4,7 +4,7 @@
   Summary:   Describes functions to easily get mouse position on the
              screen.
 
-  Classes:   CPoint
+  Classes:   Point
 
   Functions: GetMousePoint
              GetMouseX
@@ -17,17 +17,17 @@
 
 #pragma once
 
-#include "CPoint.h"
+#include "Point.h"
 #include <SDL2/SDL_mouse.h>
 
 namespace Global
 {
-    CPoint GetMousePoint();
+    Point GetMousePoint();
 	int GetMouseX();
 	int GetMouseY();
 }
 
-inline CPoint Global::GetMousePoint()
+inline Point Global::GetMousePoint()
 {
     int mx;
     int my;

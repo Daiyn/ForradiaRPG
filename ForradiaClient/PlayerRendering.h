@@ -4,7 +4,7 @@
   Summary:   Describing namespace members related to rendering the
              player onto the map.
 
-  Classes:   CPoint
+  Classes:   Point
 
   Functions: RenderPlayer
 
@@ -16,11 +16,11 @@
 #ifndef FORRADIAFORMATION_PLAYERRENDERING_H
 #define FORRADIAFORMATION_PLAYERRENDERING_H
 
-#include "CPoint.h"
+#include "Point.h"
 
 namespace PlayerRendering
 {
-    void RenderPlayer(int x, int y, CPoint pTile);
+    void RenderPlayer(int x, int y, Point pTile);
 };
 
 

@@ -9,19 +9,56 @@
 #include "Global_Canvas.h"
 #include "Global_SDL.h"
 #include "Global_MapSize.h"
-#include "CPlayer.h"
+#include "Player.h"
 #include "TextRendering.h"
 #include "Animations.h"
+#include <math.h>
 
 namespace D = Drawing;
 
 using Global::contentCurrentMap;
+using std::max;
 
-bool TileRendering::CheckUnseenTiles(int x, int y, CPoint pTile)
+bool TileRendering::CheckUnseenTiles(int x, int y, Point pTile)
 {
 
     auto TILESIZE = Global::GetTileSize();
     auto& PLAYER = Global::statePlayer;
+
+
+
+    double dx = Global::statePlayer->m_coordPosition.m_x - pTile.m_x;
+    double dy = Global::statePlayer->m_coordPosition.m_y - pTile.m_y;
+
+    double dmaxabs = max(abs(dx), abs(dy));
+
+    if (dmaxabs > 0)
+    {
+        double dxstep = dx / dmaxabs;
+        double dystep = dy / dmaxabs;
+
+        for (int i = 1; i < dmaxabs; i++)
+        {
+            int xx = pTile.m_x + i * dxstep;
+            int yy = pTile.m_y + i * dystep;
+
+            int seenFloor = Global::contentCurrentMap->m_tilesGrid[xx][yy]->GetIndexForSeenFloor();
+
+            auto& FLOOR = Global::contentCurrentMap->m_tilesGrid[xx][yy]->m_floorsArray[seenFloor];
+
+            for (auto& it : FLOOR->m_containedObjects)
+            {
+                if (it != nullptr)
+                    if (DataLoading::libDescriptions[it->m_idxObjectType] != nullptr)
+                        if (DataLoading::libDescriptions[it->m_idxObjectType]->ContainsPropertyWithValue("IsObstacle", "true"))
+                            return true;
+            }
+        }
+    }
+
+
+
+
 
     if (contentCurrentMap->TileIsMinedAtElev(PLAYER->m_locCurrentElevation, pTile.m_x, pTile.m_y))
         return false;
@@ -58,24 +95,77 @@ bool TileRendering::CheckUnseenTiles(int x, int y, CPoint pTile)
         && contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight <= 0)
         return false;
 
-    if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[PLAYER->m_coordPosition.m_x][PLAYER->m_coordPosition.m_y]->m_elevationHeight)
-    {
+    //if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[PLAYER->m_coordPosition.m_x][PLAYER->m_coordPosition.m_y]->m_elevationHeight)
+    //{
 
 
-        return true;
-    }
+    //    return true;
+    //}
 
     return false;
 
 }
 
-void TileRendering::CoverUnseenTiles(int x, int y, CPoint pTile)
+void TileRendering::CoverUnseenTiles(int x, int y, Point pTile)
 {
 
     auto TILESIZE = Global::GetTileSize();
     auto& PLAYER = Global::statePlayer;
 
-    if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[PLAYER->m_coordPosition.m_x][PLAYER->m_coordPosition.m_y]->m_elevationHeight) {
+
+    bool sightIsBlockedByObject = false;
+
+    double dx = Global::statePlayer->m_coordPosition.m_x - pTile.m_x;
+    double dy = Global::statePlayer->m_coordPosition.m_y - pTile.m_y;
+
+    double dmaxabs = max(abs(dx), abs(dy));
+
+    if (dmaxabs > 0)
+    {
+        double dxstep = dx / dmaxabs;
+        double dystep = dy / dmaxabs;
+
+        for (int i = 1; i < dmaxabs && !sightIsBlockedByObject; i++)
+        {
+            int xx = pTile.m_x + i * dxstep;
+            int yy = pTile.m_y + i * dystep;
+
+
+            int seenFloor = Global::contentCurrentMap->m_tilesGrid[xx][yy]->GetIndexForSeenFloor();
+
+            auto& FLOOR = Global::contentCurrentMap->m_tilesGrid[xx][yy]->m_floorsArray[seenFloor];
+
+            for (auto& it : FLOOR->m_containedObjects)
+            {
+                if (it != nullptr)
+                {
+                    int objIdx = it->m_idxObjectType;
+                    auto& desc = DataLoading::libDescriptions[objIdx];
+                    if (desc != nullptr)
+                    {
+                        bool isObs = desc->ContainsPropertyWithValue("IsObstacle", "true");
+                        if (isObs)
+                        {
+                            sightIsBlockedByObject = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            int asd = 3;
+        }
+    }
+
+
+
+
+
+
+
+
+    //if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_elevationHeight > contentCurrentMap->m_tilesGrid[PLAYER->m_coordPosition.m_x][PLAYER->m_coordPosition.m_y]->m_elevationHeight || sightIsBlockedByObject)
+    if (sightIsBlockedByObject)
+    {
 
         int increasedSize = TILESIZE*1.7;
 
@@ -91,7 +181,7 @@ void TileRendering::CoverUnseenTiles(int x, int y, CPoint pTile)
 
 }
 
-void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile)
+void TileRendering::RenderTileGround(double tileSize, int x, int y, Point pTile)
 {
 
     int tileSizeCeil = ceil(tileSize);
@@ -133,7 +223,7 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
     string imageName;
     string imageNameWaterDepth;
 
-    CDataDescription& desc = *DataLoading::libDescriptions[tfSeenFloor->m_idxGroundType];
+    DataDescription& desc = *DataLoading::libDescriptions[tfSeenFloor->m_idxGroundType];
 
 
     //D::ImageCurrentRect(tfSeenFloor->m_idxGroundType);
@@ -345,21 +435,47 @@ void TileRendering::RenderTileGround(double tileSize, int x, int y, CPoint pTile
     int destXScaled = destX + TILESIZE / 2 - (int)(destWScaled / 2);
     int destYScaled = destY + TILESIZE - (int)(destHScaled);
 
-    Drawing::RectPrepare(destXScaled, destYScaled, destWScaled, destHScaled);
+    
 
-    //if (doDrawGrassStraws && tileFloorGroundType == ImagesIDs::TileGrass)
-    //{
+    if (doDrawGrassStraws && tileFloorGroundType == ImagesIDs::TileGrass)
+    {
 
-    //    int grassStrawsAmount = (pTile.m_x + pTile.m_y + pTile.m_x * pTile.m_y) % 6;
+        int grassStrawsAmount = (pTile.m_x + pTile.m_y + pTile.m_x * pTile.m_y) % 6;
 
-    //    for (int i = 0; i < grassStrawsAmount; i++)
-    //        D::ImageCurrentRect(ImagesIDs::GrassStraws);
+        int xx = pTile.m_x + Global::tilesMapSize / 2;
+        int yy = pTile.m_y + Global::tilesMapSize / 2;
 
-    //}
+        float drynessScale = 2.0;
+
+        float drynessLimit = cos(2 * (1 + (pTile.m_y* drynessScale + yy * yy* drynessScale* drynessScale + pTile.m_y * drynessScale * pTile.m_x * drynessScale + cos(pTile.m_x * drynessScale / 100.0 + xx * xx* drynessScale* drynessScale / 8000.0) * Global::tilesMapSize * 80) / ((double)Global::tilesMapSize * 75)));
+        float dryness = drynessLimit;
+
+        if (dryness > 0.1)
+        {
+
+            D::FilledCurrentRect(200, 80, 30, dryness * 100);
+
+        }
+        else
+        {
+
+            if (scale > 0.8)
+            {
+
+                Drawing::RectPrepare(destXScaled, destYScaled, destWScaled, destHScaled);
+
+                for (int i = 0; i < grassStrawsAmount; i++)
+                    D::ImageCurrentRect(ImagesIDs::GrassStraws);
+
+            }
+
+        }
+
+    }
 
 }
 
-void TileRendering::RenderTileHoveringEffect(int x, int y, CPoint pTile)
+void TileRendering::RenderTileHoveringEffect(int x, int y, Point pTile)
 {
 
     SDL_Rect rTile = { x * Global::GetTileSize(), y * Global::GetTileSize(), Global::GetTileSize(), Global::GetTileSize() };

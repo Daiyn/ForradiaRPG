@@ -5,7 +5,7 @@
              related to the GUI world menu which can be brought up by
              right-clicking a tile on the map.
 
-  Classes:   CPoint
+  Classes:   Point
 
   Functions: HandleLeftMouseClickInWorld
              HandleRightMouseClickInWorld
@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include "CPoint.h"
+#include "Point.h"
 
 #define MENU_ID_NONE                        0
 #define MENU_ID_CHOP_DOWN_TREE              1
@@ -46,6 +46,8 @@
 #define MENU_ID_CREATE_WOODWALL_NS          18
 #define MENU_ID_CREATE_WOODWALL_EW          19
 #define MENU_ID_CREATE_WOODWALL_CORNER      20
+#define MENU_ID_HARVEST_STRAWBERRY          21
+#define MENU_ID_EAT_STRAWBERRY             22
 
 using std::string;
 
@@ -73,10 +75,12 @@ namespace GUIWorldMenu
         {MENU_ID_DIG_GROUND,                "Dig Ground" },
         {MENU_ID_CREATE_WOODWALL_NS,        "Create Woodwall NS" },
         {MENU_ID_CREATE_WOODWALL_EW,        "Create Woodwall EW" },
-        {MENU_ID_CREATE_WOODWALL_CORNER,    "Create Woodwall Corner" }
+        {MENU_ID_CREATE_WOODWALL_CORNER,    "Create Woodwall Corner" },
+        {MENU_ID_HARVEST_STRAWBERRY,        "Harvest Strawberry" },
+        {MENU_ID_EAT_STRAWBERRY,           "Eat Strawberry" }
     };
     inline std::vector<int> stateShownMenuOptions;
-    inline CPoint coordClickedTile = { -1, -1 };
+    inline Point coordClickedTile = { -1, -1 };
     inline int pxMenuX;
     inline int pxMenuY;
     inline int pxMenuWidth = 160;

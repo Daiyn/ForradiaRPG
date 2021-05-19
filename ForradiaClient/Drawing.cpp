@@ -13,6 +13,11 @@ void Drawing::FilledCurrentRect(float r, float g, float b)
     FilledRect(r, g, b, activeDestRectangle.x, activeDestRectangle.y, activeDestRectangle.w, activeDestRectangle.h);
 }
 
+void Drawing::FilledCurrentRect(float r, float g, float b, float a)
+{
+    FilledRect(r, g, b, a, activeDestRectangle.x, activeDestRectangle.y, activeDestRectangle.w, activeDestRectangle.h);
+}
+
 void Drawing::CurrentRectContour(float r, float g, float b)
 {
     SDL_SetRenderDrawColor(activeRenderer, r, g, b, 255);
@@ -50,13 +55,13 @@ void Drawing::RectContour(float r, float g, float b, float a, int x, int y, int 
     SDL_RenderDrawRect(activeRenderer, &rect);
 }
 
-void Drawing::RectContour(SDL_Color color, CRectangle rect)
+void Drawing::RectContour(SDL_Color color, Rectangle rect)
 {
     SDL_SetRenderDrawColor(activeRenderer, color.r, color.g, color.b, color.a);
     SDL_RenderDrawRect(activeRenderer, &rect);
 }
 
-void Drawing::FilledRect(SDL_Color color, CRectangle rect)
+void Drawing::FilledRect(SDL_Color color, Rectangle rect)
 {
     FilledRect(color.r, color.g, color.b, color.a, rect.x, rect.y, rect.w, rect.h);
 }
@@ -84,12 +89,12 @@ void Drawing::PresentToScreen()
     SDL_RenderPresent(activeRenderer);
 }
 
-void Drawing::Image(SDL_Texture* texture, CRectangle rect)
+void Drawing::Image(SDL_Texture* texture, Rectangle rect)
 {
     SDL_RenderCopy(activeRenderer, texture, NULL, &rect);
 }
 
-void Drawing::Image(int imgIndex, CRectangle rect)
+void Drawing::Image(int imgIndex, Rectangle rect)
 {
     SDL_RenderCopy(activeRenderer, activeTexturesLib[imgIndex], NULL, &rect);
 }
@@ -111,7 +116,7 @@ void Drawing::ImageCurrentRect(int imageIndex)
     SDL_RenderCopy(activeRenderer, activeTexturesLib[imageIndex], NULL, &activeDestRectangle);
 }
 
-void Drawing::FilledRect(float r, float g, float b, float a, CRectangle rect)
+void Drawing::FilledRect(float r, float g, float b, float a, Rectangle rect)
 {
     SDL_SetRenderDrawColor(activeRenderer, r, g, b, a);
     SDL_RenderFillRect(activeRenderer, &rect);

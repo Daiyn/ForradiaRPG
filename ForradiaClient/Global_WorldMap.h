@@ -15,7 +15,7 @@
 #pragma once
 
 #include <memory>
-#include "CMap.h"
+#include "Map.h"
 
 using std::unique_ptr;
 
@@ -24,5 +24,5 @@ namespace Global
     const int maxWorldmapCols = 1;
     const int maxWorldmapRows = 1;
     const int maxWorldmapFloors = 1;
-    inline unique_ptr<CMap> contentWorldmap[maxWorldmapCols][maxWorldmapRows][maxWorldmapFloors];
+    inline unique_ptr<Map> contentWorldmap[maxWorldmapCols][maxWorldmapRows][maxWorldmapFloors];
 }

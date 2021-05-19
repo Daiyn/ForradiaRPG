@@ -7,8 +7,8 @@
 #include "Global_MapSize.h"
 #include "Drawing.h"
 #include "Colors.h"
-#include "CMap.h"
-#include "CPlayer.h"
+#include "Map.h"
+#include "Player.h"
 #include "TextRendering.h"
 
 void GUIMinimap::Render()
@@ -19,13 +19,13 @@ void GUIMinimap::Render()
     if (Global::contentCurrentMap->m_texFullMapRender == NULL)
         Global::contentCurrentMap->m_texFullMapRender = Global::ConvertSurfaceToTexture(Global::contentCurrentMap->m_imgFullMapRender);
 
-    CRectangle rectMapOverview = { Global::GetCanvasWidth() - miniMapSize - pxBorderWidth, pxBorderWidth, miniMapSize, miniMapSize};
+    Rectangle rectMapOverview = { Global::GetCanvasWidth() - miniMapSize - pxBorderWidth, pxBorderWidth, miniMapSize, miniMapSize};
 
-    CRectangle rectFrame = rectMapOverview;
+    Rectangle rectFrame = rectMapOverview;
     rectFrame.Translate(-pxBorderWidth, -pxBorderWidth);
     rectFrame.IncreaseSize(2*pxBorderWidth, 2*pxBorderWidth);
 
-    CRectangle rectPlayerPos(Global::statePlayer->m_coordPosition);
+    Rectangle rectPlayerPos(Global::statePlayer->m_coordPosition);
     rectPlayerPos.Scale((double)miniMapSize / Global::tilesMapSize);
     rectPlayerPos.Translate(Global::GetCanvasWidth() - miniMapSize - pxBorderWidth - 2, pxBorderWidth - 2);
     rectPlayerPos.SetSize(pxPlayerSymbolSize, pxPlayerSymbolSize);
@@ -44,7 +44,7 @@ void GUIMinimap::Render()
     int h = 25;
     int margin = 3;
 
-    Drawing::FilledRect(MEDIUM_BLUE_TRANSPARENT, x, y, w, h);
+    Drawing::FilledRect(WHITE, x, y, w, h);
 
     string strCoord = "(" + std::to_string(Global::statePlayer->m_coordPosition.m_x) + ", " + std::to_string(Global::statePlayer->m_coordPosition.m_y) + ")";
 

@@ -17,7 +17,7 @@
 #ifndef FORRADIACLIENT_DATALOADER_H
 #define FORRADIACLIENT_DATALOADER_H
 
-#include "CDataDescription.h"
+#include "DataDescription.h"
 #include <memory>
 #include "Constants.h"
 #include <unordered_map>
@@ -29,7 +29,7 @@ using std::unordered_map;
 
 namespace DataLoading
 {
-    inline unique_ptr<CDataDescription> libDescriptions[ImagesIDs::ContentDBSize];
+    inline unique_ptr<DataDescription> libDescriptions[ImagesIDs::ContentDBSize];
     inline unordered_map<string, int> contentIndicesByName[ImagesIDs::ContentDBSize];
 
     int GetDescriptionIndexByName(string name);
@@ -46,8 +46,8 @@ namespace DataLoading
                             bool randomScaling,
                             bool ignoreShadow,
                             int ticksToVanish,
-                            int XOffsetFactor,
-                            int YOffsetFactor,
+                            double XOffsetFactor,
+                            double YOffsetFactor,
                             bool hasAmount,
                             double foodAmount,
                             double foodSpeed);

@@ -33,6 +33,7 @@ namespace KeyboardInput
 inline void KeyboardInput::DoKeyDown(SDL_Keycode key)
 {
     statesPressedKeys[key] = true;
+
 }
 
 inline void KeyboardInput::DoKeyUp(SDL_Keycode key)

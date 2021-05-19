@@ -1,19 +1,19 @@
 #include "GUI.h"
-#include "CWindowInventory.h"
+#include "WindowInventory.h"
 #include "ImageLoading.h"
 #include "GUISystemMenu.h"
 #include "Global_Canvas.h"
 #include "Global_Mouse.h"
 #include "Global_SDL.h"
 #include "Drawing.h"
-#include "CGUIButton.h"
+#include "GUIButton.h"
 
 bool GUI::CheckMouseClickInGUI()
 {
 
-    CPoint pMouse = Global::GetMousePoint();
+    Point pMouse = Global::GetMousePoint();
 
-    CGUIButton buttons[numberOfGUIButtons];
+    GUIButton buttons[numberOfGUIButtons];
 
     int w = (pxWidthOriginal / 1600.0 * Global::GetCanvasWidth() + pxWidthOriginal / 900.0 * Global::GetCanvasHeight()) / 2;
 
@@ -26,7 +26,7 @@ bool GUI::CheckMouseClickInGUI()
         x += w;
     }
 
-    for (CGUIButton button : buttons)
+    for (GUIButton button : buttons)
         if (button.m_bounds.ContainsPoint(pMouse))
             return true;
 
@@ -43,9 +43,9 @@ bool GUI::CheckMouseClickInGUI()
 bool GUI::HandleMouseClickInGUI()
 {
 
-    CPoint pMouse = Global::GetMousePoint();
+    Point pMouse = Global::GetMousePoint();
 
-    CGUIButton buttons[numberOfGUIButtons];
+    GUIButton buttons[numberOfGUIButtons];
 
     int w = (pxWidthOriginal / 1600.0 * Global::GetCanvasWidth() + pxWidthOriginal / 900.0 * Global::GetCanvasHeight()) / 2;
 
@@ -67,7 +67,7 @@ bool GUI::HandleMouseClickInGUI()
             switch (i)
             {
             case 0:
-                activeWindows.push_back(std::make_unique<CWindowInventory>(CWindowInventory()));
+                activeWindows.push_back(std::make_unique<WindowInventory>(WindowInventory()));
                 break;
             case 1: 
                 GUISystemMenu::Show();
@@ -106,9 +106,9 @@ void GUI::Update()
 {
 
 
-    CPoint pMouse = Global::GetMousePoint();
+    Point pMouse = Global::GetMousePoint();
 
-    CGUIButton buttons[numberOfGUIButtons];
+    GUIButton buttons[numberOfGUIButtons];
 
     int w = (pxWidthOriginal / 1600.0 * Global::GetCanvasWidth() + pxWidthOriginal / 900.0 * Global::GetCanvasHeight()) / 2;
 
@@ -146,7 +146,7 @@ void GUI::Render()
         activeWindows[i]->Render();
     }
 
-    CGUIButton buttons[numberOfGUIButtons];
+    GUIButton buttons[numberOfGUIButtons];
 
     int w = (pxWidthOriginal / 1600.0 * Global::GetCanvasWidth() + pxWidthOriginal / 900.0 * Global::GetCanvasHeight()) / 2;
 

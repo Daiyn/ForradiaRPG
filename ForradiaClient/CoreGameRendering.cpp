@@ -2,7 +2,7 @@
 #include "Global_Player.h"
 #include "Global_Canvas.h"
 #include "Global_GameSettings.h"
-#include "CPoint.h"
+#include "Point.h"
 #include "ItemMoving.h"
 #include "Global_CurrentMap.h"
 #include "CoreGameRendering.h"
@@ -50,7 +50,7 @@ void CoreGameRendering::Render()
 void CoreGameRendering::RenderGroundWithObjects()
 {
 
-    CPoint pTile;
+    Point pTile;
 
     FOR(i, 0, 2)
     {
@@ -61,7 +61,9 @@ void CoreGameRendering::RenderGroundWithObjects()
 
             if (i == 0)
             {
-                TileRendering::RenderTileGround(Global::GetTileSize(), x, y, pTile);
+                if (!TileRendering::CheckUnseenTiles(x, y, pTile))
+                    TileRendering::RenderTileGround(Global::GetTileSize(), x, y, pTile);
+
                 TileRendering::RenderTileHoveringEffect(x, y, pTile);
             }
             else if (i == 1)
@@ -84,7 +86,7 @@ void CoreGameRendering::RenderGUI()
 {
 
     FoodEating::Render();
-    GUIMinimap::Render();
+    //GUIMinimap::Render();
     GUI::Render();
     GUIWorldMenu::Render();
     GUIStatusPanel::Render();

@@ -1,8 +1,8 @@
 #include "FoodEating.h"
 #include "DataLoading.h"
 #include "Global_CurrentMap.h"
-#include "CMap.h"
-#include "CRectangle.h"
+#include "Map.h"
+#include "Rectangle.h"
 #include "Drawing.h"
 #include "GUIStatusPanel.h"
 #include "Constants.h"
@@ -29,7 +29,7 @@ void FoodEating::Render()
 
     for (auto it = activeFoodItems.begin(); it != activeFoodItems.end(); it++)
     {
-        CRectangle rect = { left + i * (iconSize + margin), top, iconSize, iconSize };
+        Rectangle rect = { left + i * (iconSize + margin), top, iconSize, iconSize };
 
         Drawing::Image(it->m_foodItem->m_idxObjectType, rect);
         Drawing::Image(ImagesIDs::IconActiveFoodItemFrame, rect);
@@ -58,7 +58,7 @@ void FoodEating::Render()
     }
 }
 
-void FoodEating::EatAppleFromGround(CPoint p)
+void FoodEating::EatAppleFromGround(Point p)
 {
     int objectApple = DataLoading::GetDescriptionIndexByName("ObjectApple");
 
@@ -67,11 +67,28 @@ void FoodEating::EatAppleFromGround(CPoint p)
     if (seenFloorIndex == -1)
         return;
 
-    CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
 
     if (floor.RemoveIfHoldsObjectOfTypeAndQuantity(objectApple, 1))
     {
-        activeFoodItems.push_back(CActiveFoodItem(make_unique<CObject>(CObject(objectApple, 1))));
+        activeFoodItems.push_back(CActiveFoodItem(make_unique<Object>(Object(objectApple, 1))));
+    }
+}
+
+void FoodEating::EatStrawberryFromGround(Point p)
+{
+    int objectStrawberry = DataLoading::GetDescriptionIndexByName("ObjectStrawberry");
+
+    int seenFloorIndex = Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->GetIndexForSeenFloor();
+
+    if (seenFloorIndex == -1)
+        return;
+
+    TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[seenFloorIndex];
+
+    if (floor.RemoveIfHoldsObjectOfTypeAndQuantity(objectStrawberry, 1))
+    {
+        activeFoodItems.push_back(CActiveFoodItem(make_unique<Object>(Object(objectStrawberry, 1))));
     }
 }
 
@@ -112,7 +129,7 @@ void FoodEating::Update()
     }
 }
 
-CActiveFoodItem::CActiveFoodItem(unique_ptr<CObject> foodItem)
+CActiveFoodItem::CActiveFoodItem(unique_ptr<Object> foodItem)
 {
     m_foodItem = move(foodItem);
     m_tickCreated = SDL_GetTicks();

@@ -2,7 +2,7 @@
 #include "DataLoading.h"
 #include "Global_Player.h"
 #include <memory>
-#include "CObject.h"
+#include "Object.h"
 
 using std::make_unique;
 using std::unique_ptr;
@@ -23,21 +23,23 @@ void GameConfiguration::AddPlayerStartingItems()
     int indexIronOre = DataLoading::GetDescriptionIndexByName("ObjectIronOre");
     int indexIronNail = DataLoading::GetDescriptionIndexByName("ObjectIronNail");
     int indexStoneHammer = DataLoading::GetDescriptionIndexByName("ObjectStoneHammer");
+    int indexPlough = DataLoading::GetDescriptionIndexByName("ObjectPlough");
 
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(0, make_unique<CObject>(CObject(indexApple, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(2, make_unique<CObject>(CObject(indexApple, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(5, make_unique<CObject>(CObject(indexStone, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }, 5))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(15, make_unique<CObject>(CObject(indexWoodLog, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(17, make_unique<CObject>(CObject(indexShovel, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(18, make_unique<CObject>(CObject(indexMatches, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(19, make_unique<CObject>(CObject(indexSaw, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(20, make_unique<CObject>(CObject(indexSmallAnvil, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(21, make_unique<CObject>(CObject(indexBrick, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(22, make_unique<CObject>(CObject(indexBrick, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(23, make_unique<CObject>(CObject(indexBrick, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(24, make_unique<CObject>(CObject(indexCoal, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(25, make_unique<CObject>(CObject(indexIronOre, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(26, make_unique<CObject>(CObject(indexIronNail, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }, 25))));
-    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<CObject>>(27, make_unique<CObject>(CObject(indexStoneHammer, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(0, make_unique<Object>(Object(indexApple, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(2, make_unique<Object>(Object(indexApple, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(5, make_unique<Object>(Object(indexStone, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }, 5))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(15, make_unique<Object>(Object(indexWoodLog, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(17, make_unique<Object>(Object(indexShovel, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(18, make_unique<Object>(Object(indexMatches, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(19, make_unique<Object>(Object(indexSaw, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(20, make_unique<Object>(Object(indexSmallAnvil, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(21, make_unique<Object>(Object(indexBrick, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(22, make_unique<Object>(Object(indexBrick, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(23, make_unique<Object>(Object(indexBrick, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(24, make_unique<Object>(Object(indexCoal, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(25, make_unique<Object>(Object(indexIronOre, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(26, make_unique<Object>(Object(indexIronNail, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }, 25))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(27, make_unique<Object>(Object(indexStoneHammer, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
+    Global::statePlayer->m_inventory.m_containedItems.insert(pair<int, unique_ptr<Object>>(28, make_unique<Object>(Object(indexPlough, { OBJECT_IN_AIR_OR_INVENTORY, OBJECT_IN_AIR_OR_INVENTORY }))));
 
 }

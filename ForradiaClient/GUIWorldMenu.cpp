@@ -12,8 +12,8 @@
 #include "Colors.h"
 #include "Mining.h"
 #include "Crafting.h"
-#include "CMap.h"
-#include "CPlayer.h"
+#include "Map.h"
+#include "Player.h"
 #include "FoodEating.h"
 
 bool GUIWorldMenu::HandleLeftMouseClickInWorld() {
@@ -23,7 +23,7 @@ bool GUIWorldMenu::HandleLeftMouseClickInWorld() {
 
     stateIsShown = false;
 
-    CPoint pMouse = Global::GetMousePoint();
+    Point pMouse = Global::GetMousePoint();
 
     for (int i = 0; i < stateShownMenuOptions.size(); i++)
     {
@@ -31,7 +31,7 @@ bool GUIWorldMenu::HandleLeftMouseClickInWorld() {
         int xRow = pxMenuX + pxMargin;
         int yRow = pxMenuY + pxMargin + i * pxRowHeight;
 
-        CRectangle rect = { xRow, yRow, pxMenuWidth, pxRowHeight };
+        Rectangle rect = { xRow, yRow, pxMenuWidth, pxRowHeight };
 
         if (rect.ContainsPoint(pMouse))
         {
@@ -88,8 +88,14 @@ bool GUIWorldMenu::HandleLeftMouseClickInWorld() {
             if (stateShownMenuOptions[i] == MENU_ID_DIG_GROUND)
                 Crafting::DigGround(coordClickedTile);
 
+            if (stateShownMenuOptions[i] == MENU_ID_HARVEST_STRAWBERRY)
+                Crafting::HarvestStrawberry(coordClickedTile);
+
             if (stateShownMenuOptions[i] == MENU_ID_CREATE_WOODWALL_NS)
                 Crafting::CreateWoodWallNS(coordClickedTile);
+
+            if (stateShownMenuOptions[i] == MENU_ID_EAT_STRAWBERRY)
+                FoodEating::EatStrawberryFromGround(coordClickedTile);
 
             if (stateShownMenuOptions[i] == MENU_ID_CREATE_WOODWALL_EW)
             {
@@ -134,6 +140,8 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
     int objectHotIronLump = DataLoading::GetDescriptionIndexByName("ObjectHotIronLump");
     int objectStoneHammer = DataLoading::GetDescriptionIndexByName("ObjectStoneHammer");
     int objectIronNail = DataLoading::GetDescriptionIndexByName("ObjectIronNail");
+    int objectRipeStrawberryPlant = DataLoading::GetDescriptionIndexByName("ObjectRipeStrawberryPlant");
+    int objectStrawberry = DataLoading::GetDescriptionIndexByName("ObjectStrawberry");
 
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
@@ -180,7 +188,7 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
     if (seenFloorIndex != -1)
     {
 
-        CTileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y]->m_floorsArray[seenFloorIndex];
+        TileFloor& floor = *Global::contentCurrentMap->m_tilesGrid[coordClickedTile.m_x][coordClickedTile.m_y]->m_floorsArray[seenFloorIndex];
 
         if (floor.HoldsObjectOfTypeAndQuantity(objectBrick, Crafting::MELTING_FURNACE_NUM_REQ_BRICKS))
             stateShownMenuOptions.push_back(MENU_ID_CREATE_MELTING_FURNACE);
@@ -225,6 +233,12 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
                     stateShownMenuOptions.push_back(MENU_ID_CREATE_WOODWALL_CORNER);
                 }
 
+        if (floor.HoldsObjectOfType(objectRipeStrawberryPlant))
+            stateShownMenuOptions.push_back(MENU_ID_HARVEST_STRAWBERRY);
+
+        if (floor.HoldsObjectOfType(objectStrawberry))
+            stateShownMenuOptions.push_back(MENU_ID_EAT_STRAWBERRY);
+
 
     }
 
@@ -254,7 +268,7 @@ void GUIWorldMenu::HandleRightMouseClickInWorld() {
 
 void GUIWorldMenu::Update()
 {
-    CPoint pMouse = Global::GetMousePoint();
+    Point pMouse = Global::GetMousePoint();
 
     for (int i = 0; i < stateShownMenuOptions.size(); i++)
     {
@@ -262,7 +276,7 @@ void GUIWorldMenu::Update()
         int xRow = pxMenuX + pxMargin;
         int yRow = pxMenuY + pxMargin + i * pxRowHeight;
 
-        CRectangle rect = { pxMenuX, yRow, pxMenuWidth, pxRowHeight };
+        Rectangle rect = { pxMenuX, yRow, pxMenuWidth, pxRowHeight };
 
 
     }
@@ -274,7 +288,7 @@ void GUIWorldMenu::Render()
     if (!stateIsShown)
         return;
 
-    CPoint pMouse = Global::GetMousePoint();
+    Point pMouse = Global::GetMousePoint();
 
     for (int i = 0; i < stateShownMenuOptions.size(); i++)
     {
@@ -282,7 +296,7 @@ void GUIWorldMenu::Render()
         int xRow = pxMenuX + pxMargin;
         int yRow = pxMenuY + pxMargin + i * pxRowHeight;
 
-        CRectangle rect = { pxMenuX, yRow, pxMenuWidth, pxRowHeight };
+        Rectangle rect = { pxMenuX, yRow, pxMenuWidth, pxRowHeight };
 
         if (rect.ContainsPoint(pMouse))
             Drawing::FilledRect(WORLDMENU_HOVERED, rect);

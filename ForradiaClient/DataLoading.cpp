@@ -34,7 +34,20 @@ void DataLoading::LoadDescriptions()
 //      OBJECTS
 //==========================
 
-    AddDescriptionEx(ImagesIDs::ObjectTree1, "ObjectTree1", 6, 6, "tree1Falling", true, false, "Tree", true, true, -1, 0, 0, false, 0, 0);
+    double treeScaling = 1.0;
+
+    AddDescriptionEx(ImagesIDs::ObjectTree1, "ObjectTree1", treeScaling * 6, treeScaling * 6, "tree1Falling", true, false, "Tree", true, true, -1, 0, 0, false, 0, 0);
+
+    AddDescriptionEx(ImagesIDs::ObjectTree1N, "ObjectTree1N", treeScaling *6, treeScaling * 6, "", true, false, "Tree", true, true, -1, treeScaling * 0, treeScaling * 0, false, 0, 0);
+    AddDescriptionEx(ImagesIDs::ObjectTree1E, "ObjectTree1E", treeScaling * 6, treeScaling * 6, "", true, false, "Tree", true, true, -1, treeScaling * 3, treeScaling * 3, false, 0, 0);
+    AddDescriptionEx(ImagesIDs::ObjectTree1S, "ObjectTree1S", treeScaling * 6, treeScaling * 6, "", true, false, "Tree", true, true, -1, treeScaling * 0, treeScaling * 5, false, 0, 0);
+    AddDescriptionEx(ImagesIDs::ObjectTree1W, "ObjectTree1W", treeScaling * 6, treeScaling * 6, "", true, false, "Tree", true, true, -1, treeScaling * -3, treeScaling * 3, false, 0, 0);
+    AddDescriptionEx(ImagesIDs::ObjectTree1NE, "ObjectTree1NE", treeScaling * 9, treeScaling * 9, "", true, false, "Tree", true, true, -1, treeScaling * 0, treeScaling * 0, false, 0, 0);
+    AddDescriptionEx(ImagesIDs::ObjectTree1SE, "ObjectTree1SE", treeScaling * 9, treeScaling * 9, "", true, false, "Tree", true, true, -1, treeScaling * 4.5, treeScaling * 4.5, false, 0, 0);
+    AddDescriptionEx(ImagesIDs::ObjectTree1SW, "ObjectTree1SW", treeScaling * 9, treeScaling * 9, "", true, false, "Tree", true, true, -1, treeScaling * -4.5, treeScaling * 4.5, false, 0, 0);
+    AddDescriptionEx(ImagesIDs::ObjectTree1NW, "ObjectTree1NW", treeScaling * 9, treeScaling * 9, "", true, false, "Tree", true, true, -1, treeScaling * 0, treeScaling * 0, false, 0, 0);
+    AddDescriptionEx(ImagesIDs::ObjectTree1Shadow, "ObjectTree1Shadow", treeScaling * 9, treeScaling * 9, "", true, false, "Tree Sadow", true, true, -1, treeScaling * 4.5, treeScaling * 4, false, 0, 0);
+
     AddDescriptionEx(ImagesIDs::ObjectTree2, "ObjectTree2", 6, 6, "tree2Falling", true, false, "Tree", true, true, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectFoeDead", 2, 2, "", false, true, "Dead Foe", false, true, 5000, 0, 0, false, 0, 0);
     AddDescriptionEx(ImagesIDs::ObjectBoulder, "ObjectBoulder", 3, 3, "", true, false, "Boulder", false, true, -1, 0, 0, false, 0, 0);
@@ -76,6 +89,21 @@ void DataLoading::LoadDescriptions()
     AddDescriptionEx(descriptionIndex++, "ObjectHotIronLump", 1, 1, "", false, true, "Hot Iron Lump", false, false, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectIronNail", 1, 1, "", false, true, "Iron Nail", false, false, -1, 0, 0, false, 0, 0);
     AddDescriptionEx(descriptionIndex++, "ObjectStoneHammer", 1, 1, "", false, true, "Stone Hammer", false, false, -1, 0, 0, false, 0, 0);
+    AddDescriptionEx(descriptionIndex++, "ObjectRipeStrawberryPlant", 1, 1, "", false, false, "Ripe Strawberry Plant", false, false, -1, 0, 0, false, 0, 0);
+    AddDescriptionEx(descriptionIndex++, "ObjectHarvestedStrawberryPlant", 1, 1, "", false, false, "Harvested Strawberry Plant", false, false, -1, 0, 0, false, 0, 0);
+    AddDescriptionEx(descriptionIndex++, "ObjectStrawberry", 1, 1, "", false, true, "Strawberry", false, false, -1, 0, 0, false, 10, 1);
+    AddDescriptionEx(descriptionIndex++, "ObjectPlough", 1, 1, "", false, true, "Plough", false, false, -1, 0, 0, false, 0, 0);
+
+    //AddDescriptionEx(ImagesIDs::ObjectTree1N, "ObjectWallN", treeScaling * 6, treeScaling * 6, "", true, false, "Wall", true, true, -1, treeScaling * 0, treeScaling * 0, false, 0, 0);
+    //AddDescriptionEx(ImagesIDs::ObjectTree1E, "ObjectWallE", treeScaling * 6, treeScaling * 6, "", true, false, "Wall", true, true, -1, treeScaling * 3, treeScaling * 3, false, 0, 0);
+    //AddDescriptionEx(ImagesIDs::ObjectTree1S, "ObjectWallS", treeScaling * 6, treeScaling * 6, "", true, false, "Wall", true, true, -1, treeScaling * 0, treeScaling * 5, false, 0, 0);
+    //AddDescriptionEx(ImagesIDs::ObjectTree1W, "ObjectWallW", treeScaling * 6, treeScaling * 6, "", true, false, "Wall", true, true, -1, treeScaling * -3, treeScaling * 3, false, 0, 0);
+    //AddDescriptionEx(ImagesIDs::ObjectTree1NE, "ObjectWallNE", treeScaling * 9, treeScaling * 9, "", true, false, "Wall", true, true, -1, treeScaling * 0, treeScaling * 0, false, 0, 0);
+    //AddDescriptionEx(ImagesIDs::ObjectTree1SE, "ObjectWallSE", treeScaling * 9, treeScaling * 9, "", true, false, "Wall", true, true, -1, treeScaling * 4.5, treeScaling * 4.5, false, 0, 0);
+    //AddDescriptionEx(ImagesIDs::ObjectTree1SW, "ObjectWallSW", treeScaling * 9, treeScaling * 9, "", true, false, "Wall", true, true, -1, treeScaling * -4.5, treeScaling * 4.5, false, 0, 0);
+    //AddDescriptionEx(ImagesIDs::ObjectTree1NW, "ObjectWallNW", treeScaling * 9, treeScaling * 9, "", true, false, "Wall", true, true, -1, treeScaling * 0, treeScaling * 0, false, 0, 0);
+
+
 
 //==========================
 //      ADDITIONAL
@@ -180,7 +208,7 @@ int DataLoading::GetDescriptionIndexByName(string name)
 
 void DataLoading::AddDescription(int id, string name)
 {
-    auto desc = make_unique<CDataDescription>(CDataDescription());
+    auto desc = make_unique<DataDescription>(DataDescription());
     desc->m_propAttributes.insert(std::pair<string, string>("Name", name));
     contentIndicesByName->insert(pair<string, int>(name, id));
     libDescriptions[id] = move(desc);
@@ -197,14 +225,14 @@ void DataLoading::AddDescriptionEx(int id,
                                     bool randomScaling,
                                     bool ignoreShadow,
                                     int ticksToVanish,
-                                    int XOffsetFactor,
-                                    int YOffsetFactor,
+                                    double XOffsetFactor,
+                                    double YOffsetFactor,
                                     bool hasAmount,
                                     double foodAmount,
                                     double foodSpeed)
 {
 
-    auto desc = make_unique<CDataDescription>(CDataDescription());
+    auto desc = make_unique<DataDescription>(DataDescription());
     desc->m_propAttributes.insert(std::pair<string, string>("Name", name));
     desc->m_propAttributes.insert(std::pair<string, string>("ImageWidthMultiplier", to_string(imgWidthMulti)));
     desc->m_propAttributes.insert(std::pair<string, string>("ImageHeightMultiplier", to_string(imgHeightMulti)));

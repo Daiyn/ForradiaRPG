@@ -5,7 +5,7 @@
 #include "Global_Canvas.h"
 #include "Global_Player.h"
 #include "Global_MapSize.h"
-#include "CPlayer.h"
+#include "Player.h"
 
 int Utilities::Normalize(int a, int b)
 {

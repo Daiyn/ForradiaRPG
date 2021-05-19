@@ -27,7 +27,7 @@
 
 #include <string>
 #include <SDL2/SDL_rect.h>
-#include "CRectangle.h"
+#include "Rectangle.h"
 
 struct SDL_Renderer;
 struct SDL_Texture;
@@ -40,14 +40,15 @@ namespace Drawing
 
     void BlankScreen();
     void FilledCurrentRect(float r, float g, float b);
-    void FilledRect(SDL_Color color, CRectangle rect);
+    void FilledCurrentRect(float r, float g, float b, float a);
+    void FilledRect(SDL_Color color, Rectangle rect);
     void FilledRect(SDL_Color color, int x, int y, int w, int h);
     void FilledRect(float r, float g, float b, int x, int y, int w, int h);
     void FilledRect(float r, float g, float b, float a, int x, int y, int w, int h);
-    void FilledRect(float r, float g, float b, float a, CRectangle rect);
+    void FilledRect(float r, float g, float b, float a, Rectangle rect);
     void FilledScreen(float r, float g, float b);
-    void Image(SDL_Texture *texture, CRectangle rect);
-    void Image(int imageIndex, CRectangle rect);
+    void Image(SDL_Texture *texture, Rectangle rect);
+    void Image(int imageIndex, Rectangle rect);
     void Image(int imageIndex, int x, int y, int w, int h);
     void Image(int imageIndex);
     void ImageCurrentRect(int imageIndex);
@@ -56,7 +57,7 @@ namespace Drawing
     void CurrentRectContour(float r, float g, float b, float a);
     void RectContour(float r, float g, float b, int x, int y, int w, int h);
     void RectContour(float r, float g, float b, float a, int x, int y, int w, int h);
-    void RectContour(SDL_Color color, CRectangle rect);
+    void RectContour(SDL_Color color, Rectangle rect);
     void RectPrepare(int x, int y, int w, int h);
     void UseDefaultRenderer();
     void UseFullMapRenderer();

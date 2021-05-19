@@ -15,30 +15,31 @@
 
 #pragma once
 
-#include "CPoint.h"
+#include "Point.h"
 
 namespace Crafting
 {
 
 	const int MELTING_FURNACE_NUM_REQ_BRICKS = 3;
 
-	void ChopDownTree(CPoint p);
-	void ChopUpWoodLog(CPoint p);
-	void CreateWoodplank(CPoint p);
-	void CreateWoodfloor(CPoint p);
-	void CreateUnloadedCampfire(CPoint p);
-	void LoadCampfire(CPoint p);
-	void LightCampfire(CPoint p);
-	void DigClay(CPoint p);
-	void CreateBrick(CPoint p);
-	void CreateMeltingFurnace(CPoint p);
-	void LoadMeltingFurnace(CPoint p);
-	void LightMeltingFurnace(CPoint p);
-	void HeatIron(CPoint p);
-	void CreateIronNail(CPoint p);
-	void DigGround(CPoint p);
-	void CreateWoodWallNS(CPoint p);
-	void CreateWoodWallEW(CPoint p);
-	void CreateWoodWallCorner(CPoint p);
+	void ChopDownTree(Point p);
+	void ChopUpWoodLog(Point p);
+	void CreateWoodplank(Point p);
+	void CreateWoodfloor(Point p);
+	void CreateUnloadedCampfire(Point p);
+	void LoadCampfire(Point p);
+	void LightCampfire(Point p);
+	void DigClay(Point p);
+	void CreateBrick(Point p);
+	void CreateMeltingFurnace(Point p);
+	void LoadMeltingFurnace(Point p);
+	void LightMeltingFurnace(Point p);
+	void HeatIron(Point p);
+	void CreateIronNail(Point p);
+	void DigGround(Point p);
+	void CreateWoodWallNS(Point p);
+	void CreateWoodWallEW(Point p);
+	void CreateWoodWallCorner(Point p);
+	void HarvestStrawberry(Point p);
 };
 

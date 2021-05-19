@@ -11,13 +11,13 @@
 #include "Drawing.h"
 #include "Global_mapSize.h"
 #include "Global_Mouse.h"
-#include "CSize.h"
-#include "CTile.h"
+#include "Size.h"
+#include "Tile.h"
 #include "Animations.h"
 
 using Global::contentCurrentMap;
 
-void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint pTile)
+void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, Point pTile)
 {
 
     int tileSizeCeil = ceil(tileSize);
@@ -29,12 +29,12 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
     if (seenFloorIndex == -1)
         return;
 
-    CRectangle rTile = { int(x * tileSize), int(y * tileSize), TILESIZE, TILESIZE };
+    Rectangle rTile = { int(x * tileSize), int(y * tileSize), TILESIZE, TILESIZE };
 
     if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->HoldsObjects())
     {
 
-        for (int jjj = 0; jjj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jjj++)
+        for (int jjj = 0; jjj < TileFloor::MAX_OBJECTS_ON_FLOOR; jjj++)
         {
 
             if (contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->m_containedObjects[jjj] == NULL)
@@ -42,9 +42,9 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
 
             auto&  it = contentCurrentMap->m_tilesGrid[pTile.m_x][pTile.m_y]->m_floorsArray[seenFloorIndex]->m_containedObjects[jjj];
 
-            CDataDescription& desc = *DataLoading::libDescriptions[it->m_idxObjectType];
+            DataDescription& desc = *DataLoading::libDescriptions[it->m_idxObjectType];
 
-            CSize imgSize = { TILESIZE * std::atof(desc.m_propAttributes["ImageWidthMultiplier"].c_str()) ,
+            Size imgSize = { TILESIZE * std::atof(desc.m_propAttributes["ImageWidthMultiplier"].c_str()) ,
                             TILESIZE * std::atof(desc.m_propAttributes["ImageHeightMultiplier"].c_str()) };
 
             double scale = 1;
@@ -54,7 +54,7 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
 
             imgSize.Scale(scale);
 
-            CPoint pOffset = { 0, 0 };
+            Point pOffset = { 0, 0 };
 
             if (desc.ContainsProperty("XOffsetFactor"))
                 pOffset.m_x = std::stof(desc.m_propAttributes["XOffsetFactor"]) * TILESIZE;
@@ -62,12 +62,15 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
             if (desc.ContainsProperty("YOffsetFactor"))
                 pOffset.m_y = std::stof(desc.m_propAttributes["YOffsetFactor"]) * TILESIZE;
 
+            pOffset.m_x *= scale;
+            pOffset.m_y *= scale;
+
             if (!desc.ContainsPropertyWithValue("IgnoreShadow", "true"))
             {
 
-                CSize szShadow(2 * TILESIZE);
+                Size szShadow(2 * TILESIZE);
 
-                CRectangle rectShadow = {int(x * tileSize + TILESIZE / 2 - szShadow.m_w / 2 + pOffset.m_x),
+                Rectangle rectShadow = {int(x * tileSize + TILESIZE / 2 - szShadow.m_w / 2 + pOffset.m_x),
                                        int(y * tileSize + TILESIZE +
                                        TILESIZE / 2 - szShadow.m_h + pOffset.m_y),
                                        szShadow.m_w, szShadow .m_h};
@@ -122,8 +125,233 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
             }
             else
             {
+                if (DataLoading::GetDescriptionIndexByName("ObjectTree1") == it->m_idxObjectType
+                    && Global::statePlayer != nullptr)
+                {
 
-                Drawing::Image(Animations::RunThroughAnimationFilter(it->m_idxObjectType, pTile.m_x, pTile.m_y), rTile);
+
+
+                    imgSize.Scale(3.0 / 2.0);
+
+                    DataDescription& descRotatedShadow = *DataLoading::libDescriptions[ImagesIDs::ObjectTree1Shadow];
+
+                    if (descRotatedShadow.ContainsProperty("XOffsetFactor"))
+                        pOffset.m_x = std::stof(descRotatedShadow.m_propAttributes["XOffsetFactor"]) * TILESIZE * scale;
+
+                    if (descRotatedShadow.ContainsProperty("YOffsetFactor"))
+                        pOffset.m_y = std::stof(descRotatedShadow.m_propAttributes["YOffsetFactor"]) * TILESIZE * scale;
+
+                    rTile = { int(x * tileSize + TILESIZE / 2 - imgSize.m_w / 2 + pOffset.m_x),
+                            int(y * tileSize + TILESIZE - imgSize.m_h + pOffset.m_y),
+                            imgSize.m_w,
+                            imgSize.m_h };
+
+
+                    Drawing::Image(Animations::RunThroughAnimationFilter(ImagesIDs::ObjectTree1Shadow, pTile.m_x, pTile.m_y), rTile);
+
+                    imgSize.Scale(2.0 / 3.0);
+
+
+
+
+
+
+                    double dx = pTile.m_x - Global::statePlayer->m_coordPosition.m_x;
+                    double dy = pTile.m_y - Global::statePlayer->m_coordPosition.m_y;
+
+                    double w = atan2(dy, dx) + 2.0*M_PI;
+
+                    if (w < 0)
+                        w += 2.0 * M_PI;
+
+                    if (w > 2.0 * M_PI)
+                        w -= 2.0 * M_PI;
+
+                    if (w < M_PI / 8.0 || w >= M_PI * 15.0 / 8.0)
+                    {
+
+                        DataDescription& descRotated = *DataLoading::libDescriptions[ImagesIDs::ObjectTree1E];
+
+                        if (descRotated.ContainsProperty("XOffsetFactor"))
+                            pOffset.m_x = std::stof(descRotated.m_propAttributes["XOffsetFactor"]) * TILESIZE * scale;
+
+                        if (descRotated.ContainsProperty("YOffsetFactor"))
+                            pOffset.m_y = std::stof(descRotated.m_propAttributes["YOffsetFactor"]) * TILESIZE * scale;
+
+                        rTile = { int(x * tileSize + TILESIZE / 2 - imgSize.m_w / 2 + pOffset.m_x),
+                                int(y * tileSize + TILESIZE - imgSize.m_h + pOffset.m_y),
+                                imgSize.m_w,
+                                imgSize.m_h };
+
+
+                        Drawing::Image(Animations::RunThroughAnimationFilter(ImagesIDs::ObjectTree1E, pTile.m_x, pTile.m_y), rTile);
+                    }
+                    else if (w >= M_PI / 8.0 && w < M_PI * 3.0 / 8.0)
+                    {
+
+                        imgSize.Scale(3.0 / 2.0);
+
+                        DataDescription& descRotated = *DataLoading::libDescriptions[ImagesIDs::ObjectTree1SE];
+
+                        if (descRotated.ContainsProperty("XOffsetFactor"))
+                            pOffset.m_x = std::stof(descRotated.m_propAttributes["XOffsetFactor"]) * TILESIZE * scale;
+
+                        if (descRotated.ContainsProperty("YOffsetFactor"))
+                            pOffset.m_y = std::stof(descRotated.m_propAttributes["YOffsetFactor"]) * TILESIZE * scale;
+
+                        rTile = { int(x * tileSize + TILESIZE / 2 - imgSize.m_w / 2 + pOffset.m_x),
+                                int(y * tileSize + TILESIZE - imgSize.m_h + pOffset.m_y),
+                                imgSize.m_w,
+                                imgSize.m_h };
+
+
+                        Drawing::Image(Animations::RunThroughAnimationFilter(ImagesIDs::ObjectTree1SE, pTile.m_x, pTile.m_y), rTile);
+                    }
+                    else if (w >= M_PI*  3.0 / 8.0 && w < M_PI * 5.0 / 8.0)
+                    {
+
+                        DataDescription& descRotated = *DataLoading::libDescriptions[ImagesIDs::ObjectTree1S];
+
+                        if (descRotated.ContainsProperty("XOffsetFactor"))
+                            pOffset.m_x = std::stof(descRotated.m_propAttributes["XOffsetFactor"]) * TILESIZE * scale;
+
+                        if (descRotated.ContainsProperty("YOffsetFactor"))
+                            pOffset.m_y = std::stof(descRotated.m_propAttributes["YOffsetFactor"]) * TILESIZE * scale;
+
+                        rTile = { int(x * tileSize + TILESIZE / 2 - imgSize.m_w / 2 + pOffset.m_x),
+                                int(y * tileSize + TILESIZE - imgSize.m_h + pOffset.m_y),
+                                imgSize.m_w,
+                                imgSize.m_h };
+
+
+                        Drawing::Image(Animations::RunThroughAnimationFilter(ImagesIDs::ObjectTree1S, pTile.m_x, pTile.m_y), rTile);
+                    }
+                    else if (w >= M_PI * 5.0 / 8.0 && w < M_PI * 7.0 / 8.0)
+                    {
+
+                        imgSize.Scale(3.0 / 2.0);
+
+                        DataDescription& descRotated = *DataLoading::libDescriptions[ImagesIDs::ObjectTree1SW];
+
+                        if (descRotated.ContainsProperty("XOffsetFactor"))
+                            pOffset.m_x = std::stof(descRotated.m_propAttributes["XOffsetFactor"]) * TILESIZE * scale;
+
+                        if (descRotated.ContainsProperty("YOffsetFactor"))
+                            pOffset.m_y = std::stof(descRotated.m_propAttributes["YOffsetFactor"]) * TILESIZE * scale;
+
+                        rTile = { int(x * tileSize + TILESIZE / 2 - imgSize.m_w / 2 + pOffset.m_x),
+                                int(y * tileSize + TILESIZE - imgSize.m_h + pOffset.m_y),
+                                imgSize.m_w,
+                                imgSize.m_h };
+
+
+                        Drawing::Image(Animations::RunThroughAnimationFilter(ImagesIDs::ObjectTree1SW, pTile.m_x, pTile.m_y), rTile);
+                    }
+                    else if (w >= M_PI * 7.0 / 8.0 && w < M_PI * 9.0 / 8.0)
+                    {
+
+                        DataDescription& descRotated = *DataLoading::libDescriptions[ImagesIDs::ObjectTree1W];
+
+                        if (descRotated.ContainsProperty("XOffsetFactor"))
+                            pOffset.m_x = std::stof(descRotated.m_propAttributes["XOffsetFactor"]) * TILESIZE * scale;
+
+                        if (descRotated.ContainsProperty("YOffsetFactor"))
+                            pOffset.m_y = std::stof(descRotated.m_propAttributes["YOffsetFactor"]) * TILESIZE * scale;
+
+                        rTile = { int(x * tileSize + TILESIZE / 2 - imgSize.m_w / 2 + pOffset.m_x),
+                                int(y * tileSize + TILESIZE - imgSize.m_h + pOffset.m_y),
+                                imgSize.m_w,
+                                imgSize.m_h };
+
+
+                        Drawing::Image(Animations::RunThroughAnimationFilter(ImagesIDs::ObjectTree1W, pTile.m_x, pTile.m_y), rTile);
+                    }
+                    else if (w >= M_PI * 9.0 / 8.0 && w < M_PI * 11.0 / 8.0)
+                    {
+
+                        imgSize.Scale(3.0 / 2.0);
+
+                        DataDescription& descRotated = *DataLoading::libDescriptions[ImagesIDs::ObjectTree1NW];
+
+                        if (descRotated.ContainsProperty("XOffsetFactor"))
+                            pOffset.m_x = std::stof(descRotated.m_propAttributes["XOffsetFactor"]) * TILESIZE * scale;
+
+                        if (descRotated.ContainsProperty("YOffsetFactor"))
+                            pOffset.m_y = std::stof(descRotated.m_propAttributes["YOffsetFactor"]) * TILESIZE * scale;
+
+                        rTile = { int(x * tileSize + TILESIZE / 2 - imgSize.m_w / 2 + pOffset.m_x),
+                                int(y * tileSize + TILESIZE - imgSize.m_h + pOffset.m_y),
+                                imgSize.m_w,
+                                imgSize.m_h };
+
+
+                        Drawing::Image(Animations::RunThroughAnimationFilter(ImagesIDs::ObjectTree1NW, pTile.m_x, pTile.m_y), rTile);
+                    }
+                    else if (w >= M_PI * 11.0 / 8.0 && w < M_PI * 13.0 / 8.0)
+                    {
+
+                    DataDescription& descRotated = *DataLoading::libDescriptions[ImagesIDs::ObjectTree1N];
+
+                    if (descRotated.ContainsProperty("XOffsetFactor"))
+                        pOffset.m_x = std::stof(descRotated.m_propAttributes["XOffsetFactor"]) * TILESIZE * scale;
+
+                    if (descRotated.ContainsProperty("YOffsetFactor"))
+                        pOffset.m_y = std::stof(descRotated.m_propAttributes["YOffsetFactor"]) * TILESIZE * scale;
+
+                    rTile = { int(x * tileSize + TILESIZE / 2 - imgSize.m_w / 2 + pOffset.m_x),
+                            int(y * tileSize + TILESIZE - imgSize.m_h + pOffset.m_y),
+                            imgSize.m_w,
+                            imgSize.m_h };
+
+
+                        Drawing::Image(Animations::RunThroughAnimationFilter(ImagesIDs::ObjectTree1N, pTile.m_x, pTile.m_y), rTile);
+                    }
+                    else if (w >= M_PI * 13.0 / 8.0 && w < M_PI * 15.0 / 8.0)
+                    {
+
+                    imgSize.Scale(3.0/2.0);
+
+                    DataDescription& descRotated = *DataLoading::libDescriptions[ImagesIDs::ObjectTree1NE];
+
+                    if (descRotated.ContainsProperty("XOffsetFactor"))
+                        pOffset.m_x = std::stof(descRotated.m_propAttributes["XOffsetFactor"]) * TILESIZE * scale;
+
+                    if (descRotated.ContainsProperty("YOffsetFactor"))
+                        pOffset.m_y = std::stof(descRotated.m_propAttributes["YOffsetFactor"]) * TILESIZE * scale;
+
+                    rTile = { int(x * tileSize + TILESIZE / 2 - imgSize.m_w / 2 + pOffset.m_x),
+                            int(y * tileSize + TILESIZE - imgSize.m_h + pOffset.m_y),
+                            imgSize.m_w,
+                            imgSize.m_h };
+
+
+                        Drawing::Image(Animations::RunThroughAnimationFilter(ImagesIDs::ObjectTree1NE, pTile.m_x, pTile.m_y), rTile);
+                    }
+
+                }
+
+
+
+
+
+
+
+                
+
+
+
+
+
+
+
+
+
+
+
+                else
+                {
+                    Drawing::Image(Animations::RunThroughAnimationFilter(it->m_idxObjectType, pTile.m_x, pTile.m_y), rTile);
+                }
 
             }
 
@@ -182,7 +410,7 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
                 if (DataLoading::libDescriptions[it->m_idxObjectType]->ContainsPropertyWithValue("HasAmount", "true"))
                 {
                     int w = TextRendering::GetTextWidth(objectName) + 20;
-                    CRectangle rect = { mx - w / 2, my - TILESIZE - 22, w, 22 };
+                    Rectangle rect = { mx - w / 2, my - TILESIZE - 22, w, 22 };
                     Drawing::FilledRect({ 150, 190, 255, 170 }, rect);
                     TextRendering::DrawString(objectName, { 0, 0, 0 }, rect.x + 10, rect.y + 3);
 
@@ -195,7 +423,7 @@ void ObjectsRendering::RenderTileObjects(double tileSize, int x, int y, CPoint p
                 else
                 {
                     int w = TextRendering::GetTextWidth(objectName) + 20;
-                    CRectangle rect = { mx - w / 2, my - TILESIZE, w, 22 };
+                    Rectangle rect = { mx - w / 2, my - TILESIZE, w, 22 };
                     Drawing::FilledRect({ 150, 190, 255, 170 }, rect);
                     TextRendering::DrawString(objectName, { 0, 0, 0 }, rect.x + 10, rect.y + 3);
                 }

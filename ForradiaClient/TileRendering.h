@@ -5,7 +5,7 @@
              i.e. the ground and some effects.
 
   Classes:   CMap
-             CPoint
+             Point
 
   Functions: CheckUnseenTiles
              CoverUnseenTiles
@@ -20,17 +20,17 @@
 #ifndef FORRADIAFORMATION_TILERENDERING_H
 #define FORRADIAFORMATION_TILERENDERING_H
 
-#include "CMap.h"
+#include "Map.h"
 #include <memory>
 
 using std::unique_ptr;
 
 namespace TileRendering
 {
-    bool CheckUnseenTiles(int x, int y, CPoint pTile);
-    void CoverUnseenTiles(int x, int y, CPoint pTile);
-    void RenderTileGround(double tileSize, int x, int y, CPoint pTile);
-    void RenderTileHoveringEffect(int x, int y, CPoint pTile);
+    bool CheckUnseenTiles(int x, int y, Point pTile);
+    void CoverUnseenTiles(int x, int y, Point pTile);
+    void RenderTileGround(double tileSize, int x, int y, Point pTile);
+    void RenderTileHoveringEffect(int x, int y, Point pTile);
 };
 
 

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <vector>
-#include "CPoint.h"
+#include "Point.h"
 #include <SDL2/SDL_timer.h>
 #include <memory>
-#include "CObject.h"
+#include "Object.h"
 
 using std::unique_ptr;
 using std::vector;
@@ -16,7 +16,8 @@ namespace FoodEating
 	inline vector<CActiveFoodItem> activeFoodItems;
 	inline int tickLastUpdate = SDL_GetTicks();
 
-	void EatAppleFromGround(CPoint p);
+	void EatAppleFromGround(Point p);
+	void EatStrawberryFromGround(Point p);
 	void Render();
 	void Update();
 };
@@ -26,9 +27,9 @@ namespace FoodEating
 class CActiveFoodItem
 {
 public:
-	unique_ptr<CObject> m_foodItem;
+	unique_ptr<Object> m_foodItem;
 	int m_tickCreated = 0;
 
-	CActiveFoodItem(unique_ptr<CObject> foodItem);
+	CActiveFoodItem(unique_ptr<Object> foodItem);
 };
 

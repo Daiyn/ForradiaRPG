@@ -6,7 +6,7 @@
              crafting actions that take time to perform such as
              chopping down a tree.
 
-  Classes:   CPoint
+  Classes:   Point
 
   Functions: FocusOnObject
              Update
@@ -26,21 +26,21 @@
 
 #include <SDL2/SDL_rect.h>
 #include <vector>
-#include "CPoint.h"
-#include "CTimer.h"
+#include "Point.h"
+#include "Timer.h"
 
 void RenderPlayerActions();
 
 namespace PlayerActions
 {
     inline std::vector<SDL_Point> coordsSkillAffectedTiles;
-    inline CPoint coordHoveredTile;
+    inline Point coordHoveredTile;
     inline int tickStartSkillPerform = 0;
     inline int coordFocusedObjectMapx = -1;
     inline int coordFocusedObjectMapy = -1;
     inline int stateFocusedObjectProgress = 0;
     const int spdFocusedObjectProgressIncrement = 300;
-    inline CTimer tmrFocusedObjectProgressIncrease(spdFocusedObjectProgressIncrement);
+    inline Timer tmrFocusedObjectProgressIncrease(spdFocusedObjectProgressIncrement);
     inline int timeSkillElapseDuration = 500;
     inline float coordStartX;
     inline float coordStartY;
@@ -48,7 +48,7 @@ namespace PlayerActions
     inline float coordDyStep;
     inline bool stateSkillInAction = false;
 
-    void FocusOnObject(CPoint p);
+    void FocusOnObject(Point p);
     void Render();
     void StartPerformSkill();
     void Update();

@@ -4,7 +4,7 @@
   Summary:   Describes free variables and functions for keyboard
              mouse handling.
 
-  Classes:   CPoint
+  Classes:   Point
 
   Functions: DoMouseDown
              DoMouseUp
@@ -21,11 +21,11 @@
 #define FORRADIAFORMATION_MOUSEINPUT_H
 
 #include <SDL2/SDL_stdinc.h>
-#include "CPoint.h"
+#include "Point.h"
 
 namespace MouseInput
 {
-    inline CPoint coordMouseDown = { -1, -1 };
+    inline Point coordMouseDown = { -1, -1 };
     inline bool stateMouseButtonLeftDown = false;
     inline bool stateMouseButtonRightDown = false;
     inline bool stateMouseButtonLeftPressed = false;

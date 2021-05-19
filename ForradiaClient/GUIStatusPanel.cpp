@@ -6,7 +6,7 @@
 #include "Global_Player.h"
 #include "Drawing.h"
 #include "Colors.h"
-#include "CPlayer.h"
+#include "Player.h"
 #include <iomanip>
 
 using std::stringstream;
@@ -19,7 +19,7 @@ void GUIStatusPanel::Render()
     int h = pxHeightOriginal * Global::GetScalingVertical();
 
 
-    CRectangle rect = {0, 0, w, h};
+    Rectangle rect = {0, 0, w, h};
 
     auto tex = ImageLoading::libTextures[ImagesIDs::FullMapFrameBackground];
     Drawing::Image(ImagesIDs::FullMapFrameBackground, rect);
@@ -41,7 +41,7 @@ void GUIStatusPanel::Render()
 
     TextRendering::DrawString(strNRGY, WHITE, pxMargin, pxMargin);
 
-    CRectangle rectNRGYBar = { barLeft, barTop, barWidth, barHeight };
+    Rectangle rectNRGYBar = { barLeft, barTop, barWidth, barHeight };
 
     Drawing::FilledRect(BLACK, rectNRGYBar);
 
@@ -50,9 +50,9 @@ void GUIStatusPanel::Render()
     if (nrgyBarFilledWidth > 0)
     {
 
-        CRectangle rectNRGYBarFilled = { barLeft, barTop, nrgyBarFilledWidth, barHeight };
+        Rectangle rectNRGYBarFilled = { barLeft, barTop, nrgyBarFilledWidth, barHeight };
 
-        Drawing::FilledRect(GRAY, rectNRGYBarFilled);
+        Drawing::FilledRect(ORANGE, rectNRGYBarFilled);
         Drawing::RectContour(BLACK, rectNRGYBarFilled);
 
     }

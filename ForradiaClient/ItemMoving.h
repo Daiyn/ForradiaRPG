@@ -18,7 +18,7 @@
 #ifndef FORRADIACLIENT_ITEMMOVING_H
 #define FORRADIACLIENT_ITEMMOVING_H
 
-#include "CObject.h"
+#include "Object.h"
 #include <stdio.h>
 #include <memory>
 
@@ -28,7 +28,7 @@ void RenderItemMoving();
 
 namespace ItemMoving
 {
-    inline unique_ptr<CObject> nodupMovedObject;
+    inline unique_ptr<Object> nodupMovedObject;
 
     void DropnodupMovedObjectIfExists(int mapx, int mapy);
     void Render();

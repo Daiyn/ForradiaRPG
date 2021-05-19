@@ -20,9 +20,9 @@
 using std::unique_ptr;
 using std::move;
 
-class CMap;
+class Map;
 
 namespace Global
 {
-	inline unique_ptr<CMap> contentCurrentMap;
+	inline unique_ptr<Map> contentCurrentMap;
 }

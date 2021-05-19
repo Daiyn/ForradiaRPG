@@ -22,17 +22,17 @@
 using std::unique_ptr;
 using std::move;
 
-class CScene;
+class Scene;
 
 namespace Global
 {
-	inline unique_ptr<CScene> stateCurrentScene;
+	inline unique_ptr<Scene> stateCurrentScene;
 
-	void ChangeScene(unique_ptr<CScene> newScene);
+	void ChangeScene(unique_ptr<Scene> newScene);
 }
 
 
-inline void Global::ChangeScene(unique_ptr<CScene> newScene)
+inline void Global::ChangeScene(unique_ptr<Scene> newScene)
 {
 
 	stateCurrentScene = move(newScene);

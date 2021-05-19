@@ -24,16 +24,16 @@
 #include <memory>
 #include <vector>
 #include "Constants.h"
-#include "CWindow.h"
+#include "Window.h"
 
 using std::vector;
 using std::unique_ptr;
 
-class CMap;
+class Map;
 
 namespace GUI
 {
-    inline vector<unique_ptr<CWindow>> activeWindows;
+    inline vector<unique_ptr<Window>> activeWindows;
     const int numberOfGUIButtons = 2;
     const int idxsButtonImages[numberOfGUIButtons] = { ImagesIDs::IconInventory, ImagesIDs::IconSystem };
     inline int pxWidthOriginal = 120;

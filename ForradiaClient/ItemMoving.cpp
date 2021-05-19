@@ -1,5 +1,5 @@
 #include "ItemMoving.h"
-#include "CPlayer.h"
+#include "Player.h"
 #include "ImageLoading.h"
 #include "DataLoading.h"
 #include "Global_Player.h"
@@ -8,7 +8,7 @@
 #include "Global_Canvas.h"
 #include "Global_SDL.h"
 #include "Drawing.h"
-#include "CMap.h"
+#include "Map.h"
 #include <memory>
 #include "Global_MapSize.h"
 
@@ -82,7 +82,7 @@ void ItemMoving::DropnodupMovedObjectIfExists(int mapx, int mapy)
         nodupMovedObject->m_coordMapX = mapx;
         nodupMovedObject->m_coordMapY = mapy;
 
-        for (int jj = 0; jj < CTileFloor::MAX_OBJECTS_ON_FLOOR; jj++)
+        for (int jj = 0; jj < TileFloor::MAX_OBJECTS_ON_FLOOR; jj++)
         {
             if (Global::contentCurrentMap->m_tilesGrid[mapx][mapy]->m_floorsArray[seenFloorIndex]->m_containedObjects[jj] != NULL)
             {
@@ -114,7 +114,7 @@ void ItemMoving::Render()
     int mx = Global::GetMouseX();
     int my = Global::GetMouseY();
 
-    CRectangle rectnodupMovedObject = {mx - Global::GetTileSize(), my - Global::GetTileSize(), 2*Global::GetTileSize(), 2*Global::GetTileSize()};
+    Rectangle rectnodupMovedObject = {mx - Global::GetTileSize(), my - Global::GetTileSize(), 2*Global::GetTileSize(), 2*Global::GetTileSize()};
 
     Drawing::Image(nodupMovedObject->m_idxObjectType, rectnodupMovedObject);
 

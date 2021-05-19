@@ -104,6 +104,16 @@ namespace ImagesIDs
 	const int ObjectBoulder = MaxID - 91;
 	const int PinkSlime = MaxID - 92;
 	const int IconActiveFoodItemFrame = MaxID - 93;
+	const int ObjectTree1N = MaxID - 94;
+	const int ObjectTree1E = MaxID - 95;
+	const int ObjectTree1S = MaxID - 96;
+	const int ObjectTree1W = MaxID - 97;
+	const int ObjectTree1NE = MaxID - 98;
+	const int ObjectTree1SE = MaxID - 99;
+	const int ObjectTree1SW = MaxID - 100;
+	const int ObjectTree1NW = MaxID - 101;
+	const int ObjectTree1Shadow = MaxID - 102;
+	const int ObjectPlough = MaxID - 103;
 
 }
 

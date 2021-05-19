@@ -1,10 +1,115 @@
-#include "Game.h"
+#include "FPSCounter.h"
+#include "ImageLoading.h"
+#include "Global_Gameloop.h"
+#include "SceneMainMenu.h"
+#include "SDLInitialization.h"
+#include "Drawing.h"
+#include "KeyboardInput.h"
+#include "MouseInput.h"
+#include "TextRendering.h"
+#include "DataLoading.h"
+#include "Global_CurrentScene.h"
+#include "Global_SDL.h"
+#include "Global_Player.h"
+#include "Global_Worldmap.h"
+#include "ImageLoading.h"
+#include <memory>
+#include <SDL2/SDL_events.h>
 
-int main()
+using std::make_unique;
+
+int wmain()
 {
 
-    Game::Initialize();
-    Game::Run();
+    SDLInitialization::Initialize();
+    DataLoading::LoadDescriptions();
+    ImageLoading::LoadImages();
+    TextRendering::Initialize();
+    Drawing::UseDefaultRenderer();
+    Global::stateCurrentScene = make_unique<SceneMainMenu>(SceneMainMenu());
+
+    SDL_Event inputUnhandledEvent;
+    bool stateAltKeyPressed = false;
+
+    while (!Global::eventQuit)
+    {
+
+
+
+        while (SDL_PollEvent(&inputUnhandledEvent))
+        {
+
+            switch (inputUnhandledEvent.type)
+            {
+
+            case SDL_QUIT:
+                Global::eventQuit = true;
+                break;
+
+            case SDL_KEYDOWN:
+
+                if (inputUnhandledEvent.key.keysym.sym == SDLK_LALT)
+                    stateAltKeyPressed = true;
+
+                if (inputUnhandledEvent.key.keysym.sym == SDLK_RETURN
+                    && stateAltKeyPressed)
+                    Global::ToggleFullscreen();
+
+                Global::stateCurrentScene->DoKeyDown(inputUnhandledEvent.key.keysym.sym);
+                break;
+
+            case SDL_KEYUP:
+
+                if (inputUnhandledEvent.key.keysym.sym == SDLK_LALT)
+                    stateAltKeyPressed = false;
+
+                Global::stateCurrentScene->DoKeyUp(inputUnhandledEvent.key.keysym.sym);
+                break;
+
+            case SDL_MOUSEBUTTONDOWN:
+                Global::stateCurrentScene->DoMouseDown(inputUnhandledEvent.button.button);
+                break;
+
+            case SDL_MOUSEBUTTONUP:
+                Global::stateCurrentScene->DoMouseUp(inputUnhandledEvent.button.button);
+                break;
+
+            }
+
+        }
+
+
+        //HandleEvents();
+
+        if (Global::restartGameLoop)
+        {
+            Global::restartGameLoop = false;
+            continue;
+        }
+
+        Global::stateCurrentScene->Update();
+        FPSCounter::Update();
+
+        Global::stateCurrentScene->Render();
+        FPSCounter::Render();
+
+        Drawing::PresentToScreen();
+
+        //Update();
+        //Render();
+
+    }
+
+    //Global::DestroySDLObjects();
+
+
+
+
+
+
+
+    //Forradia::Initialize();
+    //Forradia::Run();
 
     return 0;
 }

@@ -17,5 +17,5 @@
 
 namespace Global
 {
-	inline int settingGameMode = 0;
+	inline int settingGameMode = 1;
 }

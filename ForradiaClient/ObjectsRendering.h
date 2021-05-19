@@ -5,7 +5,7 @@
              being placed on tiles of the map.
 
   Classes:   CMap
-             CPoint
+             Point
 
   Functions: RenderTileObjects
 
@@ -17,14 +17,14 @@
 #ifndef FORRADIAFORMATION_OBJECTSRENDERING_H
 #define FORRADIAFORMATION_OBJECTSRENDERING_H
 
-#include "CMap.h"
+#include "Map.h"
 #include <memory>
 
 using std::unique_ptr;
 
 namespace ObjectsRendering
 {
-    void RenderTileObjects(double tileSize, int x, int y, CPoint pTile);
+    void RenderTileObjects(double tileSize, int x, int y, Point pTile);
 };
 
 

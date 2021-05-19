@@ -2,13 +2,13 @@
 #include "Global_Player.h"
 #include "Global_CurrentMap.h"
 #include "DataLoading.h"
-#include "CMap.h"
-#include "CPlayer.h"
+#include "Map.h"
+#include "Player.h"
 #include <SDL2/SDL_timer.h>
 
 using std::make_unique;
 
-void Mining::MineTile(CPoint p)
+void Mining::MineTile(Point p)
 {
 
     int tileCaveFloor = DataLoading::GetDescriptionIndexByName("TileCaveFloor");
@@ -21,7 +21,7 @@ void Mining::MineTile(CPoint p)
 
         Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_checkMinedTiles.push_back(Global::statePlayer->m_locCurrentElevation);
 
-        unique_ptr<CTileFloor> tfMinedCave = make_unique<CTileFloor>(CTileFloor(p.m_x, p.m_y, tileCaveFloor));
+        unique_ptr<TileFloor> tfMinedCave = make_unique<TileFloor>(TileFloor(p.m_x, p.m_y, tileCaveFloor));
 
         if (Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_elevationHeight != Global::statePlayer->m_locCurrentElevation)
         {
@@ -64,7 +64,7 @@ void Mining::MineTile(CPoint p)
 
         if (entranceElevation != INVALID_ELVATION)
         {
-            unique_ptr<CTileFloor> tfMinedCave = make_unique<CTileFloor>(CTileFloor(p.m_x, p.m_y, tileCaveFloor));
+            unique_ptr<TileFloor> tfMinedCave = make_unique<TileFloor>(TileFloor(p.m_x, p.m_y, tileCaveFloor));
             Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_checkMinedTiles.push_back(entranceElevation);
             Global::contentCurrentMap->m_tilesGrid[p.m_x][p.m_y]->m_floorsArray[entranceElevation] = move(tfMinedCave);
         }
